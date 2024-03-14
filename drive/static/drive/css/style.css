@@ -68,11 +68,10 @@
 /* ************************
    01.1: Reset
    ********************* */
-*,
-*::before,
-*::after {
-  outline: none !important;
-}
+
+
+
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -257,18 +256,6 @@ html, body {
   overflow-x: hidden !important;
 }
 
-body {
-  font-size: 15px;
-  line-height: 1.466;
-  color: #727272;
-  background-color: #f0f0f0;
-  -webkit-font-smoothing: antialiased;
-}
-
-body.modal-open {
-  height: 100vh;
-  overflow-y: hidden;
-}
 
 .main-wrapper {
   display: -webkit-box;
@@ -395,128 +382,13 @@ body.modal-open {
 /* ************************
    01.3: Color
    ********************* */
-.text_color, .dashboard-date input, .comment-action-links .comment-action-link, .dropdown-menu .dropdown-body .content .main-text, .dropdown-button > a.text_color:hover, .meta-info > div span span, .light-btn, .light-btn:hover, table.style--two thead th, table.cart_table tr td:nth-child(3) input, table.invoice-list-table.style-two td:nth-child(4), table.style-two.contact-list-table td:nth-child(4), table.invoice-list-table.style-two td:nth-child(5), table.style-two.contact-list-table td:nth-child(5), table.invoice-list.style-two td:nth-child(4), table.invoice-list.style-two td:nth-child(5), table.table-contextual .details-btn, .process-bar-wrapper.style--four .process-width, .theme-input-group.style--two input, .theme-input-group.prepend input, .search-form .theme-input-group input, .search-form .theme-input-group.header-search.theme-input-group input, .mail-list-item .mail-text .msg,
-.main-mail .mail-text .msg, .mail-list-item:hover .mail-text .msg,
-.main-mail:hover .mail-text .msg, .mail-compose .form-group .cc-btns .cc-btn, .modal-body .form-group .cc-btns .cc-btn, .message p, .list-invoice li a, .invoice.edit input, .contact-box .contact-body a, #projectTaskDetails .modal-content .checklist .process-bar-wrapper .process-name, #projectTaskDetails .modal-content .checklist-new-item .checklist-add-controls .icon-close, #projectTaskDetails .modal-content .edit-actions textarea, #projectShareModal .modal-body .form-group .input-wrap .theme-input-style, .board-members-list li a, .board-labels-list li a, .board-labels-select-color li a, #shareModal .modal-content .modal-body .form-group .input-wrap .theme-input-style, .notifications a, .news a, .chip .chip-content .img, .timeline.style--two .event:before, .info-list li a, .about-nav-tab a {
-  color: #727272;
-}
 
-.text_color-bg, .comment-action-links .comment-action-link:not(:last-child):after, .btn-circle.style--three, .sidebar .sidebar-body ul.sub-menu li:before, .switch .control:after, .switch .check, .switch.dark input:checked ~ .control {
-  background-color: #727272;
-}
 
-.text_color-bo {
-  border-color: #727272 !important;
-}
 
-.black, h1,
-h2,
-h3,
-h4,
-h5,
-h6, .attach-file.change-card-attachment, .dashboard-date.style--five input, .dropdown-menu, .dropdown-menu a, .dropdown-menu .color-balls, .list-button li, .change-card-btn, .change-card-btn:hover, table.dh-table td, table.style--two td, table.order-list-table th, table.order-list-table td, table.cart_table tr td:first-child, table.style--four th, table.style--four td, table.style--five th, table.style--five td, table.style--five td .name, table.invoice-list-table th, table.contact-list-table th, table.invoice-list-table td, table.contact-list-table td, table.invoice-list th, table.invoice-list td, .ProgressBar-wrap .ProgressBar-percentage, .ProgressBar-wrap2 .ProgressBar-percentage, .progress-info div, .process-bar-wrapper .process-name, .process-bar-wrapper .process-width, .country-performance .process-bar-wrapper .process-name, .custom-select.style--two .theme-input-style, .sidebar .sidebar-body li.nav-category, .sidebar .sidebar-body li a, .sidebar .sidebar-body li.active > a.disabled, .sidebar .sidebar-body li:hover > a.disabled, .aside-body li a, .aside-body li.fc-event a, .aside-body li.fc-event a:hover, .cart-collaterals .shop_table .order-total th, .cart-collaterals .shop_table .order-total td, .cart-collaterals .shop_table.style-two th, .cart-collaterals .shop_table.style-two td, .cart-collaterals .shop_table.style-two .order-total th, .cart-collaterals .shop_table.style-two .order-total td, .message:hover p.time, .message.active p.time, .todo-list .todo-text .card-text, .add-new_task .label-text, .task-details .label-text, .invoice-header-left .dropdown-button > a, #projectTaskDetails .modal-content .project-main-title textarea, #projectTaskDetails .modal-content .checklist-new-item .checklist-add-controls .icon-close:hover, .note a, #example-vertical > .steps ul li.done a, #example-vertical > .steps ul li.current a, .notifications a p, .news a p, .timeline .event:before, .time_circles > div > span, .base-timer__label,
-.base-timer__text, .p_info-list li, .skill-list li, .latest-update > a, .edit-skill label, .post-body p, .comments-area .single-comment .comment-content p, .nouislider-cat, .dragable-list > div {
-  color: #333333;
-}
 
-.black-bg, body.sidebar-folded .sidebar .sidebar-body li.nav-category:before {
-  background-color: #333333;
-}
 
-.black-bo {
-  border-color: #333333 !important;
-}
 
-.white, .text-white *, .p_header-content *,
-.text-white h1,
-.p_header-content h1,
-.text-white h2,
-.p_header-content h2,
-.text-white h3,
-.p_header-content h3,
-.text-white h4,
-.p_header-content h4,
-.text-white h5,
-.p_header-content h5,
-.text-white h6,
-.p_header-content h6, .attach-file.style--two .upload-button, #menu button, .full-date, .list-button li:hover, .list-button li.active, .btn:hover, #example-vertical > .actions ul li a:hover[href="#next"], #example-vertical > .actions ul li a:hover[href="#finish"], .status-btn, .light-btn.ba, .light-btn.btn-circle:after, .light-btn.offcanvas-overlay, .aside-body li a.light-btn:after, .chat_aside .aside-header .light-btn.aside-header-bottom:after, .light-btn.message:after, .todo-list .light-btn.single-row:after, .board .board-cards .light-btn.board-card:before, #menu button.light-btn, .light-btn.btn:hover, #example-vertical > .actions ul li a.light-btn:hover[href="#next"], #example-vertical > .actions ul li a.light-btn:hover[href="#finish"], .light-btn.c2-bg, .dropdown-menu .dropdown-body a:hover .light-btn.change-card-btn.main-text, .dropdown-menu.style--two .dropdown-body a:hover .light-btn.change-card-btn.time, #example-vertical > .actions ul li a.light-btn.change-card-btn.preview[href="#next"], #example-vertical > .actions ul li a.light-btn.change-card-btn.preview[href="#finish"], #example-vertical > .actions ul li a.light-btn.change-card-btn.style--two[href="#next"], #example-vertical > .actions ul li a.light-btn.change-card-btn.style--two[href="#finish"], #example-vertical > .actions ul li a.light-btn.change-card-btn.s_alert[href="#next"], #example-vertical > .actions ul li a.light-btn.change-card-btn.s_alert[href="#finish"], .light-btn.change-card-btn, table.table-contextual .light-btn.change-card-btn.details-btn:hover, table.table-contextual .details-btn:hover i.light-btn.change-card-btn, .sidebar .sidebar-body li.active > a.light-btn.change-card-btn, .sidebar .sidebar-body li:hover > a.light-btn.change-card-btn, .fc-view > table thead th.light-btn.change-card-btn.fc-day-header, .notifications a:hover p.light-btn.change-card-btn, .news a:hover p.light-btn.change-card-btn, .select2-container--default .select2-selection--multiple .light-btn.change-card-btn.select2-selection__choice, .about-nav-tab a.light-btn.change-card-btn.active, .dragable-list > div.ui-sortable-helper i.light-btn.change-card-btn, .light-btn.change-card-btn:hover, .theme-input-group button.light-btn, .theme-input-group > a.light-btn, .theme-input-group button.light-btn.btn.style--three:hover, .theme-input-group > a.light-btn.btn.style--three:hover, .sidebar .sidebar-body li.light-btn.active:before, .sidebar .sidebar-body li.light-btn:hover:before, .labels .light-btn.label.add-label, .label-item .light-btn.label.add-label, .switch input:checked ~ .light-btn.control:after, .switch input:checked ~ .control .light-btn.check, .input-group.bootstrap-touchspin button.light-btn.btn, .light-btn.color-circle, .faq h5.light-btn:after, .light-btn.ba:hover, .light-btn.btn-circle:hover:after, .light-btn.offcanvas-overlay:hover, .aside-body li a.light-btn:hover:after, .chat_aside .aside-header .light-btn.aside-header-bottom:hover:after, .light-btn.message:hover:after, .todo-list .light-btn.single-row:hover:after, .board .board-cards .light-btn.board-card:hover:before, #menu button.light-btn:hover, .light-btn.c2-bg:hover, .dropdown-menu .dropdown-body a:hover .light-btn.change-card-btn.main-text:hover, .dropdown-menu.style--two .dropdown-body a:hover .light-btn.change-card-btn.time:hover, table.table-contextual .details-btn:hover i.light-btn.change-card-btn:hover, .sidebar .sidebar-body li.active > a.light-btn.change-card-btn:hover, .sidebar .sidebar-body li:hover > a.light-btn.change-card-btn:hover, .theme-input-group button.light-btn:hover, .theme-input-group > a.light-btn:hover, .labels .light-btn.label.add-label:hover, .label-item .light-btn.label.add-label:hover, .switch input:checked ~ .light-btn.control:hover:after, .switch input:checked ~ .control .light-btn.check:hover, .input-group.bootstrap-touchspin button.light-btn.btn:hover, .light-btn.color-circle:hover, .faq h5.light-btn:hover:after, .change-card-btn.c2, a.change-card-btn:hover, .dropdown-menu .dropdown-body a:hover .change-card-btn.main-text, .dropdown-menu.style--two .dropdown-body a:hover .change-card-btn.time, .change-card-btn.btn.preview, #example-vertical > .actions ul li a.change-card-btn.preview[href="#next"], #example-vertical > .actions ul li a.change-card-btn.preview[href="#finish"], .change-card-btn.btn.style--two, #example-vertical > .actions ul li a.change-card-btn.style--two[href="#next"], #example-vertical > .actions ul li a.change-card-btn.style--two[href="#finish"], .change-card-btn.btn.s_alert, #example-vertical > .actions ul li a.change-card-btn.s_alert[href="#next"], #example-vertical > .actions ul li a.change-card-btn.s_alert[href="#finish"], .change-card-btn.details-btn, table.table-condensed thead tr:nth-child(2) th.change-card-btn, table.table-contextual .change-card-btn.details-btn:hover, table.table-contextual .details-btn:hover i.change-card-btn, .sidebar .sidebar-body li.active > a.change-card-btn, .sidebar .sidebar-body li:hover > a.change-card-btn, .fc-view > table thead th.change-card-btn.fc-day-header, .notifications a:hover p.change-card-btn, .news a:hover p.change-card-btn, .change-card-btn.icon:hover, .select2-container--default .select2-selection--multiple .change-card-btn.select2-selection__choice, .change-card-btn.p_nav-link, .about-nav-tab a.change-card-btn.active, .change-card-btn.iconwrap, .dragable-list > div.ui-sortable-helper i.change-card-btn, .light-btn:hover, .light-btn.style--two:hover, table.table-inverse th, table.table-inverse td, .theme-input-style.style--four, textarea.theme-input-style.style--four, .theme-input-group button.btn.style--three:hover, .theme-input-group > a.btn.style--three:hover, #example-vertical > .actions ul li .theme-input-group > a.style--three:hover[href="#next"], #example-vertical > .actions ul li .theme-input-group > a.style--three:hover[href="#finish"], .notification-icon .count, .avatar .count, .chat_aside .aside-header .profile .content h4, .chat_aside .aside-header .profile .content .name, #search-tab ~ #search-box input, .fc-toolbar.fc-header-toolbar .fc-left .fc-today-button, #projectTaskDetails .modal-content .cover-img .attach-file, .board-labels-list li .label, .color-circle, .profile-pic .upload-button, .cover-img .upload-button, .statistics-bounce-rate .state-content h3 {
-  color: #ffffff;
-}
 
-.white-bg, .dropdown-menu .dropdown-body, .tasks_aside, .aside, .chat_aside, .statistic-row, .mail-list-item,
-.main-mail, .fc-toolbar.fc-header-toolbar, .contact-box .contact-body, .project-box, .board .board-cards .board-card, .add-card, .form-element, .bootstrap-touchspin .input-group-btn-vertical .bootstrap-touchspin-up:after, .price-box.active .price-body, .timeline.style--two, .session-timeout, .add-work-form,
-.work-update-form, .dragable-list > div {
-  background-color: #ffffff;
-}
-
-.white-bo {
-  border-color: #ffffff !important;
-}
-
-.c1, a, .dashboard-date.style--six input, .pagination ul li, .follow-btn, .link-btn, .theme-input-group button:hover, .theme-input-group > a:hover, .header-toogle-menu, .sidebar .sidebar-header .sidebar-toogle-pin, .aside-body li a.active, .aside-body li:hover a, .aside-body li.active a, .product-details-content .woocommerce-Price-amount, .mail-compose .form-group .input-wrap span, .modal-body .form-group .input-wrap span, .mail-compose .form-group .input-wrap input, .modal-body .form-group .input-wrap input {
-  color: #6045E2;
-}
-
-::-moz-selection {
-  background-color: #6045E2;
-}
-
-.c1-bg, ::selection, .btn, #example-vertical > .actions ul li a[href="#next"], #example-vertical > .actions ul li a[href="#finish"], .light-btn.c2-bg:hover, .theme-input-group input, .theme-input-group button.btn.style--three, .theme-input-group > a.btn.style--three, .theme-input-group.input-wrap > a, .aside-body li a:after, .chat_aside .aside-header, .chat-footer div .submit {
-  background-color: #6045E2;
-}
-
-.c1-bo {
-  border-color: #6045E2 !important;
-}
-
-.c2, a:hover, .dropdown-menu .dropdown-body a:hover .main-text, .dropdown-menu.style--two .dropdown-body a:hover .time, .dropdown-menu.style--two .dropdown-body a:hover .main-text, .btn.preview, #example-vertical > .actions ul li a.preview[href="#next"], #example-vertical > .actions ul li a.preview[href="#finish"], .btn.style--two, #example-vertical > .actions ul li a.style--two[href="#next"], #example-vertical > .actions ul li a.style--two[href="#finish"], .btn.s_alert, #example-vertical > .actions ul li a.s_alert[href="#next"], #example-vertical > .actions ul li a.s_alert[href="#finish"], .details-btn, .light-btn, table.table-condensed thead tr:nth-child(2) th, table.table-contextual .details-btn:hover, table.table-contextual .details-btn:hover i, .sidebar .sidebar-body li.active > a, .sidebar .sidebar-body li:hover > a, .fc-view > table thead th.fc-day-header, .notifications a:hover p, .news a:hover p, .icon:hover, .select2-container--default .select2-selection--multiple .select2-selection__choice, .p_nav-link, .about-nav-tab a.active, .iconwrap, .dragable-list > div.ui-sortable-helper i {
-  color: #8280FD;
-}
-
-.c2-bg, .ba, .btn-circle:after, .offcanvas-overlay, .aside-body li a:after, .chat_aside .aside-header .aside-header-bottom:after, .message:after, .todo-list .single-row:after, .board .board-cards .board-card:before, #menu button, .btn:hover, #example-vertical > .actions ul li a:hover[href="#next"], #example-vertical > .actions ul li a:hover[href="#finish"], .light-btn.c2-bg, .change-card-btn.c2, a.change-card-btn:hover, .dropdown-menu .dropdown-body a:hover .change-card-btn.main-text, .dropdown-menu.style--two .dropdown-body a:hover .change-card-btn.time, .change-card-btn.btn.preview, #example-vertical > .actions ul li a.change-card-btn.preview[href="#next"], #example-vertical > .actions ul li a.change-card-btn.preview[href="#finish"], .change-card-btn.btn.style--two, #example-vertical > .actions ul li a.change-card-btn.style--two[href="#next"], #example-vertical > .actions ul li a.change-card-btn.style--two[href="#finish"], .change-card-btn.btn.s_alert, #example-vertical > .actions ul li a.change-card-btn.s_alert[href="#next"], #example-vertical > .actions ul li a.change-card-btn.s_alert[href="#finish"], .change-card-btn.details-btn, .change-card-btn.light-btn, table.table-condensed thead tr:nth-child(2) th.change-card-btn, table.table-contextual .change-card-btn.details-btn:hover, table.table-contextual .details-btn:hover i.change-card-btn, .sidebar .sidebar-body li.active > a.change-card-btn, .sidebar .sidebar-body li:hover > a.change-card-btn, .fc-view > table thead th.change-card-btn.fc-day-header, .notifications a:hover p.change-card-btn, .news a:hover p.change-card-btn, .change-card-btn.icon:hover, .select2-container--default .select2-selection--multiple .change-card-btn.select2-selection__choice, .change-card-btn.p_nav-link, .about-nav-tab a.change-card-btn.active, .change-card-btn.iconwrap, .dragable-list > div.ui-sortable-helper i.change-card-btn, .change-card-btn.c2:hover, .change-card-btn.details-btn:hover, .change-card-btn.light-btn:hover, table.table-condensed thead tr:nth-child(2) th.change-card-btn:hover, .change-card-btn.p_nav-link:hover, .change-card-btn.iconwrap:hover, .theme-input-group button, .theme-input-group > a, .theme-input-group button:hover, .theme-input-group > a:hover, .theme-input-group button.btn.style--three:hover, .theme-input-group > a.btn.style--three:hover, .sidebar .sidebar-body li.active:before, .sidebar .sidebar-body li:hover:before, .labels .label.add-label, .label-item .label.add-label, .switch input:checked ~ .control:after, .switch input:checked ~ .control .check, .input-group.bootstrap-touchspin button.btn, .color-circle, .faq h5:after {
-  background-color: #8280FD;
-}
-
-.c2-bo {
-  border-color: #8280FD !important;
-}
-
-.c3, .mail-compose .form-group .cc-btns .cc, .modal-body .form-group .cc-btns .cc, .mail-compose .form-group .cc-btns .cc-btn:hover, .modal-body .form-group .cc-btns .cc-btn:hover, .assign-tag, .assign-tag.front-end {
-  color: #67CF94;
-}
-
-.c3-bg, .avatar-status.bg-teal:after, .process-bar-wrapper .process-bar.style--two, .board .board-cards .board-card.label-5:before {
-  background-color: #67CF94;
-}
-
-.c3-bo {
-  border-color: #67CF94 !important;
-}
-
-.c4, #projectLabelModal .modal-header .back-btn, .input-group.bootstrap-touchspin.disable input, #example-vertical > .steps ul li a, .time_circles > div > h4,
-.base-timer__text {
-  color: #aeaeae;
-}
-
-.c4-bg, #projectShareModal .modal-body .form-group .input-wrap .menu-icon span, #shareModal .modal-content .modal-body .form-group .input-wrap .menu-icon span, .switch input:disabled ~ .control:after, .switch input:disabled ~ .control .check, .switch .control, .switch.dark input:checked ~ .control:after, .input-group.bootstrap-touchspin.disable button.btn {
-  background-color: #aeaeae;
-}
-
-.c4-bo, .switch.dark input:checked ~ .control {
-  border-color: #aeaeae !important;
-}
-
-.c5 {
-  color: #f0f0f0;
-}
-
-.c5-bg, #projectTaskDetails .modal-content .project-main-title textarea, #projectTaskDetails .modal-content .edit-actions, #projectTaskDetails .modal-content .edit-actions textarea {
-  background-color: #f0f0f0;
-}
-
-.c5-bo {
-  border-color: #f0f0f0 !important;
-}
 
 /* ************************
    02.1: Common Classes
@@ -551,24 +423,9 @@ h6, .attach-file.change-card-attachment, .dashboard-date.style--five input, .dro
   transition: 0.5s ease;
 }
 
-/* Font Family */
-body,
-.pt_sans {
-  font-family: "PT Sans", sans-serif;
-}
 
-/* Font Weight */
-.regular, .meta-info > div span span, .btn.style--two.orange, #example-vertical > .actions ul li a.style--two.orange[href="#next"], #example-vertical > .actions ul li a.style--two.orange[href="#finish"], table.style--two thead th, .aside-body li.lavel:hover a, .aside-body li.lavel.active a, .form-row label.regular, .fc-event-container .fc-content .fc-title, .fc-day-top.fc-today:after, #projectTaskDetails .modal-content .checklist .process-bar-wrapper .process-name:before {
-  font-weight: 400;
-}
 
-.medium {
-  font-weight: 500;
-}
 
-.semi-bold {
-  font-weight: 600;
-}
 
 .bold, .dashboard-date.style--five > i, .dropdown-menu.style--four a:hover, .dropdown-menu.style--four a.selected, .avatar, .full-date, .pagination ul li, .follow-btn, .link-btn, .details-btn, table.style--two td, table.cart_table tr td:first-child, table.cart_table tr td:last-child span, table.invoice-list-table.style-two td:nth-child(4), table.style-two.contact-list-table td:nth-child(4), table.invoice-list-table.style-two td:nth-child(5), table.style-two.contact-list-table td:nth-child(5), table.invoice-list.style-two td:nth-child(4), table.invoice-list.style-two td:nth-child(5), .ProgressBar-wrap .ProgressBar-percentage, .ProgressBar-wrap2 .ProgressBar-percentage, .progress-info div:not(:first-child), .process-bar-wrapper.style--four .process-width, .notification-icon .count, .avatar .count, .sidebar .sidebar-body li.nav-category, #apex_radar-chart .apexcharts-title-text, .statistic-row.days, .product-details-content .product_title, .product-details-content .woocommerce-Price-amount, .product-details-content .woocommerce-product-details__short-description h5, .form-row label, .cart-collaterals .shop_table th, .cart-collaterals .shop_table td, .mail-list-item:hover .mail-text .msg,
 .main-mail:hover .mail-text .msg, .message:hover p, .message.active p, .assign_to .assign-content, .assign-tag .tag-text, .add-new_task .label-text, .task-details .label-text, .fc table, #projectTaskDetails .modal-content .project-main-title textarea, #projectTaskDetails .modal-content .checklist .process-bar-wrapper .process-name, #smartwizard .nav li a, #example-vertical > .steps ul li a, #example-vertical > .actions ul li a[href="#previous"], .chip .chip-content > div, .chip .chip-content .img, .color-circle, .topic, .timeline .event:before, .base-timer__label,
@@ -576,33 +433,6 @@ body,
   font-weight: 700;
 }
 
-/* Border Radius */
-.radius-7 {
-  border-radius: 7px !important;
-}
-
-.radius-5, .dashboard-date.style--four, .dashboard-date.style--five, .tag_color, table.cart_table tr td:nth-child(3) span, table.cart_table tr td:nth-child(3) input, table.cart_table tr td:nth-child(4) span, table.cart_table tr td:nth-child(4) input, .theme-input-style.style--three, .theme-input-style.style--four, .search-form .theme-input-group input.redius-5, .search-form .theme-input-group .color-pic input, .color-pic .search-form .theme-input-group input, .todo-list .single-row:after, .fc-bg table tbody td, .fc-view > table thead th.fc-day-header, .fc-toolbar.fc-header-toolbar, .labels .label, .label-item .label, #projectTaskDetails .modal-content .project-main-title textarea, #projectTaskDetails .modal-content .cover-img .attach-file, #projectTaskDetails .modal-content .checklist .checklist-item-wrap .checklist-item-details, #projectTaskDetails .modal-content .checklist-new-item .theme-input-style, #projectTaskDetails .modal-content .edit-actions textarea, #projectChecklistModal .checklist-copy-source, .project-board-select-wrap, .input-group.addon .input-group-prepend .input-group-text,
-.input-group.addon .input-group-append .input-group-text {
-  border-radius: 5px;
-}
-
-.radius-10, .dashboard-date.style--two, textarea.theme-input-style, textarea.theme-input-style.style--two, .custom-select.style--two, .message-item .bubble p {
-  border-radius: 10px;
-}
-
-.radius-50, .attach-file.style--two .upload-button, .attach-file.style--three, .dashboard-date, .full-date, .list-button li, .btn, #example-vertical > .actions ul li a[href="#next"], #example-vertical > .actions ul li a[href="#finish"], .status-btn, .process-bar-wrapper, .process-bar-wrapper .process-bar, .theme-input-style.style--two, .custom-select, .theme-input-group.style--two input, .theme-input-group.prepend input, .search-form .theme-input-group input, .search-form .theme-input-group button, .search-form .theme-input-group.header-search.theme-input-group input, .search-form .theme-input-group.header-search.theme-input-group button, .d_input-group input, .header-icon, .mail-compose .form-group .input-wrap, .modal-body .form-group .input-wrap, .mail-compose .form-group .input-wrap span, .modal-body .form-group .input-wrap span, .assign_to .assign-content, .assign-tag, .priority .assign-menu, .task-details .show-date, .fc-toolbar.fc-header-toolbar .fc-left .fc-today-button, .fc-toolbar.fc-header-toolbar .fc-button-group .fc-button, .invoice-header-left .dropdown-button > a, .board .board-cards .board-card:before, #projectShareModal .modal-body .form-group .input-wrap, #shareModal .modal-content .modal-body .form-group .input-wrap, .switch .control, .chip .chip-content, .profile-pic .upload-button, .cover-img .upload-button {
-  border-radius: 50px;
-}
-
-.radius, .attach-file, .attach-file .file-input, .attach-file.style--two, .dropdown-menu.style--three a span, .dropdown-menu.style--four a span, .avatar-status, .avatar-status:after, .upload-icon, .avatar, .avatar img, .img-60, .img-50, .img-40, .img-30, .color-balls .color, .member a, .member a img, .pagination ul li.current, .btn-circle, .btn-circle:after, .btn-home, .download-btn,
-.print-btn, .close-btn, .remove-btn, table.style--four td .country-flag, .custom-checkbox .checkmark, .main-header-user .user-profile img, .menu-icon span, .notification-icon .count, .avatar .count, .statistic-row > div:first-child img, .color-group .color, .mail-list-item .avatar img,
-.main-mail .avatar img, .mail-compose .form-group .cc-btns .cc, .modal-body .form-group .cc-btns .cc, .aside-body img, .aside-header img, .video-call, .chat-footer .voice-msg,
-.chat-footer .attach-file,
-.chat-footer .submit, .audio-call, .assign_to .assign-avatar, .assign-tag .assign-avatar, .assign-btn, #fullCalModal .calendar-modal-Event .color, .labels .label.add-label, .label-item .label.add-label, #projectTaskDetails .modal-content .modal-close, .file-attachments .attachment .attachment-close, .switch .control:after, .switch .check, #smartwizard .nav li:last-child a, .chip .chip-content .img, .color-circle, .faq h5:after, .profile-nav-tabs li .chat, .p_overview-list li .img img,
-.p_work-list li .img img,
-.p_education-list li .img img, .post-controls > div {
-  border-radius: 50%;
-}
 
 .radius-0, .attach-file.change-card-attachment, .dropdown-menu, .card, #contactAddModal .modal-content,
 #contactEditModal .modal-content, #projectTaskDetails .modal-content .dashboard-date, .input-group.addon .input-group-prepend .input-group-text:not(:first-child),
@@ -614,23 +444,6 @@ body,
 .input-group.addon .input-group-append .input-group-text, .input-group.addon .form-control, .input-group.bootstrap-touchspin button.btn, .input-group.bootstrap-touchspin .input-group-text, #smartwizard, #smartwizard .nav, .select2-container--default.select2-container--focus .select2-selection--multiple,
 .select2-container--default .select2-selection--multiple, .select2-container--default .select2-selection--multiple .select2-selection__choice, .select2-container--default .select2-selection--multiple .select2-selection__choice button {
   border: 0 !important;
-}
-
-/* Box Shadow */
-.box-shadow, .dropdown-menu, .tasks_aside, .aside, .chat_aside, .compose-wrap, .todo-list .single-row:hover, #createEventModal .modal-content, #fullCalModal .modal-content, #contactAddModal .modal-content,
-#contactEditModal .modal-content, #projectTaskDetails .modal-content, #projectMemberModal .modal-content, #projectLabelModal .modal-content, #projectChecklistModal .modal-content, #projectMoveModal .modal-content, #projectCopyModal .modal-content, #projectShareModal .modal-content, #shareModal .modal-content {
-  -webkit-box-shadow: 0 1px 15px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.05);
-}
-
-.box-shadow2, .message:hover, .message.active {
-  -webkit-box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
-}
-
-.no-shadow, .btn.preview, #example-vertical > .actions ul li a.preview[href="#next"], #example-vertical > .actions ul li a.preview[href="#finish"], .btn.style--two, #example-vertical > .actions ul li a.style--two[href="#next"], #example-vertical > .actions ul li a.style--two[href="#finish"], .btn.s_alert, #example-vertical > .actions ul li a.s_alert[href="#next"], #example-vertical > .actions ul li a.s_alert[href="#finish"], .btn-circle.done, .form-control, .custom-select, .fc-button, #projectShareModal .modal-body .form-group .input-wrap .theme-input-style, #projectShareModal .modal-body .form-group.comment textarea.theme-input-style, .input-group.addon .form-control, .input-group.bootstrap-touchspin button.btn, .dragable-btn a {
-  -webkit-box-shadow: none !important;
-  box-shadow: none !important;
 }
 
 .list-inline li {
@@ -3476,8 +3289,6 @@ a.text-dark:hover {
   border: none;
   text-transform: capitalize;
   outline: 0 !important;
-  -webkit-box-shadow: 0 5px 10px rgba(4, 0, 252, 0.2) !important;
-  box-shadow: 0 5px 10px rgba(4, 0, 252, 0.2) !important;
 }
 
 .btn svg, #example-vertical > .actions ul li a[href="#next"] svg, #example-vertical > .actions ul li a[href="#finish"] svg {
@@ -3485,18 +3296,6 @@ a.text-dark:hover {
   width: 15px;
   height: 15px;
   top: -2px;
-}
-
-.btn.preview, #example-vertical > .actions ul li a.preview[href="#next"], #example-vertical > .actions ul li a.preview[href="#finish"] {
-  background-color: #E9E7FF;
-}
-
-.btn.preview:hover, #example-vertical > .actions ul li a.preview:hover[href="#next"], #example-vertical > .actions ul li a.preview:hover[href="#finish"] {
-  background-color: #e3e0ff;
-}
-
-.btn.long, #example-vertical > .actions ul li a.long[href="#next"], #example-vertical > .actions ul li a.long[href="#finish"] {
-  padding: 13px 30px;
 }
 
 .btn.style--two, #example-vertical > .actions ul li a.style--two[href="#next"], #example-vertical > .actions ul li a.style--two[href="#finish"] {
@@ -3510,18 +3309,13 @@ a.text-dark:hover {
 }
 
 .btn.style--two.orange, #example-vertical > .actions ul li a.style--two.orange[href="#next"], #example-vertical > .actions ul li a.style--two.orange[href="#finish"] {
-  padding: 10px 25px;
   background-color: #FFF4E6;
   color: #FFB959;
 }
 
-.btn.style--three, #example-vertical > .actions ul li a.style--three[href="#next"], #example-vertical > .actions ul li a.style--three[href="#finish"] {
-  padding: 12px 24px;
-}
 
 .btn.s_alert, #example-vertical > .actions ul li a.s_alert[href="#next"], #example-vertical > .actions ul li a.s_alert[href="#finish"] {
   background-color: #E9E7FF;
-  padding: 18px 30px;
 }
 
 .btn.btn-lg, #example-vertical > .actions ul li a.btn-lg[href="#next"], #example-vertical > .actions ul li a.btn-lg[href="#finish"] {
@@ -3696,7 +3490,6 @@ a.text-dark:hover {
 .status-btn {
   font-size: 12px;
   line-height: 1;
-  padding: 4px 12px;
 }
 
 .status-btn.un_paid {
@@ -3730,7 +3523,6 @@ a.text-dark:hover {
 /* Light Btn */
 .light-btn {
   background-color: #f0f0f0;
-  padding: 6px 10px;
   border-radius: 3px;
   cursor: pointer;
   display: inline-block;
@@ -3745,7 +3537,6 @@ a.text-dark:hover {
   display: block;
   background-color: #f0f0f0;
   margin-bottom: 8px;
-  padding: 6px 10px;
 }
 
 .change-card-btn:hover {
@@ -3796,7 +3587,6 @@ a.text-dark:hover {
 }
 
 .light-btn {
-  padding: 5px 20px;
   background-color: #E9E7FF;
   border-radius: 50px;
 }
@@ -3847,7 +3637,6 @@ table tr:not(:last-child) td {
 }
 
 table th, table td {
-  padding: 16px;
 }
 
 table thead th {
@@ -3869,7 +3658,6 @@ table .product-img img:not(:last-child) {
 }
 
 table.dh-table th {
-  padding: 20px;
 }
 
 table.dh-table td {
@@ -12371,3 +12159,18 @@ select#locale {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+.dropdown-menu a{
+  color: black;
+}
+
+.dropdown-menu a:hover{
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.font-13 {
+  color: gray;
+}

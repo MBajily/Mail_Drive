@@ -104,10 +104,18 @@ class Email(models.Model):
 class Drive_File(models.Model):
     file = models.FileField(upload_to=MEDIA_ROOT)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="files")
+    timestamp = models.DateTimeField(auto_now_add=True)
+    archived = models.BooleanField(default=False)
+    starred = models.BooleanField(default=False, blank=True)
+    deleted = models.BooleanField(default=False, blank=True)
 
     def serialize(self):
         return {
             "file": self.file,
+            "timestamp": self.timestamp.strftime("%b %d-%Y-%H:%M %p"),
+            "archived": self.archived,
+            "starred": self.starred,
+            "deleted": self.deleted,
         }
 
 

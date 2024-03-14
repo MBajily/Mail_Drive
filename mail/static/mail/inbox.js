@@ -230,91 +230,103 @@ function compose_email(email = null, status = "") {
 
 
 
-
 function load_mailbox(mailbox, query = "") {
+  // Call the 'tog_menu' function to toggle the menu (presumably a navigation menu).
   tog_menu();
 
+  // If the mailbox is not "search", remove the "active" class from all .nav-link elements
+  // and add the "active" class to the element with the ID equal to the mailbox value.
   if(mailbox !== "search"){
     $(".nav-link").each(function () {
-      // console.log(this.id);
       $(this).removeClass("active");
     });
     $(`#${mailbox}`).addClass("active");
   }
-  
-  // Show the mailbox and hide other views
+
+  // If the window width is less than or equal to 768 pixels, set the display property of the .navbar element to "flex".
   if($(window).width() <= 768){
     document.querySelector('.navbar').style.display = "flex";
   }
+
+  // Set the display property of the #emails-view, #check-email, and #compose-view elements.
+  // #emails-view is set to "block" while #check-email and #compose-view are set to "none".
   document.querySelector("#emails-view").style.display = "block";
   document.querySelector("#check-email").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
 
-  // Show the mailbox name
-  // console.log(mailbox);
-  spinner = `
+  // Create a spinner HTML element using template literals and assign it to the 'spinner' variable.
+  const spinner = `
   <div class="d-flex justify-content-center spin my-5">
     <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>`;
 
+  // Set the inner HTML of the #emails-view element to include a mailbox header (mailbox name capitalized) and the spinner.
   document.querySelector(
     "#emails-view"
   ).innerHTML = `<h4 class="mailbox_head py-2 pl-3 m-0 mx-1">${
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h4> ${spinner}`;
 
-  // console.log(mailbox);
+  // If the mailbox is "search", modify the mailbox value to include the search query.
   if (mailbox === "search") {
     mailbox = `search/${query}`;
   }
+
+  // Send a fetch request to the server to retrieve emails for the specified mailbox.
   fetch(`/emails/${mailbox}`)
     .then((response) => response.json())
     .then((emails) => {
+      // Remove the "d-flex" class and add the "d-none" class to the spinner element.
       $(".spin").removeClass("d-flex").addClass("d-none");
-      // Print emails
-      // console.log(emails);
+
+      // If there is an error property in the response, display an error message in the #emails-view element.
       if (emails.error) {
         document.querySelector(
           "#emails-view"
         ).innerHTML += `<h5 class="pl-3 pt-2">${emails.error} for "${query}"</h5>`;
       }
+      // If there are emails, iterate over each email and create HTML elements to display them.
       else if(emails.length > 0){
-        // ... do something else with emails ...
-      emails.forEach((email) => {
-        const element = document.createElement("div");
-        element.classList.add(
-          "row",
-          "my-0",
-          "mx-1",
-          "single-mail"
-        );
-        element.style.cursor = "pointer";
-        element.innerHTML = `
-        ${(() => {
-          // let  archive_btn =
-
-          let sender = email.username;
-          let user_avatar = `<div class="user-icon-wrapper" >
-                             <span class="singlemail-user-icon rounded-circle text-white" style="background-color:${calculateColor(
-                               email.sender
-                             )}">${sender.charAt(0).toUpperCase()}</span>
-                            </div>`;
-          let sendto = email.recipients;
-          if (sendto.includes(sender)) {
-            let index = sendto.indexOf(email.username);
-            sendto[index] = "me";
-            sender = "me";
-          }
-          if(user_email === email.sender){
-            sender = "me";
-          }
-          if (mailbox === "sent") {
-            sender = `To: ${sendto}`;
-          }
-
-          let archive_stat = email.archived ? "Unarchive" : "Archive";
+        emails.forEach((email) => {
+          // Create a div element to represent a single email and assign it to the 'element' variable.
+          const element = document.createElement("div");
+          element.classList.add(
+            "row",
+            "my-0",
+            "mx-1",
+            "single-mail"
+          );
+          element.style.cursor = "pointer";
+          // Set the inner HTML of the 'element' div to contain various information about the email using template literals.
+          element.innerHTML = `
+            ${(() => {
+              // Set the 'sender' variable to the username of the email sender.
+              let sender = email.username;
+              // Create a user avatar element with the sender's initial inside a circle.
+              let user_avatar = `<div class="user-icon-wrapper" >
+                                 <span class="singlemail-user-icon rounded-circle text-white" style="background-color:${calculateColor(
+                                   email.sender
+                                 )}">${sender.charAt(0).toUpperCase()}</span>
+                                </div>`;
+              // Set the 'sendto' variable to the recipients of the email.
+              let sendto = email.recipients;
+              // If the sender is in the recipients list, replace their name with "me".
+              if (sendto.includes(sender)) {
+                let index = sendto.indexOf(email.username);
+                sendto[index] = "me";
+                sender = "me";
+              }
+              // If the email is sent by the current user, set the sender to "me".
+              if(user_email === email.sender){
+                sender = "me";
+              }
+              // If the mailbox is "sent", modify the sender to display the recipients.
+              if (mailbox === "sent") {
+                sender = `To: ${sendto}`;
+              }
+              let archive_stat = email.archived ? "Unarchive" : "Archive";
           let star_stat = email.starred ? "Starred" : "Not starred"
           let del_stat = email.deleted ? "Restore" : "Delete"
 
@@ -635,7 +647,6 @@ function mark_del(email, element, mailbox) {
     e.stopImmediatePropagation();
   });
 }
-
 
 
 function veiw_email(email_id, element, mailbox) {

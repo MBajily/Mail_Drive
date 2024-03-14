@@ -56,22 +56,22 @@
           </nav>
           
           
-              <div id="sidebar">
+                <div id="sidebar">
                   <ul class="nav nav-sidebar">
                     <img class="sidebar-logo" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png" srcset="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png 1x, https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r2.png 2x " alt="" aria-hidden="true" style="width:130px;height:40px">
                     <li class="nav-item">
                       <a class="nav-link mb-3 mr-4 py-2 " id="compose" >
-                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Compose
+                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Add File
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link py-lg-1 active" id="inbox" >
-                        <i class="fas fa-inbox pl-2 pr-3"></i>Inbox
+                      <a class="nav-link py-lg-1 active" id="home" >
+                        <i class="fas fa-home pl-2 pr-3"></i>Home
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link py-lg-1 " id="sent">
-                        <i class="fas fa-paper-plane pl-2 pr-3"></i>Sent
+                      <a class="nav-link py-lg-1 " id="recent">
+                        <i class="fas fa-clock pl-2 pr-3"></i>Recent
                       </a>
                     </li>
                     <li class="nav-item " >
@@ -90,8 +90,8 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link mb-3 mr-4 py-2 " id="compose" href="{% url 'files' %}">
-                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Drive
+                      <a class="nav-link mb-3 mr-4 py-2 " id="compose" href="{% url 'index' %}">
+                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Mail
                       </a>
                     </li>
                     
@@ -111,8 +111,8 @@
           </div>
   {% endif %}
               
-                {% block body %}
-                {% endblock %}
+            {% block body %}
+            {% endblock %}
           </div>
           
         </div>
