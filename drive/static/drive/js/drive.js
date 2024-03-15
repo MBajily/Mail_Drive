@@ -4,89 +4,6 @@ const user_firstn = JSON.parse(document.getElementById("first_name").textContent
 const user_lastn = JSON.parse(document.getElementById("last_name").textContent);
 
 
-const navbar = document.getElementById('sidebar');
-
-// Define an array of categories
-const categories = [
-  { id: 'home', label: 'Home' },
-  { id: 'recent', label: 'Recent' },
-  { id: 'archive', label: 'Archived' },
-  { id: 'starred', label: 'Starred' },
-  { id: 'trash', label: 'Trash' }
-];
-
-// Add event listener to navbar items
-categories.forEach(category => {
-  const categoryItem = document.createElement('li');
-  categoryItem.textContent = category.label;
-  categoryItem.addEventListener('click', () => {
-    fetchFiles(category.id);
-  });
-  navbar.appendChild(categoryItem);
-});
-
-// Function to fetch files from the REST API
-function fetchFiles(categoryId) {
-  const apiUrl = `/drive/${categoryId}/`; // Replace '/drive/#id/' with the actual REST API endpoint
-  fetch(apiUrl)
-    .then(response => response.json())
-    .then(files => {
-      displayFiles(files);
-    })
-    .catch(error => {
-      console.error('Error fetching files:', error);
-    });
-}
-
-// Function to display the files as a list
-function displayFiles(files) {
-  const fileList = document.getElementById('drivebox'); // Replace 'file-list' with the actual ID of your file list element
-
-  // Clear the previous list
-  fileList.innerHTML = '';
-
-  // Create a list item for each file
-  files.forEach(file => {
-    const listItem = document.createElement('div');
-    listItem.classList.add('col-xl-4', 'col-lg-6');
-    listItem.innerHTML = `
-      <div class="file d-flex justify-content-between align-items-center">
-         <div class="d-flex align-items-center">
-            <div class="img mr-3">
-               <img src="{% static 'drive/img/png-icon/f1.png' %}" alt="">
-            </div>
-            <div class="content">
-               <p class="black mb-0">${file.file}</p>
-               <p class="font-13 c4">${file.timestamp}</p>
-            </div>
-         </div>
-
-         <div>
-            <!-- Dropdown Button -->
-            <div class="dropdown-button">
-               <a href="#" class="d-flex align-items-center" data-toggle="dropdown">
-                  <div class="menu-icon mr-0">
-                     <span></span>
-                     <span></span>
-                     <span></span>
-                  </div>
-               </a>
-               <div class="dropdown-menu dropdown-menu-right">
-                  <a href="#" class="details">Details</a>
-                  <a href="#" class="share">Share</a>
-                  <a href="#" class="delete">Delete</a>
-                  <a href="#" class="select">Select</a>
-               </div>
-            </div>
-            <!-- End Dropdown Button -->
-         </div>
-      </div>
-    `;
-    fileList.appendChild(listItem);
-  });}
-
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
   // Set default state for history
@@ -195,15 +112,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Handle compose email button click
-  document.querySelector("#compose").addEventListener("click", () => {
-    if (document.querySelector("#compose-view").style.display === "none") {
-      compose_email();
-    }
-  });
+  // document.querySelector("#compose").addEventListener("click", () => {
+  //   if (document.querySelector("#compose-view").style.display === "none") {
+  //     compose_email();
+  //   }
+  // });
 
   // Load the home by default
   load_drivebox("home");
 });
+
+
 
 
 
@@ -229,7 +148,6 @@ function load_drivebox(drivebox, query = "") {
   // #emails-view is set to "block" while #check-email and #compose-view are set to "none".
   document.querySelector("#emails-view").style.display = "block";
   document.querySelector("#check-email").style.display = "none";
-  document.querySelector("#compose-view").style.display = "none";
 
   // Create a spinner HTML element using template literals and assign it to the 'spinner' variable.
   const spinner = `
@@ -254,20 +172,21 @@ function load_drivebox(drivebox, query = "") {
   // Send a fetch request to the server to retrieve emails for the specified drivebox.
   fetch(`/drive/${drivebox}`)
     .then((response) => response.json())
-    .then((emails) => {
+    .then((files) => {
+      console.log(files)
       // Remove the "d-flex" class and add the "d-none" class to the spinner element.
       $(".spin").removeClass("d-flex").addClass("d-none");
 
       // If there is an error property in the response, display an error message in the #emails-view element.
-      if (emails.error) {
+      if (files.error) {
         document.querySelector(
           "#emails-view"
-        ).innerHTML += `<h5 class="pl-3 pt-2">${emails.error} for "${query}"</h5>`;
+        ).innerHTML += `<h5 class="pl-3 pt-2">${files.error} for "${query}"</h5>`;
       }
       // If there are emails, iterate over each email and create HTML elements to display them.
-      else if(emails.length > 0){
-        emails.forEach((email) => {
-          // Create a div element to reprerecent a single email and assign it to the 'element' variable.
+      else if(files.length > 0){
+        files.forEach((file) => {
+          // Create a div element to represent a single email and assign it to the 'element' variable.
           const element = document.createElement("div");
           element.classList.add(
             "row",
@@ -280,35 +199,35 @@ function load_drivebox(drivebox, query = "") {
           element.innerHTML = `
             ${(() => {
               // Set the 'sender' variable to the username of the email sender.
-              let sender = email.username;
+              let sender = file.file;
               // Create a user avatar element with the sender's initial inside a circle.
-              let user_avatar = `<div class="user-icon-wrapper" >
+              let user_avatar = `<div class="user-icon-wrappeWr" >
                                  <span class="singlemail-user-icon rounded-circle text-white" style="background-color:${calculateColor(
-                                   email.sender
+                                   file.file
                                  )}">${sender.charAt(0).toUpperCase()}</span>
                                 </div>`;
-              // Set the 'sendto' variable to the recipients of the email.
-              let sendto = email.recipients;
+              // Set the 'sendto' variable to the recipients of the file.
+              let sendto = file.file;
               // If the sender is in the recipients list, replace their name with "me".
               if (sendto.includes(sender)) {
-                let index = sendto.indexOf(email.username);
+                let index = sendto.indexOf(file.file);
                 sendto[index] = "me";
                 sender = "me";
               }
-              // If the email is recent by the current user, set the sender to "me".
-              if(user_email === email.sender){
+              // If the email is sent by the current user, set the sender to "me".
+              if(user_email === file.file){
                 sender = "me";
               }
-              // If the drivebox is "recent", modify the sender to display the recipients.
-              if (drivebox === "recent") {
+              // If the drivebox is "sent", modify the sender to display the recipients.
+              if (drivebox === "sent") {
                 sender = `To: ${sendto}`;
               }
-              let archive_stat = email.archived ? "Unarchive" : "Archive";
-          let star_stat = email.starred ? "Starred" : "Not starred"
-          let del_stat = email.deleted ? "Restore" : "Delete"
+              let archive_stat = file.archived ? "Unarchive" : "Archive";
+          let star_stat = file.starred ? "Starred" : "Not starred"
+          let del_stat = file.deleted ? "Restore" : "Delete"
 
           let mark_read_stat = "Mark as Unread";
-          if (!email.read) {
+          if (!file.read) {
             mark_read_stat = "Mark as Read";
             element.classList.add("unread");
           } else {
@@ -316,30 +235,27 @@ function load_drivebox(drivebox, query = "") {
             element.classList.remove("unread");
           }
 
-          let archive_slash = email.archived
+          let archive_slash = file.archived
             ? `<i class="fas fa-slash"></i>`
             : "";
-          let mark_class = email.read ? "fa-envelope-open" : "fa-envelope";
-          let star_class = email.starred ? "fas" : "far";
-          let del_class = email.deleted ? "fa-recycle" : "fa-trash";
+          let mark_class = file.read ? "fa-envelope-open" : "fa-envelope";
+          let star_class = file.starred ? "fas" : "far";
+          let del_class = file.deleted ? "fa-recycle" : "fa-trash";
           let del_forever = drivebox === "trash" ?`<li class="btn-item del_forever" data-toggle="tooltip" data-placement="bottom" title="Delete forever"><i class="fas fa-trash"></i></li>   ` :"";
           let ext_btn = drivebox === "trash" ? "ext_btn": "";
           return `
-            ${user_avatar}
+            <img src="drive/img/png-icon/f1.png">
             <div class="star-wrapper"  data-toggle="tooltip" data-placement="bottom" title="${star_stat}">
               <span class="star"> <i class="${star_class} fa-star"></i> </span>
             </div>
             <div class="sender">${sender}</div>
             <div class="subject text-left">
               <div class="d-inline">${
-                email.subject.length > 0 ? email.subject : "(no subject)"
+                file.file.length > 0 ? file.file : "(no subject)"
               }</div>
-            <span class="text-muted font-weight-normal">${email.body.replace(
-              /<(.|\n)*?>/gi,
-              " "
-            )}</span></div>
+            <span class="text-muted font-weight-normal">${file.file}</span></div>
             <div class="timestamp ${ext_btn}">
-            <span id="time">${readable_date(email.timestamp)}</span>
+            <span id="time">${readable_date(file.timestamp)}</span>
             <ul class="btn-list">
                 <li class="btn-item archive" id="archive" data-toggle="tooltip" data-placement="bottom" title="${archive_stat}" >${archive_slash}</li>
                 <li class="btn-item mark-read" data-toggle="tooltip" data-placement="bottom" title="${mark_read_stat}"><i class="fas ${mark_class}"></i></li>
@@ -349,37 +265,14 @@ function load_drivebox(drivebox, query = "") {
             </div>
             `;
         })()}`;
-        element.addEventListener(
-          "click",
-          (e) => {
-            fetch(`/drive/${email.id}`, {
-              method: "PUT",
-              body: JSON.stringify({
-                read: true,
-              }),
-            });
-            history.pushState(
-              { email: email.id ,
-                element : element.innerHTML,
-                mail: drivebox },
-              "",
-              `#${drivebox}/${email.id}`
-            );
-            // console.log(email.id);
-            veiw_email(email.id, element, drivebox);
 
-            e.stopImmediatePropagation();
-          },
-          false
-        );
-
-        mark_read(email, element, drivebox);
-        mark_archive(email, element, drivebox);
-        mark_star(email, element, drivebox);
-        mark_del(email, element, drivebox);
+        mark_read(file, element, drivebox);
+        mark_archive(file, element, drivebox);
+        mark_star(file, element, drivebox);
+        mark_del(file, element, drivebox);
         if(drivebox === "trash"){
           element.querySelector(".del_forever").addEventListener("click", (e)=>{
-            fetch(`/drive/${email.id}`, {
+            fetch(`/drive/${file.id}`, {
               method: "DELETE",
             });
             custm_alert("Conversation deleted forever")
@@ -387,6 +280,7 @@ function load_drivebox(drivebox, query = "") {
             e.stopImmediatePropagation();
           })
         }
+  
         if ($(window).width() >= 768) {
           element.addEventListener(
             "mouseover",
@@ -439,6 +333,399 @@ function load_drivebox(drivebox, query = "") {
 }
 
 
+
+function mark_archive(file, element, drivebox) {
+  // Add event listener to archive button
+  element.querySelector("#archive").addEventListener(
+    "click",
+    (e) => {
+      if (drivebox !== "archive" && drivebox !== "trash") {
+        console.log(file.id)
+        // If the file is not in the archive or trash drivebox, archive it
+        fetch(`/drive/${file.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            archived: true,
+          }),
+        });
+        console.log("here")
+        custm_alert("Conversation archived");
+        // Uncomment the following lines if you need to modify the CSS classes of the archive button
+        // element.querySelector(":scope > #archive").classList.remove('archive')
+        // element.querySelector(":scope > #archive").classList.add('unarchive')
+      } else if (drivebox === "archive") {
+        // If the file is already in the archive drivebox, unarchive it and move it to the home
+        fetch(`/drive/${file.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            archived: false,
+          }),
+        });
+        custm_alert("Conversation moved to home");
+      }
+      // Hide the tooltip of the archive button
+      $(element.querySelector("#archive")).tooltip("hide");
+      
+      // If the drivebox is not the trash drivebox, hide the file element
+      if (drivebox !== "trash") {
+        hide_element(element);
+      }
+      e.stopImmediatePropagation();
+    },
+    false
+  );
+}
+
+
+
+function mark_read(email, element, drivebox) {
+  // Add event listener to mark as read button
+  element.querySelector(".mark-read").addEventListener(
+    "click",
+    (e) => {
+      let read = element.querySelector(":scope .mark-read > i");
+      
+      if (read.classList.contains("fa-envelope-open")) {
+        // If the email is currently marked as read, mark it as unread
+        read.classList.remove("fa-envelope-open");
+        read.classList.add("fa-envelope");
+        
+        // Update tooltip and show it
+        $(element.querySelector(".mark-read"))
+          .attr("data-original-title", "Mark as read")
+          .tooltip("show");
+        
+        element.classList.add("unread");
+        element.classList.remove("light");
+        
+        // Update the email's read status on the server
+        fetch(`/drive/${email.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            read: false,
+          }),
+        });
+      } else {
+        // If the email is currently marked as unread, mark it as read
+        read.classList.remove("fa-envelope");
+        read.classList.add("fa-envelope-open");
+        
+        // Update tooltip and show it
+        $(element.querySelector(".mark-read"))
+          .attr("data-original-title", "Mark as unread")
+          .tooltip("show");
+        
+        element.classList.add("light");
+        element.classList.remove("unread");
+        
+        // Update the email's read status on the server
+        fetch(`/drive/${email.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            read: true,
+          }),
+        });
+      }
+      
+      e.stopImmediatePropagation();
+      $('[data-toggle="tooltip"]').tooltip();
+    },
+    false
+  );
+}
+
+
+
+function mark_star(email, element, drivebox) {
+  // Add event listener to star wrapper
+  element.querySelector(".star-wrapper").addEventListener("click", (e) => {
+    let star = element.querySelector(".fa-star");
+    
+    if (star.classList.contains("fas")) {
+      // If the email is currently starred, unstar it
+      star.classList.remove("fas");
+      star.classList.add("far");
+      
+      // Update tooltip and show it
+      $(element.querySelector(".star-wrapper"))
+        .attr("data-original-title", "Not starred")
+        .tooltip("show");
+      
+      // Update the email's starred status on the server
+      fetch(`/drive/${email.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          starred: false,
+        }),
+      });
+      
+      // If the drivebox is the starred drivebox, hide the email element and hide tooltip
+      if (drivebox === "starred") {
+        $(element.querySelector(".star-wrapper")).tooltip("hide");
+        hide_element(element);
+      }
+    } else {
+      // If the email is not currently starred, star it
+      star.classList.add("fas");
+      
+      // Update tooltip and show it
+      $(element.querySelector(".star-wrapper"))
+        .attr("data-original-title", "Starred")
+        .tooltip("show");
+      
+      // Update the email's starred status on the server
+      fetch(`/drive/${email.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          starred: true,
+        }),
+      });
+    }
+
+    e.stopImmediatePropagation();
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+}
+
+
+
+function mark_del(email, element, drivebox) {
+  // Add event listener to delete button
+  element.querySelector(".delete").addEventListener("click", (e) => {
+    if (drivebox !== "trash") {
+      // If the email is not in the trash drivebox, move it to the trash
+      fetch(`/drive/${email.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          deleted: true,
+        }),
+      });
+      $(element.querySelector(".delete")).tooltip("hide");
+      custm_alert("Conversation moved to trash");
+    } else {
+      // If the email is in the trash drivebox, restore it
+      fetch(`/drive/${email.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          deleted: false,
+        }),
+      });
+      $(element.querySelector(".delete")).tooltip("hide");
+      custm_alert("Conversation restored from trash");
+    }
+    
+    // Hide the email element
+    hide_element(element);
+    
+    e.stopImmediatePropagation();
+  });
+}
+
+
+function veiw_email(email_id, element, drivebox) {
+
+  document.querySelector('.navbar').style.display = $(window).width() <= 768 ? "none" :"flex";
+  document.querySelector("#emails-view").style.display = "none";
+  // console.log(id);
+  fetch(`/emails/${email_id}`)
+    .then((response) => response.json())
+    .then((email) => {
+      if(email.error){
+        custm_alert(email.error)
+        load_drivebox(drivebox)
+      }
+      else{
+        document.querySelector("#check-email").style.display = "block";
+        let read = element.querySelector(".mark-read > i");
+  // console.log(read)
+  if(read.classList.contains("fa-envelope")){
+    read.classList.remove("fa-envelope"),
+      read.classList.add("fa-envelope-open"),
+      $(element.querySelector("#check-email .mark-read"))
+        .attr("data-original-title", "Mark as unread")
+  }
+  let star_title = email.starred ? "Starred": "Not Starred"
+  let star_class = email.starred ? "fas" : "far";
+  let sender = email.username;
+  let user_avatar = `<div class="sing-icon-wrapper" >
+                     <span class="sing-icon rounded-circle text-white" style="background-color:${calculateColor(
+                       email.sender
+                     )}">${sender.charAt(0).toUpperCase()}</span>
+                    </div>`;
+  let sendto = email.recipients.slice(0);
+  // console.log(email.recipients)
+  let subject =  email.subject.length > 0 ? email.subject : "(no subject)"
+  if (sendto.includes(sender)) {
+    let index = sendto.indexOf(email.username);
+    sendto[index] = "me";
+  }
+  // console.log(email.recipients)
+  let btn_list = element.querySelector(".btn-list").innerHTML 
+  // console.log(btn_list)
+      document.querySelector("#check-email").innerHTML = `
+        <div class="px-md-4 px-sm-0">
+         <div class="action_bar bg-white">
+           <span class="btn-item back-btn"><i class="fas fa-arrow-left"></i></span>  
+           <ul class="view-mail-btn-list">
+           ${btn_list}
+          </ul>         
+         </div>
+        
+          <div class="row mx-auto">
+            <h4 class="sing-sub">${
+             subject
+            }</h4>
+          </div>
+
+          <div class="sing-detail">
+          ${user_avatar}
+            <div class="sing-username-wrapper">
+              <div class="sing-username">
+                <p class="d-inline-block text-truncate p-0 m-0"><strong>${sender}</strong>  <span class="detail-small d-none d-lg-inline"><span><</span>${email.sender}></span> </p>
+              </div>
+            
+              <div class="dropdown">
+               <a class="dropdown-toggle text-muted h6 text-decoration-none detail-small tome" href="#" id="dropdownMenuButton" data-toggle="dropdown" data-display="static" >to ${sendto}</a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-md-left shadow dropdown-tome" aria-labelledby="dropdownMenu2" style="top: 1rem;">
+                <table class="table table-borderless my-2 detail-small">
+                  <tbody>
+                    <tr class="py-0">
+                      <td class="text-muted text-right">From:</td>
+                      <td><span class="font-weight-bold">${email.username}</span> . ${email.sender}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-right">To:</td>
+                      <td>${email.recipients}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-right">Date:</td>
+                      <td>${email.timestamp}</td>
+                    </tr>
+                    <tr>
+                      <td class="text-muted text-right">Subject:</td>
+                      <td>${subject}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                </div>
+              </div>
+            </div>
+ 
+            <div class="sing-timestamp">
+              <p class="detail-small d-inline time">${$(window).width() <= 768 ? readable_date(email.timestamp) : email.timestamp}</p>
+            </div>
+         
+            <div class="timestamp-icons pl-2">
+              <span class="st" data-toggle="tooltip" data-placement="bottom" title="${star_title}" style="cursor:pointer"> <i class="${star_class} fa-star"></i> </span>
+              <span data-toggle="tooltip" data-placement="bottom" title="Reply"><i class="fas fa-reply pl-3 replybtn" ></i></span>
+          </div>
+          </div>
+          
+          <div class="row-fluid sing-body my-3">
+            <div class="p-0">${email.body}</div>
+            
+          </div>
+          
+          <div class="row mx-auto reply-btn">
+            <button class="btn btn-light border my-3 mb-4 px-4 replybtn" id="reply" ><i class="fas fa-reply pr-3"></i>Reply</button>
+            <button class="btn btn-light border my-3 mb-4 px-4 ml-3" id="forward" ><i class="fas fa-arrow-right pr-3"></i>Forward</button>
+          </div>
+          
+        </div> 
+      `;
+      let btn_items = document.querySelectorAll("#check-email .btn-item")
+      btn_items.forEach((btn_item) => {
+        btn_item.addEventListener("click", () => {
+          if(drivebox.startsWith("search")){
+            let [,query] = drivebox.split("/")
+            history.pushState({ query: query }, "", `./#search/${query}`);
+          }
+          history.pushState({ drivebox: drivebox }, "", `./#${drivebox}`);
+ 
+        if(btn_item.classList.contains("archive")) {
+          // mark_archive(email,element,drivebox)
+           
+          $(element.querySelector("#archive")).click()
+            // hide_element(element);           
+        }
+
+        else if(btn_item.classList.contains("mark-read"))
+        {
+          // load_drivebox(drivebox)
+          $(element.querySelector(".mark-read")).click()
+          $(element.querySelector(".mark-read")).tooltip('hide')
+          // setTimeout(() => { load_drivebox(drivebox)   }, 100);
+        }
+        
+        else if(btn_item.classList.contains("delete")){
+          $(element.querySelector(".delete")).click()
+          // $(element.querySelector(".mark-read")).tooltip('hide')
+        }
+        else if(btn_item.classList.contains("del_forever")){
+          $(element.querySelector(".del_forever")).click()
+          // $(element.querySelector(".mark-read")).tooltip('hide')
+        }
+        let url = window.location.hash
+        if(url.startsWith("#search")){
+          let [,query] = url.split('/')
+          setTimeout(() => { load_drivebox("search",query)   }, 300);
+        }
+        else{
+          setTimeout(() => { load_drivebox(drivebox)   }, 300);
+        }
+        })
+      })
+      document.querySelector(".st").addEventListener("click" , (e) =>{
+        let star = document.querySelector(".st .fa-star");
+        if (star.classList.contains("fas")) {
+          star.classList.remove("fas"),
+            star.classList.add("far"),
+            $( document.querySelector(".st"))
+              .attr("data-original-title", "Not starred")
+              .tooltip("show");
+    
+          fetch(`/drive/${email.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              starred: false,
+            }),
+          });
+         
+        } else {
+          star.classList.add("fas"),
+            $(document.querySelector(".st"))
+              .attr("data-original-title", "Starred")
+              .tooltip("show");
+          fetch(`/drive/${email.id}`, {
+            method: "PUT",
+            body: JSON.stringify({
+              starred: true,
+            }),
+          });
+        }
+    
+        // e.stopImmediatePropagation();
+      });
+      let replybtns =  document.querySelectorAll(".replybtn")
+      replybtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          compose_email(email, "reply");
+          e.stopImmediatePropagation();
+        });
+      })
+      document.querySelector("#forward").addEventListener("click", (e)=>{
+        compose_email(email, "forward");
+          e.stopImmediatePropagation();
+      })
+      $('[data-toggle="tooltip"]').tooltip();
+ 
+      }
+    });
+     //   // ... do something else with email ...
+    // });
+}
+
+
 function custm_alert(val) {
   // Select the elements for the toast
   const toastHead = document.querySelector("#head");
@@ -451,7 +738,7 @@ function custm_alert(val) {
   if (val.error) {
     toastHead.innerHTML = val.error;
   } else if (val.message) {
-    load_drivebox("recent");
+    load_drivebox("sent");
     toastHead.innerHTML = val.message;
   } else {
     toastHead.innerHTML = val;

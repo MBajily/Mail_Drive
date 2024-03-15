@@ -1,47 +1,20 @@
 {% extends "drive/layout.html" %}
 {% load static %}
 
-{% block style %}
-   <!-- ======= BEGIN PAGE LEVEL PLUGINS STYLES ======= -->
-   <link rel="stylesheet" href="{% static 'drive/plugins/dropzone/dropzone.min.css' %}">
-   <!-- ======= END BEGIN PAGE LEVEL PLUGINS STYLES ======= -->
-
-   <!-- ======= MAIN STYLES ======= -->
-   <link rel="stylesheet" href="{% static 'drive/css/style.css' %}">
-   <!-- ======= END MAIN STYLES ======= -->
-{% endblock %}
-
-
 {% block body %}
-   <div class="col-xl-9 mb-30 mb-xl-0">
-      <!-- Card -->
-      <div class="card h-100">
-         <div class="card-body">
-            <!-- Starred Files -->
-            <div class="starred-files border-bottom">
-               <div class="d-flex justify-content-between bold font-14 mb-20">
-                  <div class="black">{{category_name}}</div>
-               </div>
+    
 
-               <div id="drivebox" class="row">
-                  
-               </div>     
-            </div>
-            <!-- End Starred Files -->
-         </div>
-      </div>
-      <!-- End Card -->
-   </div>
+    <div  id="emails-view" >
+    </div>
+
+    <div id="check-email">
+       
+    </div>
+ 
+
 {% endblock %}
 
 {% block script %}
-   <!-- ======= BEGIN GLOBAL MANDATORY SCRIPTS ======= -->
-   <script src="{% static 'drive/js/script.js' %}"></script>
-   <script src="{% static 'drive/js/drive.js' %}"></script>
-   <!-- ======= BEGIN GLOBAL MANDATORY SCRIPTS ======= -->
-   
-   <!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
-   <script src="{% static 'drive/plugins/dropzone/dropzone.min.js' %}"></script>
-   <script src="{% static 'drive/plugins/dropzone/dropzone.custom.js' %}"></script>
-   <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
+
+    <script src="{% static 'drive/js/drive.js' %}"></script>
 {% endblock %}

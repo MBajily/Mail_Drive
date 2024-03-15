@@ -111,8 +111,10 @@ class Drive_File(models.Model):
 
     def serialize(self):
         return {
-            "file": self.file,
+            "id": self.id,
+            "file": "test",
             "timestamp": self.timestamp.strftime("%b %d-%Y-%H:%M %p"),
+            "read": False,
             "archived": self.archived,
             "starred": self.starred,
             "deleted": self.deleted,
