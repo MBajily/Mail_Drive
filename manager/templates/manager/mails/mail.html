@@ -1,0 +1,30 @@
+{% extends 'employer/en/index.html' %}
+{% load static %}
+
+
+{% block style %}
+	<!-- TinyMCE -->
+	<link rel="stylesheet" href="{% static '/staff/plugin/tinymce/skins/lightgray/skin.min.css' %}">
+	<!-- Must include this script FIRST -->
+	<script src="{% static '/staff/plugin/tinymce/tinymce.min.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+	<div id="wrapper">
+		<div class="main-content">
+			<div class="row">
+				{% block mail_content %}
+				{% endblock %}
+			</div>
+			<!-- /.row -->		
+		</div>
+		<!-- /.main-content -->
+	</div><!--/#wrapper -->
+{% endblock %}
+
+{% block script %}
+	<!-- iCheck -->
+	<script src="{% static '/staff/plugin/iCheck/icheck.min.js' %}"></script>
+	<script src="{% static '/staff/scripts/mailbox.init.min.js' %}"></script>
+{% endblock %}

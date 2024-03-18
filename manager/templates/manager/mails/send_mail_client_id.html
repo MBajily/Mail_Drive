@@ -1,0 +1,29 @@
+{% extends 'employer/en/index.html' %}
+{% load static %}
+
+
+{% block content %}
+	<div id="wrapper">
+		<div class="main-content">
+			<div class="row small-spacing">
+				<div class="col-xs-12">
+					<div class="box-content">
+						<label style="font-size: 30px;" class="control-label mt-5 mx-5">Send a Message</label>
+						<form action="" class="form-horizontal m-5" data-toggle="validator" method="POST">
+							{% csrf_token %}
+							<div class="row mb-5">
+								<div class="form-group col-md-5 col-xs-12 m-1">
+									<label for="inputName" class="control-label">Client ID:</label>
+									<input name='client_id' class="form-control" id="validationCustom08" placeholder="Client ID" oninput="check(this)" required="True">
+								</div>
+							</div>
+							
+							<a class="btn btn-secondary btn-sm waves-effect waves-light" href="{% url 'sent_mails' %}">Cancel</a>
+							<button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

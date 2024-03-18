@@ -12,26 +12,29 @@ class User(AbstractUser):
     base_role = Role.EMPLOYEE
 
     is_staff = None 
-    is_superuser = None 
+    # is_superuser = None 
     groups_id = None 
     user_permissions_id = None 
     user_permissions = None
     groups = None
+    first_name = None
+    last_name = None
+
 
     email = models.EmailField(unique=True)
     # access_token = models.CharField(max_length=50, null=True)
     username = models.CharField(max_length=50, unique=True, null=True, blank=True) 
+    
+    arabic_name = models.CharField(max_length=200, null=True)
+    english_name = models.CharField(max_length=200, null=True)
 
     is_deleted = models.BooleanField(null=False, default=False)
     is_employee = models.BooleanField(null=False, default=False)
     is_company = models.BooleanField(null=False, default=False)
 
-    extenstion = models.CharField(max_length=50, unique=True, null=True, blank=True)
+    extension = models.CharField(max_length=50, unique=True, null=True, blank=True)
     company = models.ForeignKey("self", on_delete=models.SET_NULL, related_name='employees', null=True, blank=True)
     photo = models.FileField(upload_to=MEDIA_ROOT, null=True, blank=True)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
 
     role = models.CharField(max_length=50, choices=Role.choices)
 

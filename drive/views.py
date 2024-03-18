@@ -69,13 +69,10 @@ def search(request, query):
 @csrf_exempt
 @login_required
 def markFile(request, file_id):
-    file = Drive_File.objects.get(user=request.user, id=file_id)
-    print(file)
 
     # Query for requested email
     try:
         file = Drive_File.objects.get(user=request.user, id=file_id)
-        print(file)
     except file.DoesNotExist:
         return JsonResponse({"error": "file not found."}, status=404)
 

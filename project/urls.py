@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('mail.urls')),
     path('drive/', include('drive.urls')),
+    path('manager/', include('manager.urls')),
+    path('', include('company.urls')),
 ]

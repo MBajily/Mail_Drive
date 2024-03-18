@@ -1,7 +1,7 @@
 // Parse user email, first name, and last name from DOM elements
 const user_email = JSON.parse(document.getElementById("user_email").textContent);
-const user_firstn = JSON.parse(document.getElementById("first_name").textContent);
-const user_lastn = JSON.parse(document.getElementById("last_name").textContent);
+const user_firstn = JSON.parse(document.getElementById("english_name").textContent)? null : '';
+const user_lastn = JSON.parse(document.getElementById("arabic_name").textContent)? null : '';
 
 
 
@@ -93,11 +93,13 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Set avatar background color based on user email and display the first character of first name
-  let avatars = document.querySelectorAll(".user-icon");
-  avatars.forEach((avatar) => {
-    avatar.style.backgroundColor = calculateColor(user_email);
-    avatar.innerHTML = user_firstn.charAt(0).toUpperCase();
-  });
+  // let avatars = document.querySelectorAll(".user-icon");
+  // console.log(avatars)
+  // avatars.forEach((avatar) => {
+  //   console.log(avatar)
+  //   avatar.style.backgroundColor = calculateColor(user_email);
+  //   avatar.innerHTML = user_firstn.charAt(0).toUpperCase();
+  // });
 
   // Handle search form submission
   document.querySelector(".srch-form").addEventListener("submit", (e) => {

@@ -1,0 +1,23 @@
+{% extends 'candidate/en/mails/mail.html' %}
+{% load static %}
+
+
+{% block mail_content %}
+	<div id="wrapper">
+		<div class="main-content container">
+			<div class="row m-auto">
+				<div class="col-6">
+					<div class="card card-body">
+						<p>Are you sure to delete "{{item}}"</p>
+
+						<form action="{% url 'mail_delete' item.mail_id %}" method="POST">
+							{% csrf_token %}
+							<a class="btn btn-outline-secondary" href="{% url 'mail_read' item.mail_id 'inbox' %}">Cancel</a>
+							<input class="btn btn-danger" type="submit" name="Delete">
+						</form>		
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

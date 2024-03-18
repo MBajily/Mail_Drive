@@ -12,6 +12,23 @@ import operator
 from core.models import User, Email
 
 
+
+@login_required(login_url='login')
+def login_redirect_page(request):
+    user = request.user
+    if user.is_superuser == True:
+        return redirect("partners")
+
+    if user.role == 'COMPANY':
+        return redirect("employees")
+
+    elif user.role == 'EMPLOYEE':
+        return redirect("index")
+
+    else:
+        return redirect('login')
+
+
 def index(request):
 
     # Authenticated users view their inbox
@@ -149,13 +166,17 @@ def email(request, email_id):
 def search(request, query):
     if " " in query:
         queries = query.split(" ")
-        qset1 =  reduce(operator.__or__, [Q(sender__email__icontains=query) | Q(sender__first_name__icontains=query) | Q(sender__last_name__icontains=query) | Q(subject__icontains=query) | Q(body__icontains=query) for query in queries])
+        qset1 =  reduce(operator.__or__, [Q(sender__email__icontains=query)
+            | Q(sender__english_name__icontains=query)
+            | Q(sender__arabic_name__icontains=query)
+            | Q(subject__icontains=query)
+            | Q(body__icontains=query) for query in queries])
         results = Email.objects.filter(user=request.user).filter(qset1).distinct()
     else:
         results = Email.objects.filter(user=request.user)\
             .filter(Q(sender__email__icontains=query) 
-            | Q(sender__first_name__icontains=query)
-            | Q(sender__last_name__icontains=query) 
+            | Q(sender__english_name__icontains=query)
+            | Q(sender__arabic_name__icontains=query) 
             | Q(subject__icontains=query) 
             | Q(body__icontains=query)).distinct()
     if results:
@@ -196,7 +217,7 @@ def register(request):
     if request.method == "POST":
         email = request.POST["email"]
         name = request.POST["fname"]
-        last_name = request.POST["lname"]
+        arabic_name = request.POST["lname"]
         # Ensure password matches confirmation
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
@@ -208,7 +229,7 @@ def register(request):
 
         # Attempt to create new user
         try:
-            user = User.objects.create_user(username=email,email=email,password=password,name=name,last_name=last_name)
+            user = User.objects.create_user(username=email,email=email,password=password,name=name,arabic_name=arabic_name)
             user.save()
         except IntegrityError as e:
             print(e)

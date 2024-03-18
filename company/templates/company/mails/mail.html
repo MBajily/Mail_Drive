@@ -1,0 +1,87 @@
+{% extends 'candidate/en/index.html' %}
+{% load static %}
+
+
+{% block content %}
+	<div id="wrapper">
+		<div class="main-content container">
+			<div class="row">
+				<div class="col-md-3 col-xs-12">
+					<!-- 				<a href="compose.html" class="btn btn-danger btn-mail-main btn-block margin-bottom-20 waves-effect waves-light">COMPOSE</a> -->
+					<div class="box box-solid">
+						<div class="box-body">
+							<ul class="nav nav-pills nav-stacked row">
+								{% if mail_nav == 'inbox' %}
+									<li class="active"><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
+										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
+									</li>
+									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
+									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
+									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
+									</li> -->
+									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
+									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
+								{% elif mail_nav == 'unread' %}
+									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
+										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
+									</li>
+									<li class="active"><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
+									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
+									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
+									</li> -->
+									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
+									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
+								{% elif mail_nav == 'read' %}
+									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
+										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
+									</li>
+									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
+									<li class="active"><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
+									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
+									</li> -->
+									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
+									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
+								{% elif mail_nav == 'trash' %}
+									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
+										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
+									</li>
+									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
+									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
+									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
+									</li> -->
+									<li class="active"><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
+									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
+								{% elif mail_nav == 'replays' %}
+									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
+										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
+									</li>
+									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
+									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
+									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
+									</li> -->
+									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
+									<li class="active"><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
+								{% endif %}
+							</ul>
+						</div>
+						<!-- /.box-body -->
+					</div>
+					<!-- /. box -->
+					
+				</div>
+				<!-- /.col-md-3 col-xs-12 -->
+
+				{% block mail_content %}
+				{% endblock %}
+			</div>
+			<!-- /.row -->		
+		</div>
+		<!-- /.main-content -->
+	</div><!--/#wrapper -->
+{% endblock %}
+
+{% block script %}
+	<!-- iCheck -->
+	<script src="{% static '/client/plugin/iCheck/icheck.min.js' %}"></script>
+	<script src="{% static '/client/scripts/mailbox.init.min.js' %}"></script>
+{% endblock %}

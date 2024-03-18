@@ -1,0 +1,59 @@
+{% extends 'candidate/en/mails/mail.html' %}
+{% load static %}
+
+
+{% block mail_content %}
+	<div class="col-md-9 col-xs-12">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">{{title}}</h3>
+
+				<!-- /.box-tools -->
+			</div>
+			<!-- /.box-header -->
+
+				<div class="table-responsive mailbox-messages">
+					<table class="table table-hover table-striped">
+						<tbody>
+							{% if all_mails %}
+								{% for mail in all_mails %}
+									{% if mail.is_read == '1' %}
+										<tr style="background: #EEE;">
+											<td><input type="checkbox"></td>
+											<td class="mailbox-star"><a href="#"><i class="fa fa-envelope-o text-secondary"></i></a></td>
+											<td class="mailbox-name"><a class="text-secondary" href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.sender}}</a></td>
+											<td class="mailbox-subject"><span class="mailbox-subject-title"><a class="text-secondary" href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.title}}</a></span> <!-- - {{mail.message}} -->
+											</td>
+											<td class="mailbox-attachment"></td>
+											<td class="mailbox-date text-secondary">{{mail.date_receive|timesince}} ago</td>
+										</tr>
+									{% else %}
+										<tr class="unread" style="background: white;">
+											<td><input type="checkbox"></td>
+											<td class="mailbox-star"><a href="#"><i class="fa fa-envelope text-primary"></i></a></td>
+											<td class="mailbox-name"><a href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.sender}} <span class="btn-sm btn-danger">new</span></a></td>
+											<td class="mailbox-subject"><span class="mailbox-subject-title"><a class="text-dark" href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.title}}</a></span> <!-- - {{mail.message}} -->
+											</td>
+											<td class="mailbox-attachment"></td>
+											<td class="mailbox-date">{{mail.date_receive|timesince}} ago</td>
+										</tr>
+									{% endif %}
+								{% endfor %}
+							{% else %}
+								<br>
+								<div class="p-5 row" style="max-width: 100%;"><h3 class="p-5 text-secondary">You don't have any message in this box.</h3></div>
+								
+								<br>
+							{% endif %}
+						</tbody>
+					</table>
+					<!-- /.table -->
+				</div>
+				<!-- /.mail-box-messages -->
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /. box -->
+	</div>
+	<!-- /.col-md-9 col-xs-12 -->
+{% endblock %}

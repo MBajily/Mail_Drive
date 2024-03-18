@@ -1,0 +1,68 @@
+{% extends 'company/index.html' %}
+{% load static %}
+
+{% block style %}
+	<!-- Data Tables -->
+	<link rel="stylesheet" href="{% static '/company/plugin/datatables/media/css/dataTables.bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static '/company/plugin/datatables/extensions/Responsive/css/responsive.bootstrap.min.css' %}">
+{% endblock %}
+
+
+{% block content %}
+	<div id="wrapper">
+		<div class="main-content container">
+			<div class="row m-5">
+				<div class="col-md">
+					<div class="card card-body">
+						<label style="font-size: 30px;" class="control-label mt-5 mx-5">Our Employees</label>
+						<table id="example" class="table table-striped table-bordered display" style="width:100%">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+								    <th scope="col">Full Name</th>
+								    <th scope="col">Email</th>
+								    <th scope="col">Status</th>
+								    <th scope="col">Delete</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th scope="col">ID</th>
+								    <th scope="col">Full Name</th>
+								    <th scope="col">Email</th>
+								    <th scope="col">Status</th>
+								    <th scope="col">Delete</th>
+								</tr>
+							</tfoot>
+							<tbody>
+								{% for employee in all_employees %}
+								<tr>
+									<td>{{employee.id}}</td>
+									<td>{{employee.english_name}}</td>
+									<td>{{employee.username}}</td>
+									{% if employee.is_active %}
+							      		<td><a class="text-success" href="{% url 'deactivateEmployee' employee.id %}">Active</a></td>
+							      	{% else %}
+							      		<td><a class="text-danger" href="{% url 'activateEmployee' employee.id %}">Deactive</a></td>
+							      	{% endif %}
+							      	<td><a class="text-danger" href="{% url 'deleteEmployee' employee.id %}">DELETE</a></td>
+								</tr>
+								{% endfor %}
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<!-- Data Tables -->
+	<script src="{% static '/company/plugin/datatables/media/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static '/company/plugin/datatables/media/js/dataTables.bootstrap.min.js' %}"></script>
+	<script src="{% static '/company/plugin/datatables/extensions/Responsive/js/dataTables.responsive.min.js' %}"></script>
+	<script src="{% static '/company/plugin/datatables/extensions/Responsive/js/responsive.bootstrap.min.js' %}"></script>
+	<script src="{% static '/company/scripts/datatables.demo.min.js' %}"></script>
+{% endblock %}

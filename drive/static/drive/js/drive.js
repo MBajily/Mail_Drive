@@ -1,10 +1,26 @@
 // Parse user email, first name, and last name from DOM elements
 const user_email = JSON.parse(document.getElementById("user_email").textContent);
-const user_firstn = JSON.parse(document.getElementById("first_name").textContent);
-const user_lastn = JSON.parse(document.getElementById("last_name").textContent);
+const user_firstn = JSON.parse(document.getElementById("English_name").textContent);
 
 
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.startsWith(name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
 
+const csrftoken = getCookie('csrftoken');
+
+print(csrftoken)
 document.addEventListener("DOMContentLoaded", function () {
   // Set default state for history
   history.replaceState({ drivebox: "home" }, "Default state", "#home");
@@ -344,6 +360,10 @@ function mark_archive(file, element, drivebox) {
         // If the file is not in the archive or trash drivebox, archive it
         fetch(`/drive/${file.id}`, {
           method: "PUT",
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+          },
           body: JSON.stringify({
             archived: true,
           }),
@@ -357,6 +377,10 @@ function mark_archive(file, element, drivebox) {
         // If the file is already in the archive drivebox, unarchive it and move it to the home
         fetch(`/drive/${file.id}`, {
           method: "PUT",
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+          },
           body: JSON.stringify({
             archived: false,
           }),
@@ -686,6 +710,10 @@ function veiw_email(email_id, element, drivebox) {
     
           fetch(`/drive/${email.id}`, {
             method: "PUT",
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken,
+            },
             body: JSON.stringify({
               starred: false,
             }),
@@ -698,6 +726,10 @@ function veiw_email(email_id, element, drivebox) {
               .tooltip("show");
           fetch(`/drive/${email.id}`, {
             method: "PUT",
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': csrftoken,
+            },
             body: JSON.stringify({
               starred: true,
             }),
