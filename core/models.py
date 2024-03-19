@@ -91,9 +91,9 @@ class Email(models.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "username": self.sender.first_name + " " + self.sender.last_name,
-            "sender": self.sender.email,
-            "recipients": [user.first_name + " " + user.last_name for user in self.recipients.all()],
+            "username": self.sender.english_name,
+            "sender": self.sender.username,
+            "recipients": [user.english_name for user in self.recipients.all()],
             "subject": self.subject,
             "body": self.body,
             "timestamp": self.timestamp.strftime("%b %d-%Y-%H:%M %p"),
@@ -115,7 +115,7 @@ class Drive_File(models.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "file": "test",
+            "file": str(self.file),
             "timestamp": self.timestamp.strftime("%b %d-%Y-%H:%M %p"),
             "read": False,
             "archived": self.archived,

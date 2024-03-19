@@ -606,8 +606,8 @@ width: 25px;
     }
     .dropdown-user{
         position: absolute;
-        top: 19px;
-        right: 20px;
+        top: 5px;
+        right: 26px;
         z-index: 9999;
     }
 
@@ -716,3 +716,10 @@ width: 25px;
         }
       }
     
+
+.dropdown-user{
+        position: absolute;
+        top: 5px;
+        right: 26px;
+        z-index: 9999;
+    }

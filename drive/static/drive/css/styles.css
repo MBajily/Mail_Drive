@@ -1,0 +1,1091 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+:root{
+    --ck-color-focus-border: none;
+}
+html,body{
+    /* background-color: #4489f7; */
+    /* background-color: rgb(206, 199, 199, 0.2); */
+    /* opacity: 0.54; */
+    font-family: 'Roboto', sans-serif;
+    height: 100%;
+    color: #34353a;
+    font-size: 15px;
+}
+html {
+    overflow:   scroll;
+  }
+  ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent; /* make scrollbar transparent */
+  }
+img {
+    max-width: 100%;
+    height: auto !important;
+}
+.media{
+    display: block;
+}
+#check-email svg{
+    display: none;
+}
+
+.form-control{
+    box-shadow: none !important;
+    outline: none !important;
+    border: none;
+}
+
+
+.light{
+    background: rgba(242,245,245,0.8);
+    /* opacity: 80%; */
+}
+.single-mail{
+    letter-spacing: .2px;
+    box-shadow: inset 0 -1px 0 0 rgba(100,121,143,0.122);
+    padding: .5rem 1rem;
+}
+.unread{
+    font-weight: 600;
+}
+.single-mail.fade{
+    animation: fadeout 0.27s; 
+    animation-fill-mode: forwards;
+}
+.single-mail.fade .btn-list{
+    display: none;
+}
+
+
+#compose-view::-webkit-scrollbar-track
+{
+    background-color: #F5F5F5;
+}
+
+#compose-view::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#compose-view::-webkit-scrollbar-thumb
+{
+    background-color: #bbb8b8;
+    
+}
+
+#compose-recipients{
+    padding-left: 2rem;
+}
+
+#submit-btn{
+    margin-top: 16.5rem;
+    margin-bottom: 1rem;
+    padding: .5rem 2rem;
+}
+
+.ck-focused{
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.navbar, .action_bar, .mailbox_head{
+    box-shadow: inset 0 -1px 0 0 rgba(100,121,143,0.122);
+}
+
+.action_bar{
+    box-shadow: inset 0 -1px 0 0 rgba(100,121,143,0.122);
+    display: flex;
+    justify-content: space-between;
+    /* padding: .2rem .2rem; */
+}
+
+
+.navbar-brand{
+font-size: 1.6rem;
+}
+.nav-sidebar{
+    display: flex;
+    flex-direction: column;
+}
+.nav-link{
+    display: block;
+    cursor: pointer;
+    /* margin-top: .5rem; */
+}
+.active{
+    border-radius: 0px 20px 20px 0px;
+    font-weight: bold;
+    background-color: rgb(230, 230, 230);
+}
+#inbox.active {
+    color: #d93025;
+    background-color: rgb(255, 158, 147, 0.2);
+}
+/* .nav-link:focus:hover{
+    border-radius: 0px 20px 20px 0px;
+    background-color: rgb(230, 230, 230);
+} */
+
+
+.navbar-nav .dropdown-menu {
+    position: absolute;
+}
+
+.srchbar{
+    border-radius: 8px;
+    border: 1px solid transparent;
+    max-width: 780px;
+    margin-left: 4.5rem;
+    background-color: #f1f3f4;
+}
+.user-icon{
+    padding: 6px 11px;
+    font-size: 18px;
+    font-weight: normal;
+}
+.user-icon-large{
+    font-size: 38px;
+    padding: 1rem 1.7rem;
+    margin: 10px 5rem;
+}
+.username{
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    margin-top: 1rem;
+}
+.main{
+    padding-left: 234px;  
+    margin-top: 65px;
+    height: calc(100vh - 65px);
+    transition: all 0.3s;
+}
+.spread{
+    padding-left: 0px; 
+}
+#compose,.logout{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: .5px;
+    color: #3c4043;
+    white-space: nowrap;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+    margin-top: 1.4rem;
+    margin-left: 0.5rem;
+    border-radius:  24px;
+    max-width: 10rem;
+    background-color: white;
+}
+.plus-img{
+    max-width: 32px;
+    height: auto;
+}
+  /* Sidebar */
+ #sidebar {
+    position: fixed;
+    min-width: 230px;
+    max-width: 230px;
+    height: 100vh;
+    top: 68px;
+    left: 0;
+    z-index: 9999;
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    /* background: rgba(245,245,245); */
+    /* border-right: 1px solid rgb(207, 207, 207); */
+    transition: all 0.3s;
+  }
+#sidebar.side_active {
+    margin-left: -250px;
+}
+
+.sidebar-logo, .overlay , .user-icon-wrapper{
+    display: none;
+}
+
+textarea {
+    min-height: 400px;
+}
+
+.mail{
+    position: relative;
+    z-index: 5;
+    
+}
+.single-mail{
+    position: relative;
+    display: flex;
+}
+
+
+#time{
+    font-size: 13px;
+}
+.timestamp{
+    flex: 0 1 80px;
+}
+.sender{
+    flex: 0 1 150px;
+}
+.timestamp{
+    /* margin: 0 0 0 auto ; */
+    margin-left: 2rem;
+    text-align: right;
+    white-space: nowrap;
+}
+.subject{
+    flex: 4 1 200px;
+    padding-left: 40px;
+}
+
+.sender{
+    padding-left: 10px;
+}
+.subject{
+    display: inline-block;
+}
+.subject span::before{
+    content: " - ";
+    font-weight: 400;
+}
+.sender, .subject, .subject span, .subject div{
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+.subject span{
+    color: #5f6368;
+}
+.view-mail-btn-list{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    /* top:2%;
+    right:1%; */
+}
+.fa-arrow-left{
+    padding-left: .8rem;
+    padding-top: .8rem;
+}
+.view-mail-btn-list .delete,.view-mail-btn-list .mark-read , .view-mail-btn-list .del_forever{
+    padding-left: .85rem;
+    padding-top: .5rem;
+}
+.view-mail-btn-list .fa-slash{
+    left: 0.7rem;
+    top: 0.6rem;
+  }
+  .view-mail-btn-list .btn-item{
+    margin-right: .5rem;
+}
+#check-email .star{
+    position: relative;
+}
+#check-email .star::after{
+    top: -10px;
+    left: -10px;
+}
+.btn-list{
+    position: absolute;
+    visibility: hidden;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    top:2%;
+    right:1%;
+}
+.btn-item{
+    padding: 0;
+    margin: 0;
+    height: 40px;
+    width: 40px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    cursor: pointer;
+    opacity: .64;
+}
+.star-wrapper{
+height: 25px;
+width: 25px;
+}
+.star{
+    height: 40px;
+    width: 40px;
+    opacity: 0.54;
+}
+
+.mark-read,.delete,.del_forever {
+    font-size: 1.1rem;
+    padding-right: .75rem;
+    padding-top: .5rem;
+}
+.star::after{
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    left: 5px;
+    transition-duration: .15s;
+    transform: scale(0);
+    transition-property: transform,opacity;
+}
+.star:active::after{
+    animation: ripple .15s ease-out;
+}
+.fas.fa-star{
+    color: #f2a365;
+}
+#trash{
+    padding-left: 1.2rem;
+}
+.archive_btn{
+    height: 18px;
+ padding-right: 12px;
+ padding-left: 8px;
+}
+.archive{
+    background-image: url(https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png);
+    background-size: 20px;
+}
+ .fa-slash{
+    position:relative;
+    font-size: 1.1rem;
+    left: -0.6rem;
+    top: 0.6rem;
+  }
+.sing-sub{
+    padding-left: 4rem;
+    margin-top: 1rem;
+    font-weight: normal;
+}
+.sing-detail{
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    flex: 1 1 auto;
+}
+.sing-username-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+.sing-username{
+    display: flex;
+    flex-direction: column;
+    padding-right: 10px;
+}
+.sing-username, .sing-timestamp{
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;  
+}
+
+
+.sing-timestamp{
+    margin-left: auto;
+}
+.timestamp-icons{
+    display: flex;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+.detail-small{
+    font-size: 12px;
+}
+.sing-icon-wrapper{
+    position: relative;
+    display: inline;
+    padding-right: 4rem;
+}
+.sing-icon{
+    position: absolute;
+    width: 40px;
+    text-align: center;
+    padding: 2px 2px;
+    font-size: 24px;
+    font-weight: normal;
+}
+.sing-body,.reply-btn{
+    padding-left: 4rem;
+}
+.fa-reply{
+    cursor: pointer;
+}
+
+.empty_icon{
+    font-size: 9rem;
+    color: #d93025;
+    padding-left: 1rem;
+}
+
+.empty_text{
+    font-size: 1.2rem;
+    color:  #6c757d;
+}
+
+#myToast{
+    width: 400px;
+    position: fixed; 
+    bottom: 0; 
+    left: 2%;  
+    z-index: 9999;
+}
+.hideToast{
+ display: none;
+}
+.dropdown-tome{
+    width: 20rem;
+}
+.table td{
+    padding-top: 1px ;
+    padding-bottom: 1px ;
+}
+.tome{
+    position: absolute;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 10rem;
+}
+/* css hover style */
+@media (hover: hover) and (pointer: fine) {
+    .nav-link:hover{
+        border-radius: 0px 20px 20px 0px;
+        background-color:  rgba(242,245,245,0.8);
+    }
+    .active:hover{
+        border-radius: 0px 20px 20px 0px;
+        font-weight: bold;
+        background-color: rgb(230, 230, 230);
+    }
+    .star:hover{
+        opacity: 1;
+    }
+    .single-mail:hover .timestamp{
+        margin-left: 3.5rem;
+    }
+    .single-mail:hover .ext_btn{
+        margin-left: 5rem;
+    }
+    .btn-item:hover, .star:hover::after{
+        opacity: 1;
+        background-color: rgba(32, 33, 36, 0.075);
+        border-radius: 50%;
+        transform: scale(1);
+        /* height: 200%; */
+    }
+}
+@media (max-width: 907px) {
+    /* .main{
+        height: 89vh;
+    } */
+    .navbar-brand{
+        display: none;
+    }
+    .active{
+        pointer-events: auto;
+    }
+    .sidebar-logo{
+        display: block;
+        padding-left: 1rem;
+    }
+    .user-icon-wrapper{
+        display: flex;
+        order: 0;
+    }
+    .singlemail-user-icon{
+        position: absolute;
+        width: 37px;
+        text-align: center;
+        padding: 2px 2px;
+        font-size: 22px;
+        font-weight: normal;
+        top: .9rem;
+    }
+    .single-mail{
+        box-shadow: none;
+        padding: .7rem 0px;
+    }
+    .light{
+        background: none;
+        color:  #6c757d;
+    }
+    .timestamp{
+        flex: 0 1 auto;
+        margin-left: auto;
+    }
+
+    .sender{
+        flex: 0 1 auto;
+        padding-left: 3.4rem;
+    }
+    .subject, .single-mail:hover .subject{
+        max-width: 90%;
+        flex-basis: 100%;
+        order: 1;
+    }
+    .subject{
+        display: flex;
+        flex-direction: column;
+        padding-left: 3.4rem;
+    }
+    .subject span::before{
+        content: "";
+    }
+    .star-wrapper{
+        order: 2;
+        height: 42px;
+        margin-left: auto;
+        
+    }
+    .star{
+        display: flex;
+        flex-direction: column-reverse;
+        align-content: flex-end;
+        
+    }
+    .star::after{
+        position: absolute;
+        left: auto;
+        top: 45px;
+        right: -3px;
+    }
+    .sing-body,.reply-btn{
+        padding-left: .5rem;
+    }
+    .sing-sub{
+        padding-left: 0rem;
+        margin-top: 0rem;
+    }
+    .sing-detail{
+        margin-bottom: 2rem;
+    }
+}
+@media (max-width: 768px) {
+    .tooltip {
+        display: none !important;
+    }
+    .overlay {
+        position: fixed;
+        top: 0;
+        display: none;
+        /* full screen */
+        width: 100vw;
+        height: 100vh;
+        /* transparent black */
+        background: rgba(0, 0, 0, 0.7);
+        /* middle layer, i.e. appears below the sidebar */
+        z-index: 9999;
+        opacity: 0;
+        /* animate the transition */
+        /* transition: all 0.5s ease-in-out; */
+    }
+    /* display .overlay when it has the .active class */
+    .overlay.over_active {
+        display: block;
+        opacity: 1;
+    }
+    .srch-form{
+        margin-right: 15px;
+    }
+    #sidebarCollapse{
+        position: absolute;
+        top: 13px;
+        left: 20px;
+        z-index: 9999;
+    }
+    .dropdown-user{
+        position: absolute;
+        top: 5px;
+        right: 26px;
+        z-index: 9999;
+    }
+
+    .srch_btn{
+        display: none;
+    }
+    #sidebar {
+        top: 0;
+        background-color: white;
+        margin-left: -280px;
+        min-width: 280px;
+    }
+    .sidebar-logo{
+        margin-top: 2rem;
+    }
+    #sidebar.side_active {
+        margin-left: 0;
+    }
+    
+    .main{
+        padding-left: 0;
+    }
+
+    .sender{
+        font-size: 16px;
+    }
+    .subject{
+        font-size: 14px;
+    }
+    #time{
+        font-size: 12px;
+    }
+    .sing-icon-wrapper {
+        padding-right: 3.5rem;
+    }
+    .sing-timestamp{
+        margin-left: 0px;
+    }
+    .timestamp-icons{
+        margin-left: auto;
+    }
+    .action_bar{
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 1500;
+        padding: .3rem .2rem;
+    }
+
+    .navbar, .mailbox_head {
+        box-shadow: none;
+    }
+    .navbar{
+        background: transparent !important;
+    }
+    .srchbar{
+        margin-left: 15px;
+        padding-left: 40px;
+        padding-right: 40px;
+        background: white;
+        border: 2px solid #f1f3f4;
+    }
+    .mailbox_head{
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 14px;
+        letter-spacing: .1rem;
+    }
+    #myToast{
+    width: 80%;
+    left: 3%;
+    }
+    .dropdown-tome{
+    width: 15rem;
+    left: -3rem;
+    }
+}
+
+@keyframes fadeout {
+    0% {
+        max-height: initial;
+        opacity: 1;
+    }
+    75%{
+        max-height: initial;
+        opacity: 0;
+    }
+    100% {
+        max-height: 0;
+        padding: 0;
+        margin: 0;
+        opacity:0;
+    }
+    } 
+
+    @keyframes ripple {
+        0% {
+          opacity: 0;
+          transform: scale(0);
+        }
+      
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    
+
+.dropdown-user{
+        position: absolute;
+        top: 5px;
+        right: 26px;
+        z-index: 9999;
+    }
+
+
+
+.trans3, a, .ba, .btn-circle:after, .offcanvas-overlay, .aside-body li a:after, .chat_aside .aside-header .aside-header-bottom:after, .message:after, .todo-list .single-row:after, .board .board-cards .board-card:before, .dropdown-menu .dropdown-body .content .main-text, .dropdown-menu.style--two .dropdown-body .content .time, .dropdown-menu.style--two .dropdown-body .content .main-text, .list-button li, .pagination.style--two ul li svg path, .btn, #example-vertical > .actions ul li a[href="#next"], #example-vertical > .actions ul li a[href="#finish"], .follow-btn i, .link-btn i, .details-btn i, .details-btn svg, .light-btn, .change-card-btn, .remove-btn, table tr, table.style--three tr th, table.style--three tr td, .theme-input-style, .search-form .theme-input-group, .search-form .theme-input-group button, .search-form .theme-input-group.header-search, .search-form .theme-input-group.header-search.theme-input-group button, .header, .header .main-header, .header-toogle-menu, .header-icon, .sidebar, .sidebar .sidebar-header .sidebar-toogle-pin, .sidebar .sidebar-body ul.sub-menu li:before, .sidebar .sidebar-body li i, .sidebar .sidebar-body li.has-sub-item:after, .footer, .main-content, .aside-body li.less:after, .mail-list-item,
+.main-mail, .mail-list-item .mail-text .msg,
+.main-mail .mail-text .msg, .mail-compose .form-group .cc-btns .cc-btn, .modal-body .form-group .cc-btns .cc-btn, .message, .message p, .todo-list .single-row, .todo-list .single-row.border-bottom.change-border-color, .todo-list .todo-text .card-text, .assign_to .assign-content, .assign-tag, .assign-btn svg line, #projectTaskDetails .modal-content .checklist .checklist-item-wrap .checklist-item-details:after, #projectTaskDetails .modal-content .checklist .checklist-item-wrap .checklist-item-details .icon-delete, #projectTaskDetails .modal-content .checklist-new-item .checklist-add-controls .icon-close, .file-attachments .attachment .attachment-close, .file .dropdown-button, .notifications a p, .news a p, .icon, .price-box, .price-body, .profile-pic:after, .profile-pic .upload-button, .cover-img:after, .cover-img .upload-button, .p_overview-list li .dropdown-button,
+.p_work-list li .dropdown-button,
+.p_education-list li .dropdown-button, .add-work-form,
+.work-update-form, .post-footer .love svg path {
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+.bold, .dashboard-date.style--five > i, .dropdown-menu.style--four a:hover, .dropdown-menu.style--four a.selected, .avatar, .full-date, .pagination ul li, .follow-btn, .link-btn, .details-btn, table.style--two td, table.cart_table tr td:first-child, table.cart_table tr td:last-child span, table.invoice-list-table.style-two td:nth-child(4), table.style-two.contact-list-table td:nth-child(4), table.invoice-list-table.style-two td:nth-child(5), table.style-two.contact-list-table td:nth-child(5), table.invoice-list.style-two td:nth-child(4), table.invoice-list.style-two td:nth-child(5), .ProgressBar-wrap .ProgressBar-percentage, .ProgressBar-wrap2 .ProgressBar-percentage, .progress-info div:not(:first-child), .process-bar-wrapper.style--four .process-width, .notification-icon .count, .avatar .count, .sidebar .sidebar-body li.nav-category, #apex_radar-chart .apexcharts-title-text, .statistic-row.days, .product-details-content .product_title, .product-details-content .woocommerce-Price-amount, .product-details-content .woocommerce-product-details__short-description h5, .form-row label, .cart-collaterals .shop_table th, .cart-collaterals .shop_table td, .mail-list-item:hover .mail-text .msg,
+.main-mail:hover .mail-text .msg, .message:hover p, .message.active p, .assign_to .assign-content, .assign-tag .tag-text, .add-new_task .label-text, .task-details .label-text, .fc table, #projectTaskDetails .modal-content .project-main-title textarea, #projectTaskDetails .modal-content .checklist .process-bar-wrapper .process-name, #smartwizard .nav li a, #example-vertical > .steps ul li a, #example-vertical > .actions ul li a[href="#previous"], .chip .chip-content > div, .chip .chip-content .img, .color-circle, .topic, .timeline .event:before, .base-timer__label,
+.base-timer__text, .p_nav-link, .info-list li, .shepherd-element .shepherd-content footer .shepherd-buttons li .shepherd-button {
+  font-weight: 700;
+}
+
+
+.radius, .attach-file, .attach-file .file-input, .attach-file.style--two, .dropdown-menu.style--three a span, .dropdown-menu.style--four a span, .avatar-status, .avatar-status:after, .upload-icon, .avatar, .avatar img, .img-60, .img-50, .img-40, .img-30, .color-balls .color, .member a, .member a img, .pagination ul li.current, .btn-circle, .btn-circle:after, .btn-home, .download-btn,
+.print-btn, .close-btn, .remove-btn, table.style--four td .country-flag, .custom-checkbox .checkmark, .main-header-user .user-profile img, .menu-icon span, .notification-icon .count, .avatar .count, .statistic-row > div:first-child img, .color-group .color, .mail-list-item .avatar img,
+.main-mail .avatar img, .mail-compose .form-group .cc-btns .cc, .modal-body .form-group .cc-btns .cc, .aside-body img, .aside-header img, .video-call, .chat-footer .voice-msg,
+.chat-footer .attach-file,
+.chat-footer .submit, .audio-call, .assign_to .assign-avatar, .assign-tag .assign-avatar, .assign-btn, #fullCalModal .calendar-modal-Event .color, .labels .label.add-label, .label-item .label.add-label, #projectTaskDetails .modal-content .modal-close, .file-attachments .attachment .attachment-close, .switch .control:after, .switch .check, #smartwizard .nav li:last-child a, .chip .chip-content .img, .color-circle, .faq h5:after, .profile-nav-tabs li .chat, .p_overview-list li .img img,
+.p_work-list li .img img,
+.p_education-list li .img img, .post-controls > div {
+  border-radius: 50%;
+}
+
+
+.font-14, .attach-file.change-card-attachment i, .meta-info > div span, .pagination ul li, .change-card-btn, .light-btn, table.invoice-list-table tbody td .details-btn, table.contact-list-table tbody td .details-btn, table.invoice-list tbody td .details-btn, .progress_22 .ProgressBar-wrap2 .ProgressBar-percentage, .fc-toolbar.fc-header-toolbar .fc-left .fc-today-button, .fc-toolbar.fc-header-toolbar .fc-button-group .fc-button, #fullCalModal .calendar-modal-location,
+#fullCalModal .calendar-modal-visibility, #fullCalModal .calendar-modal-Event, .invoice-header-left .dropdown-button > a, #projectTaskDetails .modal-content .checklist .checklist-item-wrap .checklist-item, #projectMemberModal .modal-content .modal-body .theme-input-style, #projectLabelModal .modal-content .modal-body .theme-input-style, #projectChecklistModal .modal-content .modal-body .theme-input-style, #projectMoveModal .modal-content .modal-body .theme-input-style, #projectCopyModal .modal-content .modal-body .theme-input-style, #projectShareModal .modal-content .modal-body .theme-input-style, .checklist-items .checklist-item .item, .board-members-list li a, #shareModal .modal-content .modal-body .form-group .input-wrap .theme-input-style, .chip .chip-content .img, .color-circle, .timeline .event:before, .select2-container--default .select2-selection--multiple .select2-selection__choice, .time_circles > div > h4, .info-list li, .about-myself textarea, .edit-skill .form-control, .shepherd-element .shepherd-content footer .shepherd-buttons li .shepherd-button {
+  font-size: 14px !important;
+}
+
+
+table.style--five td .img {
+  margin-right: 10px;
+  width: 45px;
+  height: 45px;
+}
+
+.custom-checkbox.bold .checkmark, .dashboard-date.style--five > i.custom-checkbox .checkmark, .dropdown-menu.style--four a.custom-checkbox:hover .checkmark, .dropdown-menu.style--four a.custom-checkbox.selected .checkmark, .custom-checkbox.avatar .checkmark, .custom-checkbox.full-date .checkmark, .pagination ul li.custom-checkbox .checkmark, .custom-checkbox.follow-btn .checkmark, .custom-checkbox.link-btn .checkmark, .custom-checkbox.details-btn .checkmark, table.style--two td.custom-checkbox .checkmark, table.cart_table tr td.custom-checkbox:first-child .checkmark, table.cart_table tr td:last-child span.custom-checkbox .checkmark, table.invoice-list-table.style-two td.custom-checkbox:nth-child(4) .checkmark, table.style-two.contact-list-table td.custom-checkbox:nth-child(4) .checkmark, table.invoice-list-table.style-two td.custom-checkbox:nth-child(5) .checkmark, table.style-two.contact-list-table td.custom-checkbox:nth-child(5) .checkmark, table.invoice-list.style-two td.custom-checkbox:nth-child(4) .checkmark, table.invoice-list.style-two td.custom-checkbox:nth-child(5) .checkmark, .ProgressBar-wrap .custom-checkbox.ProgressBar-percentage .checkmark, .ProgressBar-wrap2 .custom-checkbox.ProgressBar-percentage .checkmark, .progress-info div.custom-checkbox:not(:first-child) .checkmark, .process-bar-wrapper.style--four .custom-checkbox.process-width .checkmark, .notification-icon .custom-checkbox.count .checkmark, .avatar .custom-checkbox.count .checkmark, .sidebar .sidebar-body li.custom-checkbox.nav-category .checkmark, #apex_radar-chart .custom-checkbox.apexcharts-title-text .checkmark, .custom-checkbox.statistic-row.days .checkmark, .product-details-content .custom-checkbox.product_title .checkmark, .product-details-content .custom-checkbox.woocommerce-Price-amount .checkmark, .product-details-content .woocommerce-product-details__short-description h5.custom-checkbox .checkmark, .form-row label.custom-checkbox .checkmark, .cart-collaterals .shop_table th.custom-checkbox .checkmark, .cart-collaterals .shop_table td.custom-checkbox .checkmark, .mail-list-item:hover .mail-text .custom-checkbox.msg .checkmark, .main-mail:hover .mail-text .custom-checkbox.msg .checkmark, .message:hover p.custom-checkbox .checkmark, .message.active p.custom-checkbox .checkmark, .assign_to .custom-checkbox.assign-content .checkmark, .assign-tag .custom-checkbox.tag-text .checkmark, .add-new_task .custom-checkbox.label-text .checkmark, .task-details .custom-checkbox.label-text .checkmark, .fc table.custom-checkbox .checkmark, #projectTaskDetails .modal-content .project-main-title textarea.custom-checkbox .checkmark, #projectTaskDetails .modal-content .checklist .process-bar-wrapper .custom-checkbox.process-name .checkmark, #smartwizard .nav li a.custom-checkbox .checkmark, #example-vertical > .steps ul li a.custom-checkbox .checkmark, #example-vertical > .actions ul li a.custom-checkbox[href="#previous"] .checkmark, .chip .chip-content > div.custom-checkbox .checkmark, .chip .chip-content .custom-checkbox.img .checkmark, .custom-checkbox.color-circle .checkmark, .custom-checkbox.topic .checkmark, .timeline .custom-checkbox.event:before .checkmark, .custom-checkbox.base-timer__label .checkmark, .custom-checkbox.base-timer__text .checkmark, .custom-checkbox.p_nav-link .checkmark, .info-list li.custom-checkbox .checkmark, .shepherd-element .shepherd-content footer .shepherd-buttons li .custom-checkbox.shepherd-button .checkmark {
+  border: 1px solid #8280FD;
+}
+
+.custom-checkbox.bold .checkmark:after, .dashboard-date.style--five > i.custom-checkbox .checkmark:after, .dropdown-menu.style--four a.custom-checkbox:hover .checkmark:after, .dropdown-menu.style--four a.custom-checkbox.selected .checkmark:after, .custom-checkbox.avatar .checkmark:after, .custom-checkbox.full-date .checkmark:after, .pagination ul li.custom-checkbox .checkmark:after, .custom-checkbox.follow-btn .checkmark:after, .custom-checkbox.link-btn .checkmark:after, .custom-checkbox.details-btn .checkmark:after, table.style--two td.custom-checkbox .checkmark:after, table.cart_table tr td.custom-checkbox:first-child .checkmark:after, table.cart_table tr td:last-child span.custom-checkbox .checkmark:after, table.invoice-list-table.style-two td.custom-checkbox:nth-child(4) .checkmark:after, table.style-two.contact-list-table td.custom-checkbox:nth-child(4) .checkmark:after, table.invoice-list-table.style-two td.custom-checkbox:nth-child(5) .checkmark:after, table.style-two.contact-list-table td.custom-checkbox:nth-child(5) .checkmark:after, table.invoice-list.style-two td.custom-checkbox:nth-child(4) .checkmark:after, table.invoice-list.style-two td.custom-checkbox:nth-child(5) .checkmark:after, .ProgressBar-wrap .custom-checkbox.ProgressBar-percentage .checkmark:after, .ProgressBar-wrap2 .custom-checkbox.ProgressBar-percentage .checkmark:after, .progress-info div.custom-checkbox:not(:first-child) .checkmark:after, .process-bar-wrapper.style--four .custom-checkbox.process-width .checkmark:after, .notification-icon .custom-checkbox.count .checkmark:after, .avatar .custom-checkbox.count .checkmark:after, .sidebar .sidebar-body li.custom-checkbox.nav-category .checkmark:after, #apex_radar-chart .custom-checkbox.apexcharts-title-text .checkmark:after, .custom-checkbox.statistic-row.days .checkmark:after, .product-details-content .custom-checkbox.product_title .checkmark:after, .product-details-content .custom-checkbox.woocommerce-Price-amount .checkmark:after, .product-details-content .woocommerce-product-details__short-description h5.custom-checkbox .checkmark:after, .form-row label.custom-checkbox .checkmark:after, .cart-collaterals .shop_table th.custom-checkbox .checkmark:after, .cart-collaterals .shop_table td.custom-checkbox .checkmark:after, .mail-list-item:hover .mail-text .custom-checkbox.msg .checkmark:after, .main-mail:hover .mail-text .custom-checkbox.msg .checkmark:after, .message:hover p.custom-checkbox .checkmark:after, .message.active p.custom-checkbox .checkmark:after, .assign_to .custom-checkbox.assign-content .checkmark:after, .assign-tag .custom-checkbox.tag-text .checkmark:after, .add-new_task .custom-checkbox.label-text .checkmark:after, .task-details .custom-checkbox.label-text .checkmark:after, .fc table.custom-checkbox .checkmark:after, #projectTaskDetails .modal-content .project-main-title textarea.custom-checkbox .checkmark:after, #projectTaskDetails .modal-content .checklist .process-bar-wrapper .custom-checkbox.process-name .checkmark:after, #smartwizard .nav li a.custom-checkbox .checkmark:after, #example-vertical > .steps ul li a.custom-checkbox .checkmark:after, #example-vertical > .actions ul li a.custom-checkbox[href="#previous"] .checkmark:after, .chip .chip-content > div.custom-checkbox .checkmark:after, .chip .chip-content .custom-checkbox.img .checkmark:after, .custom-checkbox.color-circle .checkmark:after, .custom-checkbox.topic .checkmark:after, .timeline .custom-checkbox.event:before .checkmark:after, .custom-checkbox.base-timer__label .checkmark:after, .custom-checkbox.base-timer__text .checkmark:after, .custom-checkbox.p_nav-link .checkmark:after, .info-list li.custom-checkbox .checkmark:after, .shepherd-element .shepherd-content footer .shepherd-buttons li .custom-checkbox.shepherd-button .checkmark:after {
+  left: 5px;
+  top: 2px;
+}
+
+.custom-radio.bold [type="radio"]:checked + label:before, .dashboard-date.style--five > i.custom-radio [type="radio"]:checked + label:before, .dropdown-menu.style--four a.custom-radio:hover [type="radio"]:checked + label:before, .dropdown-menu.style--four a.custom-radio.selected [type="radio"]:checked + label:before, .custom-radio.avatar [type="radio"]:checked + label:before, .custom-radio.full-date [type="radio"]:checked + label:before, .pagination ul li.custom-radio [type="radio"]:checked + label:before, .custom-radio.follow-btn [type="radio"]:checked + label:before, .custom-radio.link-btn [type="radio"]:checked + label:before, .custom-radio.details-btn [type="radio"]:checked + label:before, table.style--two td.custom-radio [type="radio"]:checked + label:before, table.cart_table tr td.custom-radio:first-child [type="radio"]:checked + label:before, table.cart_table tr td:last-child span.custom-radio [type="radio"]:checked + label:before, table.invoice-list-table.style-two td.custom-radio:nth-child(4) [type="radio"]:checked + label:before, table.style-two.contact-list-table td.custom-radio:nth-child(4) [type="radio"]:checked + label:before, table.invoice-list-table.style-two td.custom-radio:nth-child(5) [type="radio"]:checked + label:before, table.style-two.contact-list-table td.custom-radio:nth-child(5) [type="radio"]:checked + label:before, table.invoice-list.style-two td.custom-radio:nth-child(4) [type="radio"]:checked + label:before, table.invoice-list.style-two td.custom-radio:nth-child(5) [type="radio"]:checked + label:before, .ProgressBar-wrap .custom-radio.ProgressBar-percentage [type="radio"]:checked + label:before, .ProgressBar-wrap2 .custom-radio.ProgressBar-percentage [type="radio"]:checked + label:before, .progress-info div.custom-radio:not(:first-child) [type="radio"]:checked + label:before, .process-bar-wrapper.style--four .custom-radio.process-width [type="radio"]:checked + label:before, .notification-icon .custom-radio.count [type="radio"]:checked + label:before, .avatar .custom-radio.count [type="radio"]:checked + label:before, .sidebar .sidebar-body li.custom-radio.nav-category [type="radio"]:checked + label:before, #apex_radar-chart .custom-radio.apexcharts-title-text [type="radio"]:checked + label:before, .custom-radio.statistic-row.days [type="radio"]:checked + label:before, .product-details-content .custom-radio.product_title [type="radio"]:checked + label:before, .product-details-content .custom-radio.woocommerce-Price-amount [type="radio"]:checked + label:before, .product-details-content .woocommerce-product-details__short-description h5.custom-radio [type="radio"]:checked + label:before, .form-row label.custom-radio [type="radio"]:checked + label:before, .cart-collaterals .shop_table th.custom-radio [type="radio"]:checked + label:before, .cart-collaterals .shop_table td.custom-radio [type="radio"]:checked + label:before, .mail-list-item:hover .mail-text .custom-radio.msg [type="radio"]:checked + label:before, .main-mail:hover .mail-text .custom-radio.msg [type="radio"]:checked + label:before, .message:hover p.custom-radio [type="radio"]:checked + label:before, .message.active p.custom-radio [type="radio"]:checked + label:before, .assign_to .custom-radio.assign-content [type="radio"]:checked + label:before, .assign-tag .custom-radio.tag-text [type="radio"]:checked + label:before, .add-new_task .custom-radio.label-text [type="radio"]:checked + label:before, .task-details .custom-radio.label-text [type="radio"]:checked + label:before, .fc table.custom-radio [type="radio"]:checked + label:before, #projectTaskDetails .modal-content .project-main-title textarea.custom-radio [type="radio"]:checked + label:before, #projectTaskDetails .modal-content .checklist .process-bar-wrapper .custom-radio.process-name [type="radio"]:checked + label:before, #smartwizard .nav li a.custom-radio [type="radio"]:checked + label:before, #example-vertical > .steps ul li a.custom-radio [type="radio"]:checked + label:before, #example-vertical > .actions ul li a.custom-radio[href="#previous"] [type="radio"]:checked + label:before, .chip .chip-content > div.custom-radio [type="radio"]:checked + label:before, .chip .chip-content .custom-radio.img [type="radio"]:checked + label:before, .custom-radio.color-circle [type="radio"]:checked + label:before, .custom-radio.topic [type="radio"]:checked + label:before, .timeline .custom-radio.event:before [type="radio"]:checked + label:before, .custom-radio.base-timer__label [type="radio"]:checked + label:before, .custom-radio.base-timer__text [type="radio"]:checked + label:before, .custom-radio.p_nav-link [type="radio"]:checked + label:before, .info-list li.custom-radio [type="radio"]:checked + label:before, .shepherd-element .shepherd-content footer .shepherd-buttons li .custom-radio.shepherd-button [type="radio"]:checked + label:before,
+.custom-radio.bold [type="radio"]:not(:checked) + label:before,
+.dashboard-date.style--five > i.custom-radio [type="radio"]:not(:checked) + label:before,
+.dropdown-menu.style--four a.custom-radio:hover [type="radio"]:not(:checked) + label:before,
+.dropdown-menu.style--four a.custom-radio.selected [type="radio"]:not(:checked) + label:before,
+.custom-radio.avatar [type="radio"]:not(:checked) + label:before,
+.custom-radio.full-date [type="radio"]:not(:checked) + label:before,
+.pagination ul li.custom-radio [type="radio"]:not(:checked) + label:before,
+.custom-radio.follow-btn [type="radio"]:not(:checked) + label:before,
+.custom-radio.link-btn [type="radio"]:not(:checked) + label:before,
+.custom-radio.details-btn [type="radio"]:not(:checked) + label:before,
+table.style--two td.custom-radio [type="radio"]:not(:checked) + label:before,
+table.cart_table tr td.custom-radio:first-child [type="radio"]:not(:checked) + label:before,
+table.cart_table tr td:last-child span.custom-radio [type="radio"]:not(:checked) + label:before,
+table.invoice-list-table.style-two td.custom-radio:nth-child(4) [type="radio"]:not(:checked) + label:before,
+table.style-two.contact-list-table td.custom-radio:nth-child(4) [type="radio"]:not(:checked) + label:before,
+table.invoice-list-table.style-two td.custom-radio:nth-child(5) [type="radio"]:not(:checked) + label:before,
+table.style-two.contact-list-table td.custom-radio:nth-child(5) [type="radio"]:not(:checked) + label:before,
+table.invoice-list.style-two td.custom-radio:nth-child(4) [type="radio"]:not(:checked) + label:before,
+table.invoice-list.style-two td.custom-radio:nth-child(5) [type="radio"]:not(:checked) + label:before,
+.ProgressBar-wrap .custom-radio.ProgressBar-percentage [type="radio"]:not(:checked) + label:before,
+.ProgressBar-wrap2 .custom-radio.ProgressBar-percentage [type="radio"]:not(:checked) + label:before,
+.progress-info div.custom-radio:not(:first-child) [type="radio"]:not(:checked) + label:before,
+.process-bar-wrapper.style--four .custom-radio.process-width [type="radio"]:not(:checked) + label:before,
+.notification-icon .custom-radio.count [type="radio"]:not(:checked) + label:before,
+.avatar .custom-radio.count [type="radio"]:not(:checked) + label:before,
+.sidebar .sidebar-body li.custom-radio.nav-category [type="radio"]:not(:checked) + label:before,
+#apex_radar-chart .custom-radio.apexcharts-title-text [type="radio"]:not(:checked) + label:before,
+.custom-radio.statistic-row.days [type="radio"]:not(:checked) + label:before,
+.product-details-content .custom-radio.product_title [type="radio"]:not(:checked) + label:before,
+.product-details-content .custom-radio.woocommerce-Price-amount [type="radio"]:not(:checked) + label:before,
+.product-details-content .woocommerce-product-details__short-description h5.custom-radio [type="radio"]:not(:checked) + label:before,
+.form-row label.custom-radio [type="radio"]:not(:checked) + label:before,
+.cart-collaterals .shop_table th.custom-radio [type="radio"]:not(:checked) + label:before,
+.cart-collaterals .shop_table td.custom-radio [type="radio"]:not(:checked) + label:before,
+.mail-list-item:hover .mail-text .custom-radio.msg [type="radio"]:not(:checked) + label:before,
+.main-mail:hover .mail-text .custom-radio.msg [type="radio"]:not(:checked) + label:before,
+.message:hover p.custom-radio [type="radio"]:not(:checked) + label:before,
+.message.active p.custom-radio [type="radio"]:not(:checked) + label:before,
+.assign_to .custom-radio.assign-content [type="radio"]:not(:checked) + label:before,
+.assign-tag .custom-radio.tag-text [type="radio"]:not(:checked) + label:before,
+.add-new_task .custom-radio.label-text [type="radio"]:not(:checked) + label:before,
+.task-details .custom-radio.label-text [type="radio"]:not(:checked) + label:before,
+.fc table.custom-radio [type="radio"]:not(:checked) + label:before,
+#projectTaskDetails .modal-content .project-main-title textarea.custom-radio [type="radio"]:not(:checked) + label:before,
+#projectTaskDetails .modal-content .checklist .process-bar-wrapper .custom-radio.process-name [type="radio"]:not(:checked) + label:before,
+#smartwizard .nav li a.custom-radio [type="radio"]:not(:checked) + label:before,
+#example-vertical > .steps ul li a.custom-radio [type="radio"]:not(:checked) + label:before,
+#example-vertical > .actions ul li a.custom-radio[href="#previous"] [type="radio"]:not(:checked) + label:before,
+.chip .chip-content > div.custom-radio [type="radio"]:not(:checked) + label:before,
+.chip .chip-content .custom-radio.img [type="radio"]:not(:checked) + label:before,
+.custom-radio.color-circle [type="radio"]:not(:checked) + label:before,
+.custom-radio.topic [type="radio"]:not(:checked) + label:before,
+.timeline .custom-radio.event:before [type="radio"]:not(:checked) + label:before,
+.custom-radio.base-timer__label [type="radio"]:not(:checked) + label:before,
+.custom-radio.base-timer__text [type="radio"]:not(:checked) + label:before,
+.custom-radio.p_nav-link [type="radio"]:not(:checked) + label:before,
+.info-list li.custom-radio [type="radio"]:not(:checked) + label:before,
+.shepherd-element .shepherd-content footer .shepherd-buttons li .custom-radio.shepherd-button [type="radio"]:not(:checked) + label:before {
+  border-width: 2px !important;
+}
+
+
+.chip .chip-content .img {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  position: absolute;
+  background-color: #f5f5f5;
+  border-color: #727272 !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  left: -0px;
+  top: -5px;
+}
+
+.chip .chip-content .img.pink {
+  background-color: #FEE7FF;
+  color: #E580FD;
+}
+
+.chip .chip-content .img.info {
+  background-color: #CCF5F8;
+  color: #09D1DE;
+}
+
+.chip .chip-content .img.success {
+  background-color: #DBF7E8;
+  color: #67CF94;
+}
+
+.chip .chip-content .img.c2, .chip .chip-content a.img:hover, .chip .chip-content .dropdown-menu .dropdown-body a:hover .img.main-text, .dropdown-menu .dropdown-body a:hover .chip .chip-content .img.main-text, .chip .chip-content .dropdown-menu.style--two .dropdown-body a:hover .img.time, .dropdown-menu.style--two .dropdown-body a:hover .chip .chip-content .img.time, .chip .chip-content .img.btn.preview, .chip .chip-content #example-vertical > .actions ul li a.img.preview[href="#next"], #example-vertical > .actions ul li .chip .chip-content a.img.preview[href="#next"], .chip .chip-content #example-vertical > .actions ul li a.img.preview[href="#finish"], #example-vertical > .actions ul li .chip .chip-content a.img.preview[href="#finish"], .chip .chip-content .img.btn.style--two, .chip .chip-content #example-vertical > .actions ul li a.img.style--two[href="#next"], #example-vertical > .actions ul li .chip .chip-content a.img.style--two[href="#next"], .chip .chip-content #example-vertical > .actions ul li a.img.style--two[href="#finish"], #example-vertical > .actions ul li .chip .chip-content a.img.style--two[href="#finish"], .chip .chip-content .img.btn.s_alert, .chip .chip-content #example-vertical > .actions ul li a.img.s_alert[href="#next"], #example-vertical > .actions ul li .chip .chip-content a.img.s_alert[href="#next"], .chip .chip-content #example-vertical > .actions ul li a.img.s_alert[href="#finish"], #example-vertical > .actions ul li .chip .chip-content a.img.s_alert[href="#finish"], .chip .chip-content .img.details-btn, .chip .chip-content .img.light-btn, .chip .chip-content table.table-condensed thead tr:nth-child(2) th.img, table.table-condensed thead tr:nth-child(2) .chip .chip-content th.img, .chip .chip-content table.table-contextual .details-btn:hover i.img, table.table-contextual .details-btn:hover .chip .chip-content i.img, .chip .chip-content .sidebar .sidebar-body li.active > a.img, .sidebar .sidebar-body .chip .chip-content li.active > a.img, .chip .chip-content .sidebar .sidebar-body li:hover > a.img, .sidebar .sidebar-body .chip .chip-content li:hover > a.img, .chip .chip-content .fc-view > table thead th.img.fc-day-header, .fc-view > table thead .chip .chip-content th.img.fc-day-header, .chip .chip-content .notifications a:hover p.img, .notifications a:hover .chip .chip-content p.img, .chip .chip-content .news a:hover p.img, .news a:hover .chip .chip-content p.img, .chip .chip-content .img.icon:hover, .chip .chip-content .select2-container--default .select2-selection--multiple .img.select2-selection__choice, .select2-container--default .select2-selection--multiple .chip .chip-content .img.select2-selection__choice, .chip .chip-content .img.p_nav-link, .chip .chip-content .about-nav-tab a.img.active, .about-nav-tab .chip .chip-content a.img.active, .chip .chip-content .img.iconwrap, .chip .chip-content .dragable-list > div.ui-sortable-helper i.img, .dragable-list > div.ui-sortable-helper .chip .chip-content i.img {
+  background-color: #E9E7FF;
+  color: #8280FD;
+  border-color: #8280FD !important;
+}
+
+.chip .chip-content .img.danger {
+  background-color: #FFE2E6;
+  color: #FC7383;
+}
+
+
+.p_overview-list li .img,
+.p_work-list li .img,
+.p_education-list li .img {
+  width: 32px;
+  min-width: 32px;
+}
+
+.post-body .img.collage .big {
+  -ms-flex-preferred-size: calc(67% - 20px);
+  flex-basis: calc(67% - 20px);
+}
+
+.post-body .img.collage .small {
+  -ms-flex-preferred-size: 33%;
+  flex-basis: 33%;
+}
+
+
+.product-list-item .img img {
+  width: 60px;
+  height: 60px;
+}
+
+/*
+*/
+/* file */
+/*
+*/
+
+.file {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+
+.file .dropdown-button {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.file .img {
+  min-width: 40px;
+}
+
+.file:hover .dropdown-button, .file.active .dropdown-button {
+  visibility: visible;
+  opacity: 1;
+}
+
+.file .custom-checkbox {
+  width: 18px;
+  height: 18px;
+  top: -10px;
+  left: -10px;
+  -webkit-transform: none;
+  -ms-transform: none;
+  transform: none;
+}
+
+
+
+/*
+*/
+/* conent */
+/*
+*/
+
+.p_header-content h6, .attach-file.style--two .upload-button, #menu button, .full-date, .list-button li:hover, .list-button li.active, .btn:hover, #example-vertical > .actions ul li a:hover[href="#next"], #example-vertical > .actions ul li a:hover[href="#finish"], .status-btn, .light-btn.ba, .light-btn.btn-circle:after, .light-btn.offcanvas-overlay, .aside-body li a.light-btn:after, .chat_aside .aside-header .light-btn.aside-header-bottom:after, .light-btn.message:after, .todo-list .light-btn.single-row:after, .board .board-cards .light-btn.board-card:before, #menu button.light-btn, .light-btn.btn:hover, #example-vertical > .actions ul li a.light-btn:hover[href="#next"], #example-vertical > .actions ul li a.light-btn:hover[href="#finish"], .light-btn.c2-bg, .dropdown-menu .dropdown-body a:hover .light-btn.change-card-btn.main-text, .dropdown-menu.style--two .dropdown-body a:hover .light-btn.change-card-btn.time, #example-vertical > .actions ul li a.light-btn.change-card-btn.preview[href="#next"], #example-vertical > .actions ul li a.light-btn.change-card-btn.preview[href="#finish"], #example-vertical > .actions ul li a.light-btn.change-card-btn.style--two[href="#next"], #example-vertical > .actions ul li a.light-btn.change-card-btn.style--two[href="#finish"], #example-vertical > .actions ul li a.light-btn.change-card-btn.s_alert[href="#next"], #example-vertical > .actions ul li a.light-btn.change-card-btn.s_alert[href="#finish"], .light-btn.change-card-btn, table.table-contextual .light-btn.change-card-btn.details-btn:hover, table.table-contextual .details-btn:hover i.light-btn.change-card-btn, .sidebar .sidebar-body li.active > a.light-btn.change-card-btn, .sidebar .sidebar-body li:hover > a.light-btn.change-card-btn, .fc-view > table thead th.light-btn.change-card-btn.fc-day-header, .notifications a:hover p.light-btn.change-card-btn, .news a:hover p.light-btn.change-card-btn, .select2-container--default .select2-selection--multiple .light-btn.change-card-btn.select2-selection__choice, .about-nav-tab a.light-btn.change-card-btn.active, .dragable-list > div.ui-sortable-helper i.light-btn.change-card-btn, .light-btn.change-card-btn:hover, .theme-input-group button.light-btn, .theme-input-group > a.light-btn, .theme-input-group button.light-btn.btn.style--three:hover, .theme-input-group > a.light-btn.btn.style--three:hover, .sidebar .sidebar-body li.light-btn.active:before, .sidebar .sidebar-body li.light-btn:hover:before, .labels .light-btn.label.add-label, .label-item .light-btn.label.add-label, .switch input:checked ~ .light-btn.control:after, .switch input:checked ~ .control .light-btn.check, .input-group.bootstrap-touchspin button.light-btn.btn, .light-btn.color-circle, .faq h5.light-btn:after, .light-btn.ba:hover, .light-btn.btn-circle:hover:after, .light-btn.offcanvas-overlay:hover, .aside-body li a.light-btn:hover:after, .chat_aside .aside-header .light-btn.aside-header-bottom:hover:after, .light-btn.message:hover:after, .todo-list .light-btn.single-row:hover:after, .board .board-cards .light-btn.board-card:hover:before, #menu button.light-btn:hover, .light-btn.c2-bg:hover, .dropdown-menu .dropdown-body a:hover .light-btn.change-card-btn.main-text:hover, .dropdown-menu.style--two .dropdown-body a:hover .light-btn.change-card-btn.time:hover, table.table-contextual .details-btn:hover i.light-btn.change-card-btn:hover, .sidebar .sidebar-body li.active > a.light-btn.change-card-btn:hover, .sidebar .sidebar-body li:hover > a.light-btn.change-card-btn:hover, .theme-input-group button.light-btn:hover, .theme-input-group > a.light-btn:hover, .labels .light-btn.label.add-label:hover, .label-item .light-btn.label.add-label:hover, .switch input:checked ~ .light-btn.control:hover:after, .switch input:checked ~ .control .light-btn.check:hover, .input-group.bootstrap-touchspin button.light-btn.btn:hover, .light-btn.color-circle:hover, .faq h5.light-btn:hover:after, .change-card-btn.c2, a.change-card-btn:hover, .dropdown-menu .dropdown-body a:hover .change-card-btn.main-text, .dropdown-menu.style--two .dropdown-body a:hover .change-card-btn.time, .change-card-btn.btn.preview, #example-vertical > .actions ul li a.change-card-btn.preview[href="#next"], #example-vertical > .actions ul li a.change-card-btn.preview[href="#finish"], .change-card-btn.btn.style--two, #example-vertical > .actions ul li a.change-card-btn.style--two[href="#next"], #example-vertical > .actions ul li a.change-card-btn.style--two[href="#finish"], .change-card-btn.btn.s_alert, #example-vertical > .actions ul li a.change-card-btn.s_alert[href="#next"], #example-vertical > .actions ul li a.change-card-btn.s_alert[href="#finish"], .change-card-btn.details-btn, table.table-condensed thead tr:nth-child(2) th.change-card-btn, table.table-contextual .change-card-btn.details-btn:hover, table.table-contextual .details-btn:hover i.change-card-btn, .sidebar .sidebar-body li.active > a.change-card-btn, .sidebar .sidebar-body li:hover > a.change-card-btn, .fc-view > table thead th.change-card-btn.fc-day-header, .notifications a:hover p.change-card-btn, .news a:hover p.change-card-btn, .change-card-btn.icon:hover, .select2-container--default .select2-selection--multiple .change-card-btn.select2-selection__choice, .change-card-btn.p_nav-link, .about-nav-tab a.change-card-btn.active, .change-card-btn.iconwrap, .dragable-list > div.ui-sortable-helper i.change-card-btn, .light-btn:hover, .light-btn.style--two:hover, table.table-inverse th, table.table-inverse td, .theme-input-style.style--four, textarea.theme-input-style.style--four, .theme-input-group button.btn.style--three:hover, .theme-input-group > a.btn.style--three:hover, #example-vertical > .actions ul li .theme-input-group > a.style--three:hover[href="#next"], #example-vertical > .actions ul li .theme-input-group > a.style--three:hover[href="#finish"], .notification-icon .count, .avatar .count, .chat_aside .aside-header .profile .content h4, .chat_aside .aside-header .profile .content .name, #search-tab ~ #search-box input, .fc-toolbar.fc-header-toolbar .fc-left .fc-today-button, #projectTaskDetails .modal-content .cover-img .attach-file, .board-labels-list li .label, .color-circle, .profile-pic .upload-button, .cover-img .upload-button, .statistics-bounce-rate .state-content h3 {
+  color: #ffffff;
+}
+
+.trans3, a, .ba, .btn-circle:after, .offcanvas-overlay, .aside-body li a:after, .chat_aside .aside-header .aside-header-bottom:after, .message:after, .todo-list .single-row:after, .board .board-cards .board-card:before, .dropdown-menu .dropdown-body .content .main-text, .dropdown-menu.style--two .dropdown-body .content .time, .dropdown-menu.style--two .dropdown-body .content .main-text, .list-button li, .pagination.style--two ul li svg path, .btn, #example-vertical > .actions ul li a[href="#next"], #example-vertical > .actions ul li a[href="#finish"], .follow-btn i, .link-btn i, .details-btn i, .details-btn svg, .light-btn, .change-card-btn, .remove-btn, table tr, table.style--three tr th, table.style--three tr td, .theme-input-style, .search-form .theme-input-group, .search-form .theme-input-group button, .search-form .theme-input-group.header-search, .search-form .theme-input-group.header-search.theme-input-group button, .header, .header .main-header, .header-toogle-menu, .header-icon, .sidebar, .sidebar .sidebar-header .sidebar-toogle-pin, .sidebar .sidebar-body ul.sub-menu li:before, .sidebar .sidebar-body li i, .sidebar .sidebar-body li.has-sub-item:after, .footer, .main-content, .aside-body li.less:after, .mail-list-item,
+.main-mail, .mail-list-item .mail-text .msg,
+.main-mail .mail-text .msg, .mail-compose .form-group .cc-btns .cc-btn, .modal-body .form-group .cc-btns .cc-btn, .message, .message p, .todo-list .single-row, .todo-list .single-row.border-bottom.change-border-color, .todo-list .todo-text .card-text, .assign_to .assign-content, .assign-tag, .assign-btn svg line, #projectTaskDetails .modal-content .checklist .checklist-item-wrap .checklist-item-details:after, #projectTaskDetails .modal-content .checklist .checklist-item-wrap .checklist-item-details .icon-delete, #projectTaskDetails .modal-content .checklist-new-item .checklist-add-controls .icon-close, .file-attachments .attachment .attachment-close, .file .dropdown-button, .notifications a p, .news a p, .icon, .price-box, .price-body, .profile-pic:after, .profile-pic .upload-button, .cover-img:after, .cover-img .upload-button, .p_overview-list li .dropdown-button,
+.p_work-list li .dropdown-button,
+.p_education-list li .dropdown-button, .add-work-form,
+.work-update-form, .post-footer .love svg path {
+  -webkit-transition: 0.3s ease;
+  -o-transition: 0.3s ease;
+  transition: 0.3s ease;
+}
+
+
+.dropdown-menu .dropdown-body .content p {
+  margin: 0;
+}
+
+.dropdown-menu .dropdown-body .content .name {
+  margin-right: 20px;
+}
+
+.dropdown-menu .dropdown-body .content .time {
+  font-size: 12px;
+  color: #aeaeae;
+}
+
+.dropdown-menu .dropdown-body .content .main-text {
+  font-size: 13px;
+  line-height: 1.53;
+}
+
+
+.dropdown-menu.style--two .dropdown-body .content .time {
+  font-size: 12px;
+  color: #aeaeae;
+}
+
+.dropdown-menu.style--two .dropdown-body .content .main-text {
+  font-size: 15px;
+}
+
+.chat_aside .aside-header .profile .content p {
+  color: #C3BEFF;
+}
+
+@media only screen and (max-width: 575px) {
+  .modal-upload-avatar .content p br {
+    display: none;
+  }
+}
+
+
+#example-vertical > .content {
+  float: left;
+  width: calc(100% - 270px);
+}
+
+@media only screen and (max-width: 767px) {
+  #example-vertical > .content {
+    width: calc(100% - 190px);
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  #example-vertical > .content {
+    width: 100%;
+    float: none;
+  }
+}
+
+#example-vertical > .content > h3 {
+  position: absolute;
+  left: -999em;
+}
+
+#example-vertical > .actions {
+  margin-left: 296px;
+  padding-bottom: 30px;
+}
+
+
+@media only screen and (max-width: 575px) {
+  .post-footer > div .icon {
+    margin-right: 6px;
+    width: 12px;
+  }
+  .post-footer > div .content {
+    font-size: 12px;
+  }
+}
+
+
+/*
+*/
+/* c4 */
+/*
+*/
+
+.c4, #projectLabelModal .modal-header .back-btn, .input-group.bootstrap-touchspin.disable input, #example-vertical > .steps ul li a, .time_circles > div > h4,
+.base-timer__text {
+  color: #aeaeae;
+}
+
+
+
+/*
+*/
+/* black */
+/*
+*/
+
+.black, h1,
+h2,
+h3,
+h4,
+h5,
+h6, .attach-file.change-card-attachment, .dashboard-date.style--five input, .dropdown-menu, .dropdown-menu a, .dropdown-menu .color-balls, .list-button li, .change-card-btn, .change-card-btn:hover, table.dh-table td, table.style--two td, table.order-list-table th, table.order-list-table td, table.cart_table tr td:first-child, table.style--four th, table.style--four td, table.style--five th, table.style--five td, table.style--five td .name, table.invoice-list-table th, table.contact-list-table th, table.invoice-list-table td, table.contact-list-table td, table.invoice-list th, table.invoice-list td, .ProgressBar-wrap .ProgressBar-percentage, .ProgressBar-wrap2 .ProgressBar-percentage, .progress-info div, .process-bar-wrapper .process-name, .process-bar-wrapper .process-width, .country-performance .process-bar-wrapper .process-name, .custom-select.style--two .theme-input-style, .sidebar .sidebar-body li.nav-category, .sidebar .sidebar-body li a, .sidebar .sidebar-body li.active > a.disabled, .sidebar .sidebar-body li:hover > a.disabled, .aside-body li a, .aside-body li.fc-event a, .aside-body li.fc-event a:hover, .cart-collaterals .shop_table .order-total th, .cart-collaterals .shop_table .order-total td, .cart-collaterals .shop_table.style-two th, .cart-collaterals .shop_table.style-two td, .cart-collaterals .shop_table.style-two .order-total th, .cart-collaterals .shop_table.style-two .order-total td, .message:hover p.time, .message.active p.time, .todo-list .todo-text .card-text, .add-new_task .label-text, .task-details .label-text, .invoice-header-left .dropdown-button > a, #projectTaskDetails .modal-content .project-main-title textarea, #projectTaskDetails .modal-content .checklist-new-item .checklist-add-controls .icon-close:hover, .note a, #example-vertical > .steps ul li.done a, #example-vertical > .steps ul li.current a, .notifications a p, .news a p, .timeline .event:before, .time_circles > div > span, .base-timer__label,
+.base-timer__text, .p_info-list li, .skill-list li, .latest-update > a, .edit-skill label, .post-body p, .comments-area .single-comment .comment-content p, .nouislider-cat, .dragable-list > div {
+  color: #333333;
+}
+
+
+/*
+*/
+/* font-13 */
+/*
+*/
+
+.font-13 {
+  font-size: 13px !important;
+}
+
+

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from core.models import Drive_File
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
@@ -13,6 +13,8 @@ def files(request):
     # Authenticated users view their inbox
     if request.user.is_authenticated:
         return render(request, "drive/files.html")
+
+    return redirect('login')
 
 
 @login_required
