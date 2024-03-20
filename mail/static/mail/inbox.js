@@ -868,7 +868,7 @@ function custm_alert(val) {
   if (val.error) {
     toastHead.innerHTML = val.error;
   } else if (val.message) {
-    load_mailbox("sent");
+    load_mailbox("home");
     toastHead.innerHTML = val.message;
   } else {
     toastHead.innerHTML = val;

@@ -2,10 +2,10 @@ from django.shortcuts import render, redirect
 from core.models import Drive_File
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from functools import reduce
-
+import json
 
 # Create your views here.
 def files(request):
@@ -105,3 +105,19 @@ def markFile(request, file_id):
         return JsonResponse({
             "error": "GET or PUT or DELETE request required."
         }, status=400)
+
+
+@csrf_exempt
+@login_required
+def uploadFile(request):
+
+    if request.method == 'POST':
+        file = request.FILES["file"]
+
+        formset = Drive_File(file=file, user=request.user)
+        if formset:
+            formset.save()
+
+        return HttpResponse(status=200)
+
+    return HttpResponse(status=401)

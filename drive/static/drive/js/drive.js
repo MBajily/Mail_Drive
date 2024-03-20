@@ -63,11 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
           // Push state with drivebox id and load drivebox if it's not compose
           history.pushState({ drivebox: link.id }, "", `./#${link.id}`);
           if (link.id !== "compose") load_drivebox(link.id);
+          else upload_files(link.id);
         }
       } else {
         // Push state with drivebox id and load drivebox if it's not compose
         history.pushState({ drivebox: link.id }, "", `./#${link.id}`);
         if (link.id !== "compose") load_drivebox(link.id);
+        else upload_files(link.id);
       }
     });
   });
@@ -89,6 +91,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+function upload_files(drivebox, query = "") {
+
+  $("#files-view").removeClass("d-flex").addClass("d-none");
+  $("#files-upload").removeClass("d-none").addClass("d-flex");
+
+  custm_alert("Conversation deleted forever")
+
+}
+
 function load_drivebox(drivebox, query = "") {
   tog_menu(); // Toggle sidebar when on mobile devices
 
@@ -107,9 +118,13 @@ function load_drivebox(drivebox, query = "") {
   }
 
 
+  $("#files-view").removeClass("d-none").addClass("d-flex");
+  $("#files-upload").removeClass("d-flex").addClass("d-none");
+
+
   // Create a spinner HTML element using template literals and assign it to the 'spinner' variable.
   const spinner = `
-  <div class="d-flex justify-content-center spin my-5">
+  <div class="d-flex justify-content-center spin my-5 w-100">
     <div class="spinner-border text-danger" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -148,80 +163,134 @@ function load_drivebox(drivebox, query = "") {
       else if(files.length > 0){
         files.forEach((file) => {
           const filesView = document.createElement("div");
-
           filesView.classList.add(
-            "col-xl-4",
+            "col-xl-6",
             "col-lg-6",
           );
 
-          const element = document.createElement("div");
 
+          const element = document.createElement("div");
           element.classList.add(
             "file",
             "d-flex",
             "justify-content-between",
             "align-items-center"
           );
-
           filesView.appendChild(element);
 
-          const element2 = document.createElement("div");
 
+          const element2 = document.createElement("div");
           element2.classList.add(
             "d-flex",
             "align-items-top"
           );
-
           element.appendChild(element2);
 
-          const imgDiv = document.createElement("div");
 
+          const imgDiv = document.createElement("div");
           imgDiv.classList.add(
             "mr-3",
             "img"
           );
-
           element2.appendChild(imgDiv);
 
+
           const img = document.createElement("img");
-
           img.src = '/static/drive/img/png-icon/f1.png';
-
           imgDiv.appendChild(img);
 
 
           const contentDiv = document.createElement("div");
-
           contentDiv.classList.add(
             "content"
           );
-
           element2.appendChild(contentDiv);
 
-          const title = document.createElement("p");
 
+          const title = document.createElement("p");
           title.classList.add(
             "black",
             "mb-0"
           );
-
           title.textContent = file.file;
-
           contentDiv.appendChild(title);
 
-          const fileSize = document.createElement("p");
 
+          const fileSize = document.createElement("p");
           fileSize.classList.add(
             "font-13",
             "c4",
             "p-0"
           );
-
-          fileSize.textContent = '5mb',
-
+          fileSize.textContent = file.timestamp
           contentDiv.appendChild(fileSize);
 
+
+          const actionList = document.createElement("ul");
+
+          actionList.classList.add(
+            "btn-list",
+          );
+
+          let archive_stat = file.archived ? "Unarchive" : "Archive";
+          let star_stat = file.starred ? "Starred" : "Not starred"
+          let del_stat = file.deleted ? "Restore" : "Delete"
+
+          let archive_slash = file.archived
+            ? `<i class="fas fa-slash" style="margin-left: 1.2rem; margin-top: 4px;"></i>`
+            : "";
+          let star_class = file.starred ? "fas" : "far";
+          let del_class = file.deleted ? "fa-recycle" : "fa-trash";
+          let del_forever = drivebox === "trash" ?`<li class="btn-item del_forever" data-toggle="tooltip" data-placement="bottom" title="Delete forever"><i class="fas fa-trash" style="margin-left: 0.8rem;"></i></li>   ` :"";
+          let ext_btn = drivebox === "trash" ? "ext_btn": "";
+
+          actionList.innerHTML = `
+                <li class="star-wrapper" data-toggle="tooltip" data-placement="bottom" title="${star_stat}" style="margin:10px 5px 0 5px;"><i class="${star_class} fa-star pe-auto" style="font-size: 18px;"></i></li>
+                <li class="btn-item archive" id="archive" data-toggle="tooltip" data-placement="bottom" title="${archive_stat}" >${archive_slash}</li>
+                <li class="btn-item delete" data-toggle="tooltip" data-placement="bottom" title="${del_stat}"><i class="fas ${del_class}" style="margin-left: 0.8rem;"></i></li>   
+                ${del_forever}
+          `
+
+          element2.appendChild(actionList);
+
           document.querySelector("#files-view").append(filesView);
+
+
+          filesView.addEventListener(
+          "click",
+          (e) => {
+            fetch(`/drive/file/${file.id}`, {
+              method: "PUT",
+              body: JSON.stringify({
+                read: true,
+              }),
+            });
+            history.pushState(
+              { file: file.id ,
+                filesView : filesView.innerHTML,
+                file: drivebox },
+              "",
+              `#${drivebox}/${file.id}`
+            );
+
+            e.stopImmediatePropagation();
+          },
+          false
+        );
+
+        mark_archive(file, filesView, drivebox);
+        mark_star(file, filesView, drivebox);
+        mark_del(file, filesView, drivebox);
+        if(drivebox === "trash"){
+          element.querySelector(".del_forever").addEventListener("click", (e)=>{
+            fetch(`/drive/file/${file.id}`, {
+              method: "DELETE",
+            });
+            custm_alert("Conversation deleted forever")
+            hide_element(filesView);
+            e.stopImmediatePropagation();
+          })
+        }
 
 
         });
@@ -234,25 +303,177 @@ function load_drivebox(drivebox, query = "") {
           "d-flex",
           "flex-column",
           "mt-5",
+          "w-100",
         );
         empty.innerHTML = `
         <div class="text-center empty_icon"><i class="far fa-folder-open"></i></div>
-        <div class="text-center empty_text">Nothing in ${mailbox}</div>`
-        document.querySelector("#emails-view").append(empty);
+        <div class="text-center empty_text">Nothing in ${drivebox}</div>`
+        document.querySelector("#files-view").append(empty);
       }
 
     });
+}
 
 
+function mark_archive(file, element, drivebox) {
+  // Add event listener to archive button
+  element.querySelector("#archive").addEventListener(
+    "click",
+    (e) => {
+      if (drivebox !== "archive" && drivebox !== "trash") {
+        // If the email is not in the archive or trash drivebox, archive it
+        fetch(`/drive/file/${file.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            archived: true,
+          }),
+        });
+        custm_alert("Conversation archived");
+        // Uncomment the following lines if you need to modify the CSS classes of the archive button
+        // element.querySelector(":scope > #archive").classList.remove('archive')
+        // element.querySelector(":scope > #archive").classList.add('unarchive')
+      } else if (drivebox === "archive") {
+        // If the email is already in the archive drivebox, unarchive it and move it to the inbox
+        fetch(`/drive/file/${file.id}`, {
+          method: "PUT",
+          body: JSON.stringify({
+            archived: false,
+          }),
+        });
+        custm_alert("Conversation moved to inbox");
+      }
+      // Hide the tooltip of the archive button
+      $(element.querySelector("#archive")).tooltip("hide");
+      
+      // If the drivebox is not the trash drivebox, hide the email element
+      if (drivebox !== "trash") {
+        hide_element(element);
+      }
+      e.stopImmediatePropagation();
+    },
+    false
+  );
+}
+
+
+function mark_star(file, element, drivebox) {
+  // Add event listener to star wrapper
+  element.querySelector(".star-wrapper").addEventListener("click", (e) => {
+    let star = element.querySelector(".fa-star");
+    
+    if (star.classList.contains("fas")) {
+      // If the email is currently starred, unstar it
+      star.classList.remove("fas");
+      star.classList.add("far");
+      
+      // Update tooltip and show it
+      $(element.querySelector(".star-wrapper"))
+        .attr("data-original-title", "Not starred")
+        .tooltip("show");
+      
+      // Update the email's starred status on the server
+      fetch(`/drive/file/${file.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          starred: false,
+        }),
+      });
+      
+      // If the drivebox is the starred drivebox, hide the email element and hide tooltip
+      if (drivebox === "starred") {
+        $(element.querySelector(".star-wrapper")).tooltip("hide");
+        hide_element(element);
+      }
+    } else {
+      // If the email is not currently starred, star it
+      star.classList.add("fas");
+      
+      // Update tooltip and show it
+      $(element.querySelector(".star-wrapper"))
+        .attr("data-original-title", "Starred")
+        .tooltip("show");
+      
+      // Update the email's starred status on the server
+      fetch(`/drive/file/${file.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          starred: true,
+        }),
+      });
+    }
+
+    e.stopImmediatePropagation();
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+}
+
+
+function mark_del(file, element, drivebox) {
+  // Add event listener to delete button
+  element.querySelector(".delete").addEventListener("click", (e) => {
+    if (drivebox !== "trash") {
+      // If the email is not in the trash drivebox, move it to the trash
+      fetch(`/drive/file/${file.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          deleted: true,
+        }),
+      });
+      $(element.querySelector(".delete")).tooltip("hide");
+      custm_alert("Conversation moved to trash");
+    } else {
+      // If the email is in the trash drivebox, restore it
+      fetch(`/drive/file/${file.id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          deleted: false,
+        }),
+      });
+      $(element.querySelector(".delete")).tooltip("hide");
+      custm_alert("Conversation restored from trash");
+    }
+    
+    // Hide the email element
+    hide_element(element);
+    
+    e.stopImmediatePropagation();
+  });
 }
 
 
 
 
+function custm_alert(val) {
+  // Select the elements for the toast
+  const toastHead = document.querySelector("#head");
+  const toast = document.querySelector("#myToast");
 
+  // Remove the 'hideToast' class to show the toast
+  toast.classList.remove('hideToast');
+  toastHead.classList.add("text-light")
 
+  // Update the toast content based on the value
+  if (val.error) {
+    toastHead.innerHTML = val.error;
+  } else if (val.message) {
+    load_drivebox("home");
+    toastHead.innerHTML = val.message;
+  } else {
+    toastHead.innerHTML = val;
+  }
 
+  // Configure the toast options
+  $("#myToast").toast({ delay: 4000 });
 
+  // Show the toast
+  $("#myToast").toast("show");
+
+  // Add event listener for when the toast is hidden
+  $('#myToast').on('hidden.bs.toast', function () {
+    // Add the 'hideToast' class to hide the toast
+    toast.classList.add('hideToast');
+  });
+}
 
 
 
@@ -272,4 +493,45 @@ function tog_menu() {
 
     // Add your JavaScript code for screens wider than or equal to 768 here
   }
+}
+
+
+
+
+function hide_element(element) {
+  // Add the 'fade' class to the element using jQuery
+  $(element).addClass("d-none");
+
+  // Add an event listener for the 'animationend' event
+  element.addEventListener("animationend", () => {
+    // Remove the element using jQuery
+    $(element).remove();
+  });
+}
+
+//Random user avatar based on email
+
+var colors = [
+  "#FFB900",
+  "#D83B01",
+  "#B50E0E",
+  "#E81123",
+  "#B4009E",
+  "#5C2D91",
+  "#0078D7",
+  "#00B4FF",
+  "#008272",
+  "#107C10",
+];
+
+function calculateColor(email) {
+  let sum = 0;
+
+  // Calculate the sum of character codes in the email
+  for (const index in file) {
+    sum += file.charCodeAt(index);
+  }
+
+  // Return the color from the colors array based on the sum modulo colors.length
+  return colors[sum % colors.length];
 }

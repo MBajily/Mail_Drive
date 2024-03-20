@@ -1,0 +1,51 @@
+
+/* Dropzone */
+.dropzone {
+  background: white;
+  border-radius: 3px;
+  border: 2px dashed #8280FD;
+  -o-border-image: none;
+  border-image: none;
+  max-width: 1050px;
+  width: 1050px;
+  min-height: 540px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+@media only screen and (max-width: 1024px) {
+  .dropzone {
+    width: calc(100% - 16px);
+  }
+}
+
+.dropzone.dz-started {
+  display: block;
+}
+
+.dropzone.dz-started .upload-icon {
+  display: none;
+}
+
+.dropzone.style--two {
+  min-height: 345px;
+  width: 100%;
+  max-width: 100%;
+  border-color: #CAC6FB;
+  border-radius: 20px;
+}
+
+.dropzone.style--three {
+  min-height: 275px;
+  width: 100%;
+  max-width: 100%;
+  border-color: #CAC6FB;
+  border-radius: 20px;
+}

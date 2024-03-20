@@ -3,6 +3,8 @@
 
 
 {% block style %}
+    <link rel="stylesheet" href="{% static 'drive/plugins/dropzone/dropzone.min.css' %}">
+    <link rel="stylesheet" href="{% static 'drive/css/upload.css' %}">
 
 {% endblock %}
 
@@ -13,11 +15,40 @@
     <div class="d-flex justify-content-between bold font-14 mb-20">
         <div class="row" id="files-view" style="width: 100%;"></div>
     </div>
+    <div class="main-content justify-content-center align-items-center" id="files-upload">
+        <!-- Project Manager Upload -->
+        <div id="file-drop-area-wrap">
+           
+           <!-- Dropzone Start -->
+           <form action="{% url 'uploadFile' %}" id="dropzone01" class="dropzone" method="post" enctype="multipart/form-data">
+                <div class="d-flex justify-content-center flex-column align-items-center align-self-center" data-dz-message>
+                    <div class="dz-message bold c2 font-20 mb-3">Click or Drop files here to upload.</div>
+                    <div class="upload-icon">
+                        <img src="../../../assets/img/svg/upload-down.svg" alt="" class="svg">
+                    </div>
+                </div>
+           </form>
+           <!-- Dropzone End -->
+
+           <!-- End File drop area -->
+        </div>
+        <!-- End Project Manager Upload -->
+                
+    </div>
  
 
 {% endblock %}
 
 {% block script %}
+    
+    <script src="{% static 'drive/js/script.js' %}"></script>
+   <script src="{% static 'drive/js/drive.js' %}"></script>
 
-    <script src="{% static 'drive/js/drive.js' %}"></script>
+   
+   <!-- ======= BEGIN GLOBAL MANDATORY SCRIPTS ======= -->
+   
+   <!-- ======= BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
+   <script src="{% static 'drive/plugins/dropzone/dropzone.js' %}"></script>
+   <script src="{% static 'drive/plugins/dropzone/dropzone.custom.js' %}"></script>
+   <!-- ======= End BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS ======= -->
 {% endblock %}
