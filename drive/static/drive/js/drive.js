@@ -9,6 +9,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
   history.replaceState({ drivebox: "home" }, "Default state", "#home");
 
+  window.addEventListener("popstate", (e) => {
+    if (e.state.query) {
+      // Load mailbox with search query
+      load_drivebox("search", e.state.query);
+    } else if (e.state.file) {
+      // Parse HTML document from state element
+      let doc = new DOMParser().parseFromString(e.state.element, 'text/html');
+      // View email with parsed email, document, and mail state
+      veiw_email(e.state.file, doc, e.state.file);
+    } else if (e.state.drivebox !== null) {
+      if (e.state.drivebox !== "compose") {
+        // Load drivebox other than compose
+        load_drivebox(e.state.drivebox);
+      } else {
+        // Open compose email view
+        upload_files();
+      }
+    }
+  });
+
   // Sidebar toggler
   $("#sidebarCollapse").on("click", function () {
     $("#sidebar").toggleClass("side_active");
@@ -86,6 +106,13 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
   });
 
+  // Handle compose email button click
+  document.querySelector("#compose").addEventListener("click", () => {
+    if (document.querySelector("#files-upload").style.display === "none") {
+      upload_files();
+    }
+  });
+
   // Load the inbox by default
   load_drivebox("home");
 });
@@ -95,8 +122,20 @@ function upload_files(drivebox, query = "") {
 
   $("#files-view").removeClass("d-flex").addClass("d-none");
   $("#files-upload").removeClass("d-none").addClass("d-flex");
+  $(".nav-link.active").removeClass("active")
 
-  custm_alert("Conversation deleted forever")
+  // Active Nav-links style
+  $(".nav-link").each(function () {
+    var link = this;
+    
+    link.addEventListener("click", function () {
+      
+      // Push state with drivebox id and load drivebox if it's not compose
+      history.pushState({ drivebox: link.id }, "", `./#${link.id}`);
+      if (link.id !== "compose") load_drivebox(link.id);
+      
+    });
+  });
 
 }
 
