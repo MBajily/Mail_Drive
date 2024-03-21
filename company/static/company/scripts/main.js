@@ -34,7 +34,7 @@
 			Core.module.card();
 			Core.module.css($(".js__width"),"width");
 			Core.module.dropDown("js__drop_down",false);
-			Core.module.logout();
+			// Core.module.logout();
 			Core.module.menu();
 			Core.module.tab(".js__tab","li");
 			Core.module.toggle();
@@ -121,34 +121,34 @@
 			});
 			return false;
 		},
-		logout: function(){
-			$(".js__logout").on("click",function(event){
-				event.preventDefault();
-				swal({   
-					title: "Logout?",   
-					text: "Are you sure you want to logout?",   
-					type: "warning",   
-					showCancelButton: true,   
-					confirmButtonColor: "#DD6B55",   
-					confirmButtonText: "Yes, I'm out!", 
-					cancelButtonText: "No, stay login!", 
-					closeOnConfirm: false,
-					closeOnCancel: true,
-					confirmButtonColor: '#f60e0e',
-				}, function(isConfirm){   
-					if (isConfirm) {     
-						swal({
-							title : "Logout success", 
-							text: "See you later!", 
-							type: "success",
-							confirmButtonColor: '#304ffe',
-						});   
-					} else {    
-					} 
-				});
-				return false;
-			});
-		},
+		// logout: function(){
+		// 	$(".js__logout").on("click",function(event){
+		// 		event.preventDefault();
+		// 		swal({   
+		// 			title: "Logout?",   
+		// 			text: "Are you sure you want to logout?",   
+		// 			type: "warning",   
+		// 			showCancelButton: true,   
+		// 			confirmButtonColor: "#DD6B55",   
+		// 			confirmButtonText: "Yes, I'm out!", 
+		// 			cancelButtonText: "No, stay plx!", 
+		// 			closeOnConfirm: false,
+		// 			closeOnCancel: true,
+		// 			confirmButtonColor: '#f60e0e',
+		// 		}, function(isConfirm){   
+		// 			if (isConfirm) {     
+		// 				swal({
+		// 					title : "Logout success", 
+		// 					text: "See you later!", 
+		// 					type: "success",
+		// 					confirmButtonColor: '#304ffe',
+		// 				});   
+		// 			} else {    
+		// 			} 
+		// 		});
+		// 		return false;
+		// 	});
+		// },
 		menu: function(){
 			$(".js__menu_mobile").on("click",function(){
 				$("html").toggleClass("menu-active");

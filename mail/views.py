@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import JsonResponse
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render, redirect
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
@@ -17,12 +17,15 @@ from core.models import User, Email
 def login_redirect_page(request):
     user = request.user
     if user.is_superuser == True:
+        print("partners")
         return redirect("partners")
 
     if user.role == 'COMPANY':
+        print("employees")
         return redirect("employees")
 
     elif user.role == 'EMPLOYEE':
+        print("index")
         return redirect("index")
 
     else:
@@ -199,7 +202,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return redirect(login_redirect_page)
         else:
             return render(request, "mail/login.html", {
                 "message": "Invalid email and/or password."

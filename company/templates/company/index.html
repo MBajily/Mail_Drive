@@ -9,16 +9,13 @@
 	<meta name="description" content="">
 	<meta name="author" content="">
 
-	<title>Bassmah | {{title}}</title>
+	<title>{{title}}</title>
 	<link rel="shortcut icon" href="{% static '/home/img/logo.ico' %}" type="image/x-icon" />
-
-	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
-	<!-- <link rel="stylesheet" href="{% static '/bootstrap-4.6.1/css/bootstrap.min.css' %}"> -->
+	
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
 	<!-- Main Styles -->
-	<link rel="stylesheet" href="{% static '/company/styles/style-horizontal.min.css' %}">
+	<link rel="stylesheet" href="{% static '/company/styles/style.min.css' %}">
 	
 	<!-- Material Design Icon -->
 	<link rel="stylesheet" href="{% static '/company/fonts/material-design/css/materialdesignicons.css' %}">
@@ -35,141 +32,154 @@
 	<!-- Percent Circle -->
 	<link rel="stylesheet" href="{% static '/company/plugin/percircle/css/percircle.css' %}">
 
+	<!-- Chartist Chart -->
+	<link rel="stylesheet" href="{% static '/company/plugin/chart/chartist/chartist.min.css' %}">
 
-	
 	{% block style %}{% endblock %}
 </head>
 
-<body style="font-size: 15px;">
-<header class="fixed-header">
-	<div class="header-top">
-		<div class="container">
-			<div class="pull-left">
-				<a href="" class="logo"><img src="{% static '/es/small/white.png' %}" style="max-height: 50px;"></a>
-			</div>
-			<!-- /.pull-left -->
-			<div class="pull-right">
-				<div class="ico-item hidden-on-desktop">
-					<button type="button" class="menu-button js__menu_button fa fa-bars waves-effect waves-light"></button>
-				</div>
-				<!-- /.ico-item hidden-on-desktop -->
-				<div class="ico-item">
-					<a href="#" class="ico-item fa fa-search js__toggle_open" data-target="#searchform-header"></a>
-					<form action="#" id="searchform-header" class="searchform js__toggle"><input type="search" placeholder="Search..." class="input-search"><button class="fa fa-search button-search" type="submit"></button></form>
-					<!-- /.searchform -->
-				</div>
-				<!-- /.ico-item -->
-				<div class="ico-item fa fa-arrows-alt js__full_screen"></div>
-				<!-- /.ico-item -->
-				<div class="ico-item">
-					<a href="#" class="ico-item fa fa-envelope notice-alarm js__toggle_open" data-target="#message-popup"></a>
-					<div id="message-popup" class="notice-popup js__toggle" data-space="55">
-						<h2 class="popup-title">Recent Messages<!-- <a href="#" class="pull-right text-danger">New message</a> --></h2>
-						<!-- /.popup-title -->
-						<div class="content">
-							<ul class="notice-list">
-								
-							</ul>
-							<!-- /.notice-list -->
-							<a href="" class="notice-read-more">See more messages <i class="fa fa-angle-down"></i></a>
-						</div>
-						<!-- /.content -->
-					</div>
-					<!-- /#message-popup -->
-				</div>
-				<!-- /.ico-item -->
-				<div class="ico-item">
-					<a href="#" class="ico-item fa fa-bell notice-alarm js__toggle_open" data-target="#notification-popup"></a>
-					<div id="notification-popup" class="notice-popup js__toggle" data-space="55">
-						<h2 class="popup-title">Your Notifications</h2>
-						<!-- /.popup-title -->
-						<div class="content">
-							<ul class="notice-list">
-							</ul>
-							<!-- /.notice-list -->
-							<a href="" class="notice-read-more">See more notifications <i class="fa fa-angle-down"></i></a>
-						</div>
-						<!-- /.content -->
-					</div>
-					<!-- /#notification-popup -->
-				</div>
-				<!-- /.ico-item -->
-				<div class="ico-item">
-					<a href="#" class="ico-item fa fa-user js__toggle_open" data-target="#user-status"></a>
-					<div id="user-status" class="user-status js__toggle">
-						<!-- <a href="" class="avatar"><img src="http://placehold.it/80x80" alt=""><span class="status online"></span></a> -->
-						<h4 class="name"><a href="{% url 'employees' %}">{{user_logged_in.english_name}}</a></h4>
+<body>
+<div class="main-menu">
+	<header class="header">
+		<a href="" class="logo">Bassmah</a>
+		<button type="button" class="button-close fa fa-times js__menu_close"></button>
+	</header>
+	<!-- /.header -->
+	<div class="content" style="min-height: 100%">
+		<!-- vvvv  navigation  vvvv -->
+		<div class="navigation">
+			<ul class="menu js__accordion">
 
-						<a class="btn btn-danger js__logout" href="{% url 'logout' %}">Log Out</a>
-						<!-- /.name -->
-						<!-- <div class="control-items">
-							<div class="control-item"><a href="#" title="Settings"><i class="fa fa-gear"></i></a></div>
-							<div class="control-item"><a href="#" class="js__logout" title="Log out"><i class="fa fa-power-off"></i></a></div>
-						</div> -->
-						<!-- /.control-items -->
-					</div>
-					<!-- /#user-status -->
-				</div>
-				<!-- /.ico-item -->
-			</div>
-			<!-- /.pull-right -->
-		</div>
-		<!-- /.container -->
-	</div>
-	<!-- /.header-top -->
-	<nav class="nav-horizontal">
-		<button type="button" class="menu-close hidden-on-desktop js__close_menu"><i class="fa fa-times"></i><span>CLOSE</span></button>
-		<div class="container">
-			<ul class="menu">
-				{% if c_main_menu == 'employees' %}
-					<li class="has-sub current">
-						<a href="{% url 'employees' %}"><i class="ico mdi mdi-account"></i><span>Employees</span></a>
-						<ul class="sub-menu single">
-							<li><a href="{% url 'employees' %}">Employees List</a></li>
-							<li><a href="{% url 'addEmployee' %}">Add Employee</a></li>
+				{% if main_menu == 'employees' %}
+					<li class="current active">
+						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-account-multiple"></i><span>Employees</span><span class="menu-arrow fa fa-angle-down"></span></a>
+						<ul class="sub-menu js__content">
+							{% if sub_menu == 'all_employees' %}
+								<li class="current">
+									<a class="waves-effect" href="{% url 'employees' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Employees List</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="waves-effect" href="{% url 'employees' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Employees List</a>
+								</li>
+							{% endif %}
+
+							{% if sub_menu == 'add_employee' %}
+								<li class="current">
+									<a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-account-plus"></i> Add Employee</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-account-plus"></i> Add Employee</a>
+								</li>
+							{% endif %}
 						</ul>
+						<!-- /.sub-menu js__content -->
 					</li>
 				{% else %}
-					<li class="has-sub">
-						<a href="{% url 'employees' %}"><i class="ico mdi mdi-account"></i><span>Employees</span></a>
-						<ul class="sub-menu single">
-							<li><a href="{% url 'employees' %}">Employees List</a></li>
-							<li><a href="{% url 'addEmployee' %}">Add Employee</a></li>
+					<li>
+						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-account-multiple"></i><span>Employees</span><span class="menu-arrow fa fa-angle-down"></span></a>
+						<ul class="sub-menu js__content">
+							<li><a class="waves-effect" href="{% url 'employees' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Employees List</a></li>
+
+							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-account-plus"></i> Add Employee</a></li>
+							
 						</ul>
+						<!-- /.sub-menu js__content -->
 					</li>
 				{% endif %}
-			</ul><!-- /.menu -->
+
+				{% if main_menu == 'mail' %}
+					<!-- <li class="current active">
+						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-account-multiple"></i><span>Mail</span><span class="menu-arrow fa fa-angle-down"></span></a>
+						<ul class="sub-menu js__content">
+							{% if sub_menu == 'all_employees' %}
+								<li class="current">
+									<a class="waves-effect" href="{% url 'employees' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Employees List</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="waves-effect" href="{% url 'employees' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Employees List</a>
+								</li>
+							{% endif %}
+
+							{% if sub_menu == 'add_employee' %}
+								<li class="current">
+									<a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-account-plus"></i> Add Employee</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-account-plus"></i> Add Employee</a>
+								</li>
+							{% endif %}
+						</ul>
+					</li> -->
+				{% else %}
+					<li>
+						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-email"></i><span>Mail</span><span class="menu-arrow fa fa-angle-down"></span></a>
+						<ul class="sub-menu js__content">
+							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-plus"></i> Compose</a></li>
+							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
+							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-send"></i> Sent</a></li>
+							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-archive"></i> Archived</a></li>
+							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-star"></i> Starred</a></li>
+							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-delete"></i> Trash</a></li>
+							
+						</ul>
+						<!-- /.sub-menu js__content -->
+					</li>
+				{% endif %}
+			</ul>
+			<!-- /.menu js__accordion -->
 		</div>
-		<!-- /.container -->
-	</nav>
-	<!-- /.nav-horizontal -->
-</header>
-<!-- /.fixed-header -->
+		<!-- /.navigation -->
+	</div>
+	<!-- /.content -->
+</div>
+<!-- /.main-menu -->
 
+<div class="fixed-navbar">
+	<div class="pull-left">
+		<button type="button" class="menu-mobile-button glyphicon glyphicon-menu-hamburger js__menu_mobile"></button>
+		<h1 class="page-title">Home</h1>
+		<!-- /.page-title -->
+	</div>
+	<!-- /.pull-left -->
+	<div class="pull-right">
+		<!-- <div class="ico-item">
+			<a href="#" class="ico-item fa fa-search js__toggle_open" data-target="#searchform-header"></a>
+			<form action="#" id="searchform-header" class="searchform js__toggle"><input type="search" placeholder="Search..." class="input-search"><button class="fa fa-search button-search" type="submit"></button></form>
+		</div> -->
+		<!-- /.ico-item -->
+		<div class="ico-item fa fa-arrows-alt js__full_screen"></div>
+		<!-- /.ico-item fa fa-fa-arrows-alt -->
+		
+		<div class="ico-item">
+			<img src="{% static '/media/' %}avatar.jpg" alt="" class="ico-img">
+			<ul class="sub-ico-item">
+				<li><a class="js__logout" href="">Log Out</a></li>
+			</ul>
+			<!-- /.sub-ico-item -->
+		</div>
+		<!-- /.ico-item -->
+	</div>
+	<!-- /.pull-right -->
+</div>
+<!-- /.fixed-navbar -->
 
-	{% block content %}{% endblock %}
-
+{% block content %} {% endblock %}
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
-		<script src="assets/script/html5shiv.min.js"></script>
-		<script src="assets/script/respond.min.js"></script>
+		<script src="staff/script/html5shiv.min.js"></script>
+		<script src="staff/script/respond.min.js"></script>
 	<![endif]-->
 	<!-- 
 	================================================== -->
-	<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
-
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
-	<!-- <script src="{% static '/bootstrap-4.6.1/js/bootstrap.min.js' %}"></script> -->
-
 	<!-- Placed at the end of the document so the pages load faster -->
+<!-- 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> -->
 	<script src="{% static '/company/scripts/jquery.min.js' %}"></script>
 	<script src="{% static '/company/scripts/modernizr.min.js' %}"></script>
-	<!-- <script src="{% static '/company/plugin/bootstrap/js/bootstrap.min.js' %}"></script> -->
+	<script src="{% static '/company/plugin/bootstrap/js/bootstrap.min.js' %}"></script>
 	<script src="{% static '/company/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js' %}"></script>
 	<script src="{% static '/company/plugin/nprogress/nprogress.js' %}"></script>
 	<script src="{% static '/company/plugin/sweet-alert/sweetalert.min.js' %}"></script>
@@ -177,9 +187,15 @@
 	<!-- Full Screen Plugin -->
 	<script src="{% static '/company/plugin/fullscreen/jquery.fullscreen-min.js' %}"></script>
 
+	<!-- chart.js Chart -->
+	<script src="{% static '/company/plugin/chart/chartjs/Chart.bundle.min.js' %}"></script>
+	<script src="{% static '/company/scripts/chart.chartjs.init.min.js' %}"></script>
+
+	<!-- Sparkline Chart -->
+	<script src="{% static '/company/plugin/chart/sparkline/jquery.sparkline.min.js' %}"></script>
+	<script src="{% static '/company/scripts/chart.sparkline.init.min.js' %}"></script>
 
 	<script src="{% static '/company/scripts/main.min.js' %}"></script>
-	<script src="{% static '/company/scripts/horizontal-menu.min.js' %}"></script>
 
 
 	<script type="text/javascript">
@@ -213,7 +229,7 @@
 							showCancelButton: true,   
 							confirmButtonColor: "#DD6B55",   
 							confirmButtonText: "Yes, I'm out!", 
-							cancelButtonText: "No, stay login!", 
+							cancelButtonText: "No, stay plx!", 
 							closeOnConfirm: false,
 							closeOnCancel: true,
 							confirmButtonColor: '#f60e0e',
@@ -240,9 +256,6 @@
 			
 		})(jQuery);
 	</script>
-
 	{% block script %}{% endblock %}
-
-
 </body>
 </html>

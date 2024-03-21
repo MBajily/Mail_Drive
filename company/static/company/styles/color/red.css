@@ -2,20 +2,21 @@
 Version 1.0[Table of contents]
 -------------------------------------------------------------------------
 1. Globally Applied Styles
-2. Header Top
-3. Navigation Desktop
-4. Navigation Mobile
-5. Footer
-6. Box Content
-7. Data Tables
-8. Inbox List
-9. Menu Mobile Button
-10. Notice
-11. Search Form
-12. Mail
-13. Login, Register, ... Form
-14. Pricing Plan
-15. Gallery
+2. Header
+3. User Main Menu
+4. Navigation
+5. Menu Active
+6. Fixed Navbar7. Footer
+8. Box Content
+9. Data Tables
+10. Inbox List
+11. Menu Mobile Button
+12. Notice
+13. Search Form
+14. Mail
+15. Login, Register, ... Form
+16. Pricing Plan
+17. Gallery
 -------------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
 1. Globally Applied Styles
@@ -38,79 +39,86 @@ a:focus {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-2. Header Top
+2. User Main Menu
 */
-.header-top {
-  height: 55px;
+.user .control-list a {
+  color: #434343;
+}
+.user .control-list a:hover {
+  color: #f44336;
+}
+.user .name a {
+  color: #434343;
+}
+.user .name a:hover {
+  color: #f44336;
+}
+/*---------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------
+3. Navigation
+*/
+@media (min-width: 1025px) {
+  .navigation .menu a:hover {
+    color: #f44336;
+  }
+  .navigation .menu a:hover i {
+    color: #f44336;
+  }
+}
+.navigation .menu a.active,
+.navigation .menu a.current {
+  color: #f44336;
+}
+.navigation .menu > li.current > a {
   background: #f44336;
   color: #ffffff;
 }
-.header-top .ico-item {
+.navigation .menu > li.current > a > i {
   color: #ffffff;
 }
-.header-top .ico-item:hover {
-  color: #ffffff;
+.navigation .menu > li.current .current > a {
+  color: #f44336;
 }
-@media (max-width: 479px) {
-  .header-top .searchform {
-    border-bottom-color: #f44336;
+.navigation .menu .waves-ripple {
+  background: -webkit-radial-gradient(rgba(244, 67, 54, 0.2) 0, rgba(244, 67, 54, 0.3) 40%, rgba(244, 67, 54, 0.4) 50%, rgba(244, 67, 54, 0.5) 60%, rgba(244, 67, 54, 0) 70%);
+  background: -o-radial-gradient(rgba(244, 67, 54, 0.2) 0, rgba(244, 67, 54, 0.3) 40%, rgba(244, 67, 54, 0.4) 50%, rgba(244, 67, 54, 0.5) 60%, rgba(244, 67, 54, 0) 70%);
+  background: -moz-radial-gradient(rgba(244, 67, 54, 0.2) 0, rgba(244, 67, 54, 0.3) 40%, rgba(244, 67, 54, 0.4) 50%, rgba(244, 67, 54, 0.5) 60%, rgba(244, 67, 54, 0) 70%);
+  background: radial-gradient(rgba(244, 67, 54, 0.2) 0, rgba(244, 67, 54, 0.3) 40%, rgba(244, 67, 54, 0.4) 50%, rgba(244, 67, 54, 0.5) 60%, rgba(244, 67, 54, 0) 70%);
+}
+/*---------------------------------------------------------------------*/
+/*-----------------------------------------------------------------------
+4. Menu Active
+*/
+@media (min-width: 800px) {
+  .menu-active .header .logo {
+    color: #cd0000;
+  }
+  .menu-active .header .logo:before {
+    background: #cd0000;
+  }
+  .menu-active .header .logo:after {
+    background: #ffffff;
+  }
+  .menu-active .navigation .menu > li:hover > a {
+    background: #f44336;
+    color: #ffffff;
+  }
+  .menu-active .navigation .menu > li:hover > a i {
+    color: #ffffff;
   }
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-3. Navigation Desktop
+5. Fixed Navbar
 */
 @media (min-width: 1025px) {
-  .nav-horizontal {
-    background: #ffffff;
-  }
-  .nav-horizontal .menu > li:hover > a {
-    color: #f44336;
-  }
-  .nav-horizontal .menu > li.current > a {
-    color: #f44336;
-  }
-  .nav-horizontal .menu .sub-menu {
-    background: #ffffff;
-  }
-  .nav-horizontal .menu .sub-menu.single a {
-    color: #434343;
-  }
-  .nav-horizontal .menu .sub-menu.single a:hover {
-    background: #f44336;
-    color: #ffffff;
-  }
-  .nav-horizontal .menu .sub-menu.mega > li a {
-    color: #434343;
-  }
-  .nav-horizontal .menu .sub-menu.mega > li a:hover {
+  .fixed-navbar .ico-item:hover {
     color: #f44336;
   }
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-4. Navigation Mobile
-*/
-@media (max-width: 1024px) {
-  .nav-horizontal .menu > li > a.active {
-    color: #ffffff;
-    background: #f44336;
-  }
-  .nav-horizontal .menu > li.current > a {
-    color: #ffffff;
-    background: #f44336;
-  }
-  .nav-horizontal .menu .sub-menu .title.active,
-  .nav-horizontal .menu .child-list .title.active,
-  .nav-horizontal .menu .sub-menu a.active,
-  .nav-horizontal .menu .child-list a.active {
-    color: #ffffff;
-    background: #f44336;
-  }
-}
-/*---------------------------------------------------------------------*/
-/*-----------------------------------------------------------------------
-5. Footer
+6. Footer
 */
 .footer {
   color: rgba(0, 0, 0, 0.7);
@@ -125,7 +133,7 @@ a:focus {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-6. Box Content
+7. Box Content
 */
 .box-content .dropdown.js__drop_down .sub-menu {
   background: #ffffff;
@@ -140,7 +148,7 @@ a:focus {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-7. Data Tables
+8. Data Tables
 */
 .dataTables_wrapper .dataTable .group {
   background-color: #f44336 !important;
@@ -153,7 +161,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-8. Inbox List
+9. Inbox List
 */
 .inbox-list .name {
   color: #f44336;
@@ -165,7 +173,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-9. Menu Mobile Button
+10. Menu Mobile Button
 */
 .menu-mobile-button {
   color: #ffffff;
@@ -173,7 +181,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-10. Notice
+11. Notice
 */
 /* Notice List */
 .notice-list .name {
@@ -196,7 +204,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-11. Search Form
+12. Search Form
 */
 @media (min-width: 1025px) {
   .searchform .button-search:hover {
@@ -205,7 +213,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-12. Mail
+13. Mail
 */
 .box-body .nav li.active a {
   background: #ffffff;
@@ -223,7 +231,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-13. Login, Register, ... Form
+14. Login, Register, ... Form
 */
 .frm-single .frm-input .frm-inp:focus {
   border-color: #f44336;
@@ -239,7 +247,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-14. Pricing Plan
+15. Pricing Plan
 */
 .pricing-table .thead {
   background: #f44336;
@@ -270,7 +278,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-15. Gallery
+16. Gallery
 */
 .isotope-filter .filter-controls a {
   color: #434343;
@@ -285,7 +293,7 @@ table.focus-on tbody tr.focused td {
 }
 /*---------------------------------------------------------------------*/
 /*-----------------------------------------------------------------------
-16. User Info
+17. User Info
 */
 .user-info a {
   color: #f44336;

@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-function upload_files(drivebox, query = "") {
+function upload_files(drivebox, query="") {
 
   $("#files-view").removeClass("d-flex").addClass("d-none");
   $("#files-upload").removeClass("d-none").addClass("d-flex");
@@ -139,7 +139,7 @@ function upload_files(drivebox, query = "") {
 
 }
 
-function load_drivebox(drivebox, query = "") {
+function load_drivebox(drivebox, query="") {
   tog_menu(); // Toggle sidebar when on mobile devices
 
   // If the drivebox is not "search", remove the "active" class from all .nav-link elements

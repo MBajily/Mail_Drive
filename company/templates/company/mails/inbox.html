@@ -1,59 +1,46 @@
-{% extends 'candidate/en/mails/mail.html' %}
+{% extends "company/mails/mail.html" %}
 {% load static %}
 
+{% block body %}
+    
 
-{% block mail_content %}
-	<div class="col-md-9 col-xs-12">
-		<div class="box">
-			<div class="box-header with-border">
-				<h3 class="box-title">{{title}}</h3>
+    <div  id="emails-view" >
+    </div>
 
-				<!-- /.box-tools -->
-			</div>
-			<!-- /.box-header -->
+    <div id="check-email">
+       
+    </div>
 
-				<div class="table-responsive mailbox-messages">
-					<table class="table table-hover table-striped">
-						<tbody>
-							{% if all_mails %}
-								{% for mail in all_mails %}
-									{% if mail.is_read == '1' %}
-										<tr style="background: #EEE;">
-											<td><input type="checkbox"></td>
-											<td class="mailbox-star"><a href="#"><i class="fa fa-envelope-o text-secondary"></i></a></td>
-											<td class="mailbox-name"><a class="text-secondary" href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.sender}}</a></td>
-											<td class="mailbox-subject"><span class="mailbox-subject-title"><a class="text-secondary" href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.title}}</a></span> <!-- - {{mail.message}} -->
-											</td>
-											<td class="mailbox-attachment"></td>
-											<td class="mailbox-date text-secondary">{{mail.date_receive|timesince}} ago</td>
-										</tr>
-									{% else %}
-										<tr class="unread" style="background: white;">
-											<td><input type="checkbox"></td>
-											<td class="mailbox-star"><a href="#"><i class="fa fa-envelope text-primary"></i></a></td>
-											<td class="mailbox-name"><a href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.sender}} <span class="btn-sm btn-danger">new</span></a></td>
-											<td class="mailbox-subject"><span class="mailbox-subject-title"><a class="text-dark" href="{% url 'mail_read' mail.mail_id mail_nav %}">{{mail.title}}</a></span> <!-- - {{mail.message}} -->
-											</td>
-											<td class="mailbox-attachment"></td>
-											<td class="mailbox-date">{{mail.date_receive|timesince}} ago</td>
-										</tr>
-									{% endif %}
-								{% endfor %}
-							{% else %}
-								<br>
-								<div class="p-5 row" style="max-width: 100%;"><h3 class="p-5 text-secondary">You don't have any message in this box.</h3></div>
-								
-								<br>
-							{% endif %}
-						</tbody>
-					</table>
-					<!-- /.table -->
-				</div>
-				<!-- /.mail-box-messages -->
-			</div>
-			<!-- /.box-body -->
-		</div>
-		<!-- /. box -->
-	</div>
-	<!-- /.col-md-9 col-xs-12 -->
+    <div class="border p-0 m-0 d-none" id="compose-view">
+        <h3 class="border-bottom py-2 pl-3 mb-2" id="title">New Email</h3>
+        <form id="compose-form" class="px-md-3 px-sm-0 pt-3">
+            <div class="form-group border-bottom mx-2">
+                 <div class="input-group">
+                    <div class="input-group-prepend ">
+                      <span class="input-group-text bg-white border-0" id="From">From</span>
+                    </div>
+                    <input disabled class="form-control bg-white" value="{{ request.user.username }}">
+                  </div>
+            </div>
+            <div class="form-group border-bottom mx-2">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text bg-white border-0" id="to">To</span>
+                    </div>
+                    <input id="compose-recipients" class="form-control" >
+                  </div>
+            </div>
+            <div class="form-group border-bottom mx-2 mb-1" >
+                <input class="form-control" id="compose-subject" placeholder="Subject">
+            </div>
+            <div  id="compose-body" class="mx-2"></div>
+            <button type="submit" class="btn btn-primary ml-3" id="submit-btn"><i class='fas fa-paper-plane pr-2'></i>Send</button>
+        </form>
+    </div>  
+
+{% endblock %}
+
+{% block script %}
+
+    <script src="{% static 'company/js/scripts.js' %}"></script>
 {% endblock %}

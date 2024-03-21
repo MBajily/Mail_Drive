@@ -1,83 +1,70 @@
-{% extends 'candidate/en/index.html' %}
+{% extends 'company/index.html' %}
 {% load static %}
 
 
 {% block content %}
-	<div id="wrapper">
-		<div class="main-content container">
-			<div class="row">
-				<div class="col-md-3 col-xs-12">
-					<!-- 				<a href="compose.html" class="btn btn-danger btn-mail-main btn-block margin-bottom-20 waves-effect waves-light">COMPOSE</a> -->
-					<div class="box box-solid">
-						<div class="box-body">
-							<ul class="nav nav-pills nav-stacked row">
-								{% if mail_nav == 'inbox' %}
-									<li class="active"><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
-										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
-									</li>
-									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
-									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
-									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
-									</li> -->
-									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
-									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
-								{% elif mail_nav == 'unread' %}
-									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
-										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
-									</li>
-									<li class="active"><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
-									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
-									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
-									</li> -->
-									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
-									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
-								{% elif mail_nav == 'read' %}
-									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
-										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
-									</li>
-									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
-									<li class="active"><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
-									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
-									</li> -->
-									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
-									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
-								{% elif mail_nav == 'trash' %}
-									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
-										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
-									</li>
-									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
-									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
-									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
-									</li> -->
-									<li class="active"><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
-									<li><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
-								{% elif mail_nav == 'replays' %}
-									<li><a href="{% url 'inbox' %}"><i class="fa fa-inbox"></i> Inbox
-										<span class="label-text-right pull-right">{{mails_unread_count}}</span></a>
-									</li>
-									<li><a href="{% url 'unread_mails' %}"><i class="fa fa-envelope"></i> Unread<span class="label-text-right pull-right">{{mails_unread_count}}</span></a></li>
-									<li><a href="{% url 'read_mails' %}"><i class="fa fa-envelope-o"></i> Read</a></li>
-									<!-- <li><a href="#"><i class="fa fa-send"></i> Sent</a>
-									</li> -->
-									<li><a href="{% url 'trash_mails' %}"><i class="fa fa-trash"></i> Trash</a></li>
-									<li class="active"><a href="{% url 'replays' %}"><i class="fa fa-mail-reply-all"></i> Replays</a></li>
-								{% endif %}
-							</ul>
-						</div>
-						<!-- /.box-body -->
-					</div>
-					<!-- /. box -->
-					
-				</div>
-				<!-- /.col-md-3 col-xs-12 -->
+{% if user.is_authenticated %}
+      <div class="overlay"></div>
+              <div id="sidebar">
+                  <ul class="nav nav-sidebar">
+                    <img class="sidebar-logo" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png" srcset="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png 1x, https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r2.png 2x " alt="" aria-hidden="true" style="width:130px;height:40px">
+                    <li class="nav-item">
+                      <a class="nav-link mb-3 mr-4 py-2 " id="compose" >
+                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Compose
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link py-lg-1 active" id="inbox" >
+                        <i class="fas fa-inbox pl-2 pr-3"></i>Inbox
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link py-lg-1 " id="sent">
+                        <i class="fas fa-paper-plane pl-2 pr-3"></i>Sent
+                      </a>
+                    </li>
+                    <li class="nav-item " >
+                      <a class="nav-link py-lg-1 " id="archive">
+                       <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" class="archive_btn">Archived
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link py-lg-1" id="starred">
+                        <i class="fas fa-star pl-2 pr-3" style="color: initial;"></i>Starred
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link py-lg-1 " id="trash">
+                        <i class="fas fa-trash pl-2 pr-3"></i>Trash
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link mb-3 mr-4 py-2 " id="compose" href="{% url 'files' %}">
+                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Drive
+                      </a>
+                    </li>
+                    
+                  </ul>
+                 </div>
+                </div>
 
-				{% block mail_content %}
-				{% endblock %}
-			</div>
-			<!-- /.row -->		
-		</div>
-		<!-- /.main-content -->
-	</div><!--/#wrapper -->
+      <div class="container-fluid pr-0">
+         <div class="col-sm-12 main">
+          <div class="toast bg-dark text-white px-2 py-1 mx-2 hideToast" id="myToast">
+            <div class="toast-header bg-dark text-white">
+                <h6 class="mr-auto mt-2" id="head"></h6>
+                <button type="button" class="ml-3 close text-white" data-dismiss="toast">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+          </div>
+          {% endif %}
+              
+                {% block body %}
+                {% endblock %}
+          </div>
+        </div>
+				
 {% endblock %}
 
 {% block script %}

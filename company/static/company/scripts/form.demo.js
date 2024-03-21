@@ -111,7 +111,7 @@
 
 	if ($("#datepicker-multiple-date").length)
 		$('#datepicker-multiple-date').datepicker({
-			format: "mm/dd/yyyy",
+			format: "yyyy-mm-dd",
 			clearBtn: true,
 			multidate: true,
 			multidateSeparator: ","
@@ -135,7 +135,7 @@
 	if ($(".input-daterange-timepicker").length)
 		$('.input-daterange-timepicker').daterangepicker({
 			timePicker: true,
-			format: 'MM/DD/YYYY h:mm A',
+			format: 'yyyy-mm-dd h:mm A',
 			timePickerIncrement: 30,
 			timePicker12Hour: true,
 			timePickerSeconds: false,
@@ -146,7 +146,7 @@
 
 	if ($(".input-limit-datepicker").length)
 		$('.input-limit-datepicker').daterangepicker({
-			format: 'MM/DD/YYYY',
+			format: 'yyyy-mm-dd',
 			minDate: '06/01/2016',
 			maxDate: '06/30/2016',
 			buttonClasses: ['btn', 'btn-sm'],
@@ -161,7 +161,7 @@
 		$('#reportrange span').html(moment().subtract(29, 'days').format('MMMM D, YYYY') + ' - ' + moment().format('MMMM D, YYYY'));
 
 		$('#reportrange').daterangepicker({
-			format: 'MM/DD/YYYY',
+			format: 'yyyy-mm-dd',
 			startDate: moment().subtract(29, 'days'),
 			endDate: moment(),
 			minDate: '01/01/2016',

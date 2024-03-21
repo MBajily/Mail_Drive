@@ -112,6 +112,7 @@ def deleteEmployee(request, employee_id):
 	main_menu = 'employees'
 	sub_menu = 'all_employees'
 	
+	User.objects.filter(id=employee_id).update(is_active=False)
 	User.objects.filter(id=employee_id).update(is_deleted=True)
 	
 	return redirect('employees')

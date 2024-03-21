@@ -3,7 +3,7 @@
 .dropzone {
   background: white;
   border-radius: 3px;
-  border: 2px dashed #8280FD;
+  border: 2px dashed gray;
   -o-border-image: none;
   border-image: none;
   max-width: 1050px;

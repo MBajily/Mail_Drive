@@ -64,7 +64,7 @@
 					showCancelButton: true,   
 					confirmButtonColor: "#DD6B55",   
 					confirmButtonText: "Yes, delete it!", 
-					cancelButtonText: "No, cancel!", 
+					cancelButtonText: "No, cancel plx!", 
 					closeOnConfirm: false,
 					closeOnCancel: false,
 					confirmButtonColor: '#f60e0e',

@@ -45,6 +45,13 @@
 				barWidth: '5',
 				barColor: '#00bf4f'
 			});
+			$('#traffic-sparkline-chart-222').sparkline([1, 2, 3, 4, 5, 6, 7, 8, 10 , 12, 14], {
+				type: 'bar',
+				height: '35',
+				width: '80',
+				barWidth: '5',
+				barColor: '#00bf4f'
+			});
 			$('#traffic-sparkline-chart-3').sparkline([5,5, 6,6, 7,7,6,6, 7,7, 8,8,7,7, 8,8, 9,9,8,8, 9,9, 10,10,], {
 				type: 'discrete',
 				width: '80',
