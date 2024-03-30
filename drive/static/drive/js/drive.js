@@ -246,11 +246,13 @@ function load_drivebox(drivebox, query="") {
           element2.appendChild(contentDiv);
 
 
-          const title = document.createElement("p");
+          const title = document.createElement("a");
           title.classList.add(
             "black",
             "mb-0"
           );
+          title.href = `/media/${file.file}`
+          title.target = '_blank';
           title.textContent = file.file;
           contentDiv.appendChild(title);
 

@@ -21,7 +21,7 @@ class User(AbstractUser):
     last_name = None
 
 
-    email = models.EmailField(unique=True)
+    email = models.EmailField(null=False)
     # access_token = models.CharField(max_length=50, null=True)
     username = models.CharField(max_length=50, unique=True, null=True, blank=True) 
     

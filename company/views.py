@@ -12,23 +12,25 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def generate_password(email):
-	password_length = 12  # Change this to your desired password length
-	iterations = 600000  # Change this to your desired number of iterations
+	# password_length = 12  # Change this to your desired password length
+	# iterations = 600000  # Change this to your desired number of iterations
 
-	salt = secrets.token_bytes(16)
-	password = secrets.token_urlsafe(password_length)
+	# salt = secrets.token_bytes(16)
+	# password = secrets.token_urlsafe(password_length)
 
-	hashed_password = hashlib.pbkdf2_hmac(
-	    'sha256',  # Hashing algorithm
-	    password.encode('utf-8'),  # Password to hash
-	    salt,  # Salt
-	    iterations  # Number of iterations
-	)
+	# hashed_password = hashlib.pbkdf2_hmac(
+	#     'sha256',  # Hashing algorithm
+	#     password.encode('utf-8'),  # Password to hash
+	#     salt,  # Salt
+	#     iterations  # Number of iterations
+	# )
 
-	hashed_password = base64.b64encode(hashed_password).decode('utf-8')
-	salt = base64.b64encode(salt).decode('utf-8')
+	# hashed_password = base64.b64encode(hashed_password).decode('utf-8')
+	# salt = base64.b64encode(salt).decode('utf-8')
 
-	final_password = f"pbkdf2_sha256${iterations}${salt}${hashed_password}"
+	# final_password = f"pbkdf2_sha256${iterations}${salt}${hashed_password}"
+
+	final_password = "pbkdf2_sha256$600000$mBOx9Z3WgBosn5Q4ney00S$kj7blpWxdmL/ub3mtO50aN358/CSKAPHOE8WEV2TZGM="
 
 	return final_password
 

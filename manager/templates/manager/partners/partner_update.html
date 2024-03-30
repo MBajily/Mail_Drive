@@ -37,7 +37,7 @@
 				<div class="col-xs-12">
 					<div class="box-content">
 						<label style="font-size: 30px;" class="control-label mt-5 mx-5">Update Partner Information</label>
-						<form action="" class="form-horizontal m-5" data-toggle="validator" method="POST" enctype="multipart/form-data">
+						<form class="form-horizontal m-5" data-toggle="validator" method="POST" enctype="multipart/form-data">
 							{% csrf_token %}
 							{{ formset.management_form }}
 

@@ -1397,42 +1397,7 @@ Version 1.0
     height: 0;
     padding: 0;
   }
-  .menu-active .header .logo {
-    position: fixed;
-    z-index: 988;
-    width: 75px;
-    height: 50px;
-    font-size: 0;
-    line-height: 50px;
-    color: #ffffff;
-    background: transparent;
-  }
-  .menu-active .header .logo::first-letter {
-    font-size: 28px;
-  }
-  .menu-active .header .logo:before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 75px;
-    height: 50px;
-    background: #ffffff;
-    z-index: -2;
-  }
-  .menu-active .header .logo:after {
-    content: '';
-    position: absolute;
-    left: 20px;
-    top: 7px;
-    width: 35px;
-    height: 35px;
-    background: #434343;
-    z-index: -1;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-  }
+  
   .menu-active .header .logo .ico {
     margin-right: 0;
     line-height: 44px;

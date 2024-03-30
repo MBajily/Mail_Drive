@@ -15,7 +15,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
 	<!-- Main Styles -->
-	<link rel="stylesheet" href="{% static '/company/styles/style.min.css' %}">
+	<link rel="stylesheet" href="{% static '/company/styles/style.css' %}">
 	
 	<!-- Material Design Icon -->
 	<link rel="stylesheet" href="{% static '/company/fonts/material-design/css/materialdesignicons.css' %}">
@@ -41,7 +41,7 @@
 <body>
 <div class="main-menu">
 	<header class="header">
-		<a href="" class="logo">Bassmah</a>
+		<a href="" class="logo"><img style="max-height: 40px;" src="{{request.user.photo.url}}" ></a>
 		<button type="button" class="button-close fa fa-times js__menu_close"></button>
 	</header>
 	<!-- /.header -->
@@ -90,41 +90,29 @@
 				{% endif %}
 
 				{% if main_menu == 'mail' %}
-					<!-- <li class="current active">
-						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-account-multiple"></i><span>Mail</span><span class="menu-arrow fa fa-angle-down"></span></a>
+					<li class="current active">
+						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-email"></i><span>Mail</span><span class="menu-arrow fa fa-angle-down"></span></a>
 						<ul class="sub-menu js__content">
-							{% if sub_menu == 'all_employees' %}
-								<li class="current">
-									<a class="waves-effect" href="{% url 'employees' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Employees List</a>
-								</li>
+							{% if sub_menu == 'compose' %}
+								<li class="current"><a class="waves-effect" href="{% url 'compose' %}"><i style="font-size: 16px;" class="mdi mdi-pencil"></i> Compose</a></li>
+							
 							{% else %}
-								<li>
-									<a class="waves-effect" href="{% url 'employees' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Employees List</a>
-								</li>
+								<li><a class="waves-effect" href="{% url 'compose' %}"><i style="font-size: 16px;" class="mdi mdi-pencil"></i> Compose</a></li>
 							{% endif %}
 
-							{% if sub_menu == 'add_employee' %}
-								<li class="current">
-									<a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-account-plus"></i> Add Employee</a>
-								</li>
+							{% if sub_menu == 'inbox' %}
+								<li class="current"><a class="waves-effect" href="{% url 'inbox' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
 							{% else %}
-								<li>
-									<a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-account-plus"></i> Add Employee</a>
-								</li>
+								<li><a class="waves-effect" href="{% url 'inbox' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
 							{% endif %}
 						</ul>
-					</li> -->
+					</li>
 				{% else %}
 					<li>
 						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-email"></i><span>Mail</span><span class="menu-arrow fa fa-angle-down"></span></a>
 						<ul class="sub-menu js__content">
-							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-plus"></i> Compose</a></li>
-							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
-							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-send"></i> Sent</a></li>
-							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-archive"></i> Archived</a></li>
-							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-star"></i> Starred</a></li>
-							<li><a class="waves-effect" href="{% url 'addEmployee' %}"><i style="font-size: 16px;" class="mdi mdi-delete"></i> Trash</a></li>
-							
+							<li><a class="waves-effect" href="{% url 'compose' %}"><i style="font-size: 16px;" class="mdi mdi-pencil"></i> Compose</a></li>
+							<li><a class="waves-effect" href="{% url 'inbox' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
 						</ul>
 						<!-- /.sub-menu js__content -->
 					</li>
@@ -256,6 +244,9 @@
 			
 		})(jQuery);
 	</script>
+	{{ request.user.username|json_script:"user_email" }}
+    {{ request.user.english_name|json_script:"english_name" }}
+    {{ request.user.arabic_name|json_script:"arabic_name" }}
 	{% block script %}{% endblock %}
 </body>
 </html>

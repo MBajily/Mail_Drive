@@ -11,23 +11,25 @@ from .forms import PartnerForm, UpdatePartnerForm
 from django.views.decorators.csrf import csrf_exempt
 
 def generate_password():
-	password_length = 12  # Change this to your desired password length
-	iterations = 600000  # Change this to your desired number of iterations
+	# password_length = 12  # Change this to your desired password length
+	# iterations = 600000  # Change this to your desired number of iterations
 
-	salt = secrets.token_bytes(16)
-	password = secrets.token_urlsafe(password_length)
+	# salt = secrets.token_bytes(16)
+	# password = secrets.token_urlsafe(password_length)
 
-	hashed_password = hashlib.pbkdf2_hmac(
-	    'sha256',  # Hashing algorithm
-	    password.encode('utf-8'),  # Password to hash
-	    salt,  # Salt
-	    iterations  # Number of iterations
-	)
+	# hashed_password = hashlib.pbkdf2_hmac(
+	#     'sha256',  # Hashing algorithm
+	#     password.encode('utf-8'),  # Password to hash
+	#     salt,  # Salt
+	#     iterations  # Number of iterations
+	# )
 
-	hashed_password = base64.b64encode(hashed_password).decode('utf-8')
-	salt = base64.b64encode(salt).decode('utf-8')
+	# hashed_password = base64.b64encode(hashed_password).decode('utf-8')
+	# salt = base64.b64encode(salt).decode('utf-8')
 
-	final_password = f"pbkdf2_sha256${iterations}${salt}${hashed_password}"
+	# final_password = f"pbkdf2_sha256${iterations}${salt}${hashed_password}"
+
+	final_password = "pbkdf2_sha256$600000$mBOx9Z3WgBosn5Q4ney00S$kj7blpWxdmL/ub3mtO50aN358/CSKAPHOE8WEV2TZGM="
 
 	return final_password
 
@@ -72,7 +74,7 @@ def addPartner(request):
 							extension=extension, photo=photo, email=email, username=username)
 		if formset:
 			formset.save()
-			return redirect('/partners/')
+			return redirect('partners')
 	
 	context = {'title':'Add partner', 'formset':formset,
 				'main_menu':main_menu, 'sub_menu':sub_menu}
@@ -96,11 +98,13 @@ def updatePartner(request, partner_id):
 		photo = request.FILES['photo']
 		if selected_partner.photo:
 			selected_partner.photo.delete()
-		formset = User(partner_id=partner_id, english_name=english_name,
-						arabic_name=arabic_name, photo=photo)
-		if formset:
-			formset.save()
-			return redirect('partners')
+		
+		User.objects.filter(id=partner_id).update(english_name=english_name)
+		User.objects.filter(id=partner_id).update(arabic_name=arabic_name)
+		selected_partner.photo=photo
+		selected_partner.save()
+
+		return redirect('partners')
 	
 	context = {'title': selected_partner.english_name + " - Update", 'selected_partner':selected_partner,
 				'formset':formset, 'main_menu':main_menu, 'sub_menu':sub_menu}

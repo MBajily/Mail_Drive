@@ -1,46 +1,102 @@
-{% extends "company/mails/mail.html" %}
+{% extends 'company/index.html' %}
 {% load static %}
 
-{% block body %}
-    
-
-    <div  id="emails-view" >
-    </div>
-
-    <div id="check-email">
-       
-    </div>
-
-    <div class="border p-0 m-0 d-none" id="compose-view">
-        <h3 class="border-bottom py-2 pl-3 mb-2" id="title">New Email</h3>
-        <form id="compose-form" class="px-md-3 px-sm-0 pt-3">
-            <div class="form-group border-bottom mx-2">
-                 <div class="input-group">
-                    <div class="input-group-prepend ">
-                      <span class="input-group-text bg-white border-0" id="From">From</span>
-                    </div>
-                    <input disabled class="form-control bg-white" value="{{ request.user.username }}">
-                  </div>
-            </div>
-            <div class="form-group border-bottom mx-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text bg-white border-0" id="to">To</span>
-                    </div>
-                    <input id="compose-recipients" class="form-control" >
-                  </div>
-            </div>
-            <div class="form-group border-bottom mx-2 mb-1" >
-                <input class="form-control" id="compose-subject" placeholder="Subject">
-            </div>
-            <div  id="compose-body" class="mx-2"></div>
-            <button type="submit" class="btn btn-primary ml-3" id="submit-btn"><i class='fas fa-paper-plane pr-2'></i>Send</button>
-        </form>
-    </div>  
+{% block style %}
+  
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{% static '/company/plugin/iCheck/skins/square/blue.css' %}">
 
 {% endblock %}
 
-{% block script %}
+{% block content %}
+<div id="wrapper">
+  <div class="main-content">
+    <div class="row">
+      <div class="col-md-3 col-xs-12">
+        <a id="compose" class="nav-link btn btn-danger btn-mail-main btn-block margin-bottom-20 waves-effect waves-light" href="{% url 'compose' %}">COMPOSE</a>
+        <div class="box box-solid">
+          <div class="box-body">
+            <ul class="nav nav-pills nav-stacked">
+              <li class="nav-item w-100 active"><a class="nav-link" id="inbox"><i class="fa fa-inbox"></i> Inbox</a>
+              </li>
+              <li class="nav-item w-100"><a class="nav-link" id="sent"><i class="fa fa-send"></i> Sent</a></li>
+              <li class="nav-item w-100"><a class="nav-link" id="archive"><i class="fa fa-archive"></i> Archived</a>
+              </li>
+              <li class="nav-item w-100"><a class="nav-link" id="starred"><i class="fa fa-star"></i> Starred</a>
+              </li>
+              <li class="nav-item w-100"><a class="nav-link" id="trash"><i class="fa fa-trash"></i> Trash</a></li>
+            </ul>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /. box -->
+        
+      </div>
+      <!-- /.col-md-3 col-xs-12 -->
+      <div class="col-md-9 col-xs-12">
+        <div class="box">
+          <div class="box-header with-border">
+            <h3 class="box-title">Inbox</h3>
+            <div class="box-tools">
+              <div class="has-feedback">
+                <input type="text" class="form-control input-sm" placeholder="Search Mail">
+                <span class="glyphicon glyphicon-search form-control-feedback"></span>
+              </div>
+            </div>
+            <!-- /.box-tools -->
+          </div>
+          <!-- /.box-header -->
+          <div class="box-body no-padding">
+            <div class="mailbox-controls">
+              <!-- Check all button -->
+              <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i></button>
+              <button type="button" class="btn btn-default btn-sm waves-effect waves-light"><i class="fa fa-trash"></i></button>
+              <button type="button" class="btn btn-default btn-sm waves-effect waves-light"><i class="fa fa-exclamation-circle"></i></button>
+              <button type="button" class="btn btn-default btn-sm waves-effect waves-light"><i class="fa fa-refresh"></i></button>
+              <div class="pull-right">
+                <span class="inbox-text">1-50/200</span>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-default btn-sm waves-effect waves-light"><i class="fa fa-angle-left"></i></button>
+                  <button type="button" class="btn btn-default btn-sm waves-effect waves-light"><i class="fa fa-angle-right"></i></button>
+                </div>
+                <!-- /.btn-group -->
+              </div>
+              <!-- /.pull-right -->
+            </div>
+            <div class="table-responsive mailbox-messages">
+              <table class="table table-hover table-striped">
+                <tbody id="emails-view">
+                  {% for mail in all_mails %}
+                  <tr class="unread">
+                    <td><input type="checkbox"></td>
+                    <td class="mailbox-star"><a><i class="fa fa-star text-warning"></i></a></td>
+                    <td class="mailbox-name"><a>{{mail.sender}}</a></td>
+                    <td class="mailbox-subject"><span class="mailbox-subject-title">{{mail.subject}}</span> | <span class="d-inline-block text-secondary">{{mail.body|safe}}</span>
+                    </td>
+                    <td class="mailbox-attachment"></td>
+                    <td class="mailbox-date">5 mins ago</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              <!-- /.table -->
+            </div>
+            <!-- /.mail-box-messages -->
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /. box -->
+      </div>
+      <!-- /.col-md-9 col-xs-12 -->
+    </div>
+  </div>
+  <!-- /.main-content -->
+</div>
+{% endblock %}
 
-    <script src="{% static 'company/js/scripts.js' %}"></script>
+{% block script %}
+  <!-- iCheck -->
+  <script src="{% static '/company/plugin/iCheck/icheck.min.js' %}"></script>
+  <script src="{% static '/company/scripts/mailbox.init.min.js' %}"></script>
+  <script src="{% static '/company/js/inbox.js' %}"></script>
 {% endblock %}
