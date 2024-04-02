@@ -17,15 +17,12 @@ from core.models import User, Email
 def login_redirect_page(request):
     user = request.user
     if user.is_superuser == True:
-        print("partners")
         return redirect("partners")
 
     if user.role == 'COMPANY':
-        print("employees")
         return redirect("employees")
 
     elif user.role == 'EMPLOYEE':
-        print("index")
         return redirect("index")
 
     else:
@@ -235,7 +232,6 @@ def register(request):
             user = User.objects.create_user(username=email,email=email,password=password,name=name,arabic_name=arabic_name)
             user.save()
         except IntegrityError as e:
-            print(e)
             return render(request, "mail/register.html", {
                 "message": "Email address already taken."
             })

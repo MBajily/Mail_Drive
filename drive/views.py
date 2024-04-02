@@ -19,7 +19,6 @@ def files(request):
 
 @login_required
 def drivebox(request, drivebox):
-    print(drivebox)
 
     # Filter files returned based on drivebox
     if drivebox == "home":
@@ -84,7 +83,6 @@ def markFile(request, file_id):
 
     # Update whether email is read or should be archived
     elif request.method == "PUT":
-        print("here")
         data = json.loads(request.body)
         # if data.get("read") is not None:
         #     file.read = data["read"]
