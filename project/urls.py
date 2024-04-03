@@ -26,5 +26,10 @@ urlpatterns = [
     path('drive/', include('drive.urls')),
     path('manager/', include('manager.urls')),
     path('', include('company.urls')),
+
+    # DRF APIs routes
+    path('api/v1/', include('core.urls')),
+
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

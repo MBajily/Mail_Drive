@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'drive',
     'manager',
     'company',
+
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
