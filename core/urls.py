@@ -3,8 +3,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("emails/<str:mailbox>", views.getMailbox),
-    path("emails/email/create", views.createEmail),
-    path("emails/email/<str:pk>/", views.getEmail),
-    path("emails/email/<str:pk>/update", views.updateEmail),
+	path("", views.index, name="index"),
+    path("login", views.login_view, name="login"),
+    path("logout", views.logout_view, name="logout"),
+    path('login/redirect/', views.login_redirect_page, name="login_redirect_page"),
 ]

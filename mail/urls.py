@@ -3,15 +3,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path("login", views.login_view, name="login"),
-    path("logout", views.logout_view, name="logout"),
-    path("register", views.register, name="register"),
-    path('login/redirect/', views.login_redirect_page, name="login_redirect_page"),
-
-    # API Routes
-    path("emails", views.compose, name="compose"),
-    path("emails/<int:email_id>", views.email, name="email"),
-    path("emails/<str:mailbox>", views.mailbox, name="mailbox"),
-    path("emails/search/<str:query>", views.search, name="search"),
+    path("<str:mailbox>", views.getMailbox),
+    path("compose/new", views.compose),
+    path("email/<str:pk>/", views.getEmail),
+    path("email/<str:pk>/update", views.updateEmail),
+    path("mailbox/search", views.searchEmail),
 ]

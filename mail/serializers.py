@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import Company, Employee, Email, Email_File, Drive_File
+from core.models import Company, Employee, Email, Email_File, Drive_File
 
 
 class CompanySerializer(ModelSerializer):

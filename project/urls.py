@@ -8,10 +8,10 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('mail.urls')),
-    path('drive/', include('drive.urls')),
-    path('manager/', include('manager.urls')),
-    path('', include('company.urls')),
+    path('api/v1/emails/', include('mail.urls')),
+    path('api/v1/drive/', include('drive.urls')),
+    path('api/v1/manager/', include('manager.urls')),
+    path('api/v1/admin/', include('company.urls')),
 
     # DRF APIs routes
     path('api/v1/', include('core.urls')),
