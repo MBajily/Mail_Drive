@@ -1,25 +1,15 @@
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .serializers import DriveSerializer
 from django.shortcuts import render, redirect
 from core.models import Drive_File
-from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse, HttpResponse
 from django.db.models import Q
 from functools import reduce
-import json
-
-# Create your views here.
-def files(request):
-
-    # Authenticated users view their inbox
-    if request.user.is_authenticated:
-        return render(request, "drive/files.html")
-
-    return redirect('login')
 
 
-@login_required
-def drivebox(request, drivebox):
 
+@api_view(['GET'])
+def getDrivebox(request, drivebox):
     # Filter files returned based on drivebox
     if drivebox == "home":
         files = Drive_File.objects.filter(
@@ -43,16 +33,20 @@ def drivebox(request, drivebox):
         )
     
     else:
-        return JsonResponse({"error": "Invalid drivebox."}, status=400)
+        return Response({"error": "Invalid drivebox."}, status=400)
 
     # Return files in reverse chronologial order
     files = files.order_by("-timestamp").all()
-    return JsonResponse([file.serialize() for file in files], safe=False)
+    serializer = DriveSerializer(files, many=True)
+    return Response(serializer.data)
 
 
-@csrf_exempt
-@login_required
-def search(request, query):
+@api_view(['POST'])
+def search(request):
+    query = request.data.get("query")
+    if not query:
+        return Response({"error": "'query' argument should not be empty."}, status=404)
+
     if " " in query:
         queries = query.split(" ")
         qset1 =  reduce(operator.__or__, [Q(file__icontains=query) for query in queries])
@@ -62,28 +56,29 @@ def search(request, query):
             .filter(Q(file__icontains=query)).distinct()
     if results:
         files = results.order_by("-timestamp").all().distinct()
-        return JsonResponse([file.serialize() for file in files], safe=False)
+        serializer = DriveSerializer(files, many=True)
+        return Response(serializer.data)
     else:
-        return JsonResponse({"error": "No result Found"}, status=404)
+        return Response({"error": "No result Found"}, status=404)
 
 
-@csrf_exempt
-@login_required
-def markFile(request, file_id):
+@api_view(['GET', 'PUT', 'DELETE'])
+def updateFile(request, file_id):
 
     # Query for requested email
     try:
         file = Drive_File.objects.get(user=request.user, id=file_id)
     except file.DoesNotExist:
-        return JsonResponse({"error": "file not found."}, status=404)
+        return Response({"error": "file not found."}, status=404)
 
     # Return email contents
     if request.method == "GET":
-        return JsonResponse(file.serialize())
+        return Response(file.serialize())
 
     # Update whether email is read or should be archived
     elif request.method == "PUT":
-        data = json.loads(request.body)
+        # data = json.loads(request.body)
+        data = request.data
         # if data.get("read") is not None:
         #     file.read = data["read"]
         if data.get("archived") is not None:
@@ -93,22 +88,21 @@ def markFile(request, file_id):
         if data.get("deleted") is not None:
             file.deleted = data["deleted"]
         file.save()
-        return HttpResponse(status=204)
+        serializer = DriveSerializer(file, many=False)
+        return Response(serializer.data, status=204)
 
     elif request.method == "DELETE":
         file.delete()
-        return HttpResponse(status=204)
+        return Response({"message": "File is deleted."}, status=204)
     # Email must be via GET or PUT
     else:
-        return JsonResponse({
+        return Response({
             "error": "GET or PUT or DELETE request required."
         }, status=400)
 
 
-@csrf_exempt
-@login_required
+@api_view(['POST'])
 def uploadFile(request):
-
     if request.method == 'POST':
         file = request.FILES["file"]
 
@@ -116,6 +110,6 @@ def uploadFile(request):
         if formset:
             formset.save()
 
-        return HttpResponse(status=200)
+        return Response({"message": "File Uploaded successfully."}, status=200)
 
-    return HttpResponse(status=401)
+    return Response({"error": "Error occur while uploading this file."}, status=401)

@@ -56,3 +56,13 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return HttpResponseRedirect(reverse("index"))
+
+
+
+def files(request):
+
+    # Authenticated users view their inbox
+    if request.user.is_authenticated:
+        return render(request, "drive/files.html")
+
+    return redirect('login')

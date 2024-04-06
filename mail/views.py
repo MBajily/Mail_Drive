@@ -1,12 +1,10 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
-from .serializers import CompanySerializer, EmployeeSerializer, EmailSerializer, EmailFilesSerializer, DriveSerializer
-from core.models import User, Company, Employee, Email, Email_File, Drive_File
+# from rest_framework.authentication import TokenAuthentication
+# from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
+from .serializers import EmailSerializer, EmailFilesSerializer
+from core.models import User, Company, Employee, Email, Email_File
 from django.db.models import Q
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
 
 
 @api_view(['GET'])
@@ -53,7 +51,7 @@ def getEmail(request, pk):
 
 
 
-@api_view(['PUT', 'DELETE'])
+@api_view(['GET', 'PUT', 'DELETE'])
 def updateEmail(request, pk):
 
     # Query for requested email
@@ -61,6 +59,10 @@ def updateEmail(request, pk):
         email = Email.objects.get(user=request.user, id=pk)
     except Email.DoesNotExist:
         return Response({"error": "Email does not exist."}, status=404)
+
+    if request.method == "GET":
+        serializer = EmailSerializer(email, many=False)
+        return Response(serializer.data, status=204)
 
     # Update whether email is read or should be archived
     if request.method == "PUT":
@@ -84,7 +86,7 @@ def updateEmail(request, pk):
     # email must be via GET or PUT
     else:
         return Response({
-            "error": "PUT or DELETE request required."
+            "error": "GET or PUT or DELETE request required."
         }, status=400)
 
 
