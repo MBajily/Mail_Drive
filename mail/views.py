@@ -34,8 +34,8 @@ def getMailbox(request, mailbox):
         return Response({"error": "Invalid mailbox."}, status=400)
 
     # Return emails in reverse chronologial order
-    serializer = EmailSerializer(emails, many=True)
-    return Response(serializer.data)
+    # serializer = EmailSerializer(emails, many=True)
+    return Response([email.serialize() for email in emails])
 
 
 
@@ -43,8 +43,8 @@ def getMailbox(request, mailbox):
 def getEmail(request, pk):
     try:
         email = Email.objects.get(id=pk)
-        serializer = EmailSerializer(email, many=False)
-        return Response(serializer.data)
+        # serializer = EmailSerializer(email, many=False)
+        return Response(email.serialize())
 
     except:
         return Response({"error": "Email does not exist."}, status=404)
@@ -61,8 +61,8 @@ def updateEmail(request, pk):
         return Response({"error": "Email does not exist."}, status=404)
 
     if request.method == "GET":
-        serializer = EmailSerializer(email, many=False)
-        return Response(serializer.data, status=204)
+        # serializer = EmailSerializer(email, many=False)
+        return Response(email.serialize(), status=204)
 
     # Update whether email is read or should be archived
     if request.method == "PUT":
@@ -77,8 +77,8 @@ def updateEmail(request, pk):
         if data.get("deleted") is not None:
             email.deleted = data["deleted"]
         email.save()
-        serializer = EmailSerializer(email, many=False)
-        return Response(serializer.data, status=204)
+        # serializer = EmailSerializer(email, many=False)
+        return Response(email.serialize(), status=204)
 
     elif request.method == "DELETE":
         email.delete()
@@ -162,8 +162,8 @@ def searchEmail(request):
             | Q(body__icontains=query)).distinct()
     if results:
         emails = results.order_by("-timestamp").all().distinct()
-        serializer = EmailSerializer(emails, many=True)
-        return Response(serializer.data, status=200)
+        # serializer = EmailSerializer(emails, many=True)
+        return Response(email.serialize(), status=200)
     else:
         return Response({"error": "No result Found"}, status=404)
 

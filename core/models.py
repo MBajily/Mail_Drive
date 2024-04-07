@@ -88,6 +88,10 @@ class Email(models.Model):
     starred = models.BooleanField(default=False, blank=True)
     deleted = models.BooleanField(default=False, blank=True)
 
+    @property
+    def username(self):
+        return self.sender.username
+
     def serialize(self):
         return {
             "id": self.id,
