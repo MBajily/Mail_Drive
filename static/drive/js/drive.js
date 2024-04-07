@@ -184,7 +184,7 @@ function load_drivebox(drivebox, query="") {
 
 
   // Send a fetch request to the server to retrieve emails for the specified mailbox.
-  fetch(`/drive/${drivebox}`)
+  fetch(`/api/v1/drive/${drivebox}`)
     .then((response) => response.json())
     .then((files) => {
       console.log(files)
@@ -300,7 +300,7 @@ function load_drivebox(drivebox, query="") {
           filesView.addEventListener(
           "click",
           (e) => {
-            fetch(`/drive/file/${file.id}`, {
+            fetch(`/api/v1/drive/file/${file.id}`, {
               method: "PUT",
               body: JSON.stringify({
                 read: true,
@@ -324,7 +324,7 @@ function load_drivebox(drivebox, query="") {
         mark_del(file, filesView, drivebox);
         if(drivebox === "trash"){
           element.querySelector(".del_forever").addEventListener("click", (e)=>{
-            fetch(`/drive/file/${file.id}`, {
+            fetch(`/api/v1/drive/file/${file.id}`, {
               method: "DELETE",
             });
             custm_alert("Conversation deleted forever")
@@ -363,7 +363,7 @@ function mark_archive(file, element, drivebox) {
     (e) => {
       if (drivebox !== "archive" && drivebox !== "trash") {
         // If the email is not in the archive or trash drivebox, archive it
-        fetch(`/drive/file/${file.id}`, {
+        fetch(`/api/v1/drive/file/${file.id}`, {
           method: "PUT",
           body: JSON.stringify({
             archived: true,
@@ -375,7 +375,7 @@ function mark_archive(file, element, drivebox) {
         // element.querySelector(":scope > #archive").classList.add('unarchive')
       } else if (drivebox === "archive") {
         // If the email is already in the archive drivebox, unarchive it and move it to the inbox
-        fetch(`/drive/file/${file.id}`, {
+        fetch(`/api/v1/drive/file/${file.id}`, {
           method: "PUT",
           body: JSON.stringify({
             archived: false,
@@ -413,7 +413,7 @@ function mark_star(file, element, drivebox) {
         .tooltip("show");
       
       // Update the email's starred status on the server
-      fetch(`/drive/file/${file.id}`, {
+      fetch(`/api/v1/drive/file/${file.id}`, {
         method: "PUT",
         body: JSON.stringify({
           starred: false,
@@ -435,7 +435,7 @@ function mark_star(file, element, drivebox) {
         .tooltip("show");
       
       // Update the email's starred status on the server
-      fetch(`/drive/file/${file.id}`, {
+      fetch(`/api/v1/drive/file/${file.id}`, {
         method: "PUT",
         body: JSON.stringify({
           starred: true,
@@ -454,7 +454,7 @@ function mark_del(file, element, drivebox) {
   element.querySelector(".delete").addEventListener("click", (e) => {
     if (drivebox !== "trash") {
       // If the email is not in the trash drivebox, move it to the trash
-      fetch(`/drive/file/${file.id}`, {
+      fetch(`/api/v1/drive/file/${file.id}`, {
         method: "PUT",
         body: JSON.stringify({
           deleted: true,
@@ -464,7 +464,7 @@ function mark_del(file, element, drivebox) {
       custm_alert("Conversation moved to trash");
     } else {
       // If the email is in the trash drivebox, restore it
-      fetch(`/drive/file/${file.id}`, {
+      fetch(`/api/v1/drive/file/${file.id}`, {
         method: "PUT",
         body: JSON.stringify({
           deleted: false,

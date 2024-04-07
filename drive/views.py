@@ -37,8 +37,8 @@ def getDrivebox(request, drivebox):
 
     # Return files in reverse chronologial order
     files = files.order_by("-timestamp").all()
-    serializer = DriveSerializer(files, many=True)
-    return Response(serializer.data)
+    # serializer = DriveSerializer(files, many=True)
+    return Response([file.serialize() for file in files])
 
 
 @api_view(['POST'])

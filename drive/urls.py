@@ -5,6 +5,6 @@ from . import views
 urlpatterns = [
     path("<str:drivebox>", views.getDrivebox, name="drivebox"),
     path("files/search", views.search),
-    path("file/<int:file_id>/update", views.updateFile, name="markFile"),
+    path("file/<int:file_id>", views.updateFile, name="markFile"),
     path("files/upload", views.uploadFile, name="uploadFile"),
 ]
