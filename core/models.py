@@ -21,9 +21,9 @@ class User(AbstractUser):
     last_name = None
 
 
-    email = models.EmailField(null=False)
+    email = models.EmailField(null=False, unique=True)
     # access_token = models.CharField(max_length=50, null=True)
-    username = models.CharField(max_length=50, unique=True, null=True, blank=True) 
+    username = models.CharField(max_length=50, unique=True, null=False) 
     
     arabic_name = models.CharField(max_length=200, null=True)
     english_name = models.CharField(max_length=200, null=True)

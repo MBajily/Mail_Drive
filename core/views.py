@@ -40,7 +40,7 @@ def passwordReset(request):
             return Response({"error": "This email doesn't exist"}, status=404)
 
         selectedUser = User.objects.get(username=username)
-        form = PasswordResetForm({"email": selectedUser.email, "site_name":"Mozal"})
+        form = PasswordResetForm({"email": selectedUser.email, "username": selectedUser.username, "site_name":"Mozal"})
         if form.is_valid():
             form.save(
                 request=request,

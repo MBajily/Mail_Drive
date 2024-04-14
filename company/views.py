@@ -1,7 +1,4 @@
-import hashlib
-import os
 import secrets
-import base64
 import re
 from django.shortcuts import render, redirect
 from core.models import User, Employee
@@ -9,30 +6,19 @@ from .decorators import allowed_users
 from django.contrib.auth.decorators import login_required
 from .forms import EmployeeForm
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
+from django.contrib.auth.hashers import make_password
 
 
 def generate_password(email):
-	# password_length = 12  # Change this to your desired password length
-	# iterations = 600000  # Change this to your desired number of iterations
+	password_length = 12  # Change this to your desired password length
 
-	# salt = secrets.token_bytes(16)
-	# password = secrets.token_urlsafe(password_length)
+	password = secrets.token_urlsafe(password_length)
+	hashed_password = make_password(password)
 
-	# hashed_password = hashlib.pbkdf2_hmac(
-	#     'sha256',  # Hashing algorithm
-	#     password.encode('utf-8'),  # Password to hash
-	#     salt,  # Salt
-	#     iterations  # Number of iterations
-	# )
+	# final_password = "pbkdf2_sha256$600000$mBOx9Z3WgBosn5Q4ney00S$kj7blpWxdmL/ub3mtO50aN358/CSKAPHOE8WEV2TZGM="
 
-	# hashed_password = base64.b64encode(hashed_password).decode('utf-8')
-	# salt = base64.b64encode(salt).decode('utf-8')
-
-	# final_password = f"pbkdf2_sha256${iterations}${salt}${hashed_password}"
-
-	final_password = "pbkdf2_sha256$600000$mBOx9Z3WgBosn5Q4ney00S$kj7blpWxdmL/ub3mtO50aN358/CSKAPHOE8WEV2TZGM="
-
-	return final_password
+	return {"final_password":hashed_password, "password":password}
 
 #=====================================================
 #==================== employees =======================
@@ -67,12 +53,33 @@ def addEmployee(request):
 		email = request.POST['email'].lower()
 		username = request.POST['username'].lower().split('@')[0]
 		username = str(username) + '@' + str(request.user.extension)
+		password=generate_password(email)
 		if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
 			return redirect('addEmployee')
 
-		formset = Employee(english_name=english_name, arabic_name=arabic_name, password=generate_password(email),
+		formset = Employee(english_name=english_name, arabic_name=arabic_name, password=password["final_password"],
 						   email=email, username=username, company=request.user)
+		
+		message = f"""
+		Hi {formset.english_name},
+		Your account is created successfully on Samail Mailing Platform.
+		Your login details is:
+		- Email: {formset.username}
+		- Password: {password["password"]}
+
+		You can change the password after login to your account in this url: http://127.0.0.1:8000/api/v1/login
+
+		Thank you,
+		Samail Team.
+		"""
 		if formset:
+			send_mail(
+				"Login Details to Samail Platform",
+				message,
+				"mozal.samail@gmail.com",
+				[f"{formset.email}"],
+				fail_silently=False,
+			)
 			formset.save()
 		
 		return redirect('employees')
