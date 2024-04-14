@@ -67,7 +67,7 @@ def addEmployee(request):
 		- Email: {formset.username}
 		- Password: {password["password"]}
 
-		You can change the password after login to your account in this url: http://127.0.0.1:8000/api/v1/login
+		You can change the password after login to your account, go to login page: http://127.0.0.1:8000/api/v1/login
 
 		Thank you,
 		Samail Team.

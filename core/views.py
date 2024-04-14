@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import HttpResponse, HttpResponseRedirect, render, redirect
@@ -8,6 +9,21 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from .models import User
 from project import settings
+from user_agents import parse
+from django.core.mail import send_mail
+
+
+
+def get_device(request):
+    user_agent = parse(request.META['HTTP_USER_AGENT'])
+    
+    # Access device information
+    device_type = user_agent.device.family
+    os = user_agent.os.family
+    os_version = user_agent.os.version_string
+    
+    return f"{device_type} ({os} {os_version})"
+
 
 # from rest_framework_simplejwt.views import TokenObtainPairView
 # from .serializers import MyTokenObtainPairSerializer
@@ -92,6 +108,7 @@ def index(request):
 def login_view(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("index"))
+        
     if request.method == "POST":
 
         # Attempt to sign user in
@@ -102,6 +119,25 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
+            message = f"""
+            Hi {request.user.english_name},
+            
+            We noticed a new login to your account {request.user.username}.
+
+            Date: {datetime.utcnow().strftime("%d-%b-%Y %H:%M:%S UTC")}
+            Device: {get_device(request)}
+
+            If you do not recognize this sign-in, we recommend that you change your password to secure your account.
+            """
+
+            send_mail(
+                "Login Alert from Samail.sa",
+                message,
+                "mozal.samail@gmail.com",
+                [f"{request.user.email}"],
+                fail_silently=False,
+            )
+
             return redirect(login_redirect_page)
         else:
             return render(request, "mail/login.html", {
