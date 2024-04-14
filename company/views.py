@@ -20,6 +20,7 @@ def generate_password(email):
 
 	return {"final_password":hashed_password, "password":password}
 
+
 #=====================================================
 #==================== employees =======================
 #=====================================================
@@ -53,7 +54,7 @@ def addEmployee(request):
 		email = request.POST['email'].lower()
 		username = request.POST['username'].lower().split('@')[0]
 		username = str(username) + '@' + str(request.user.extension)
-		password=generate_password(email)
+		password = generate_password(email)
 		if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
 			return redirect('addEmployee')
 
