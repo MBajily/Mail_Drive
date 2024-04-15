@@ -131,6 +131,9 @@ class Drive_File(models.Model):
             "deleted": self.deleted,
         }
 
+    class Meta:
+        ordering = ['-timestamp']
+
 
 class Email_File(models.Model):
     file = models.FileField(upload_to=MEDIA_ROOT)

@@ -3,8 +3,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("<str:drivebox>", views.getDrivebox, name="drivebox"),
-    path("files/search", views.search),
-    path("file/<int:file_id>", views.updateFile, name="markFile"),
+    path("", views.files, name="files"),
+    path("<str:drivebox>", views.drivebox, name="drivebox"),
+    path("search/<str:query>", views.search, name="search"),
+    path("file/<int:file_id>", views.markFile, name="markFile"),
     path("files/upload", views.uploadFile, name="uploadFile"),
 ]

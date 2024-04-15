@@ -168,7 +168,7 @@ var _createClass = (function () {
                                 parallelChunkUploads: !1,
                                 retryChunks: !1,
                                 retryChunksLimit: 3,
-                                maxFilesize: 256,
+                                maxFilesize: 10000,
                                 paramName: "file",
                                 createImageThumbnails: !0,
                                 maxThumbnailFilesize: 10,

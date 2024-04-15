@@ -1,109 +1,58 @@
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-# from rest_framework.authentication import TokenAuthentication
-# from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
-from .serializers import EmailSerializer, EmailFilesSerializer
-from core.models import User, Company, Employee, Email, Email_File
+import json
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.db import IntegrityError
+from django.http import JsonResponse
+from django.shortcuts import HttpResponse, HttpResponseRedirect, render, redirect
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+from functools import reduce
+import operator
+from core.models import User, Email
 
 
-@api_view(['GET'])
-def getMailbox(request, mailbox):
-    if mailbox == "inbox":
-        emails = Email.objects.filter(
-            user=request.user, recipients=request.user, archived=False, deleted=False,
-        )
-    elif mailbox == "sent":
-        emails = Email.objects.filter(
-            user=request.user, sender=request.user, deleted=False,
-        )
-    elif mailbox == "archive":
-        emails = Email.objects.filter(
-            user=request.user, archived=True, deleted=False,
-        ).filter( Q(sender=request.user) |Q(recipients=request.user))
-    elif mailbox == "starred":
-        emails = Email.objects.filter(
-            user=request.user, starred=True, deleted=False,
-        ).filter( Q(sender=request.user) |Q(recipients=request.user))
-    elif mailbox == "trash":
-        emails = Email.objects.filter(
-            user=request.user, deleted=True
-        ).filter( Q(sender=request.user) |Q(recipients=request.user))
-    
+
+@login_required(login_url='login')
+def login_redirect_page(request):
+    user = request.user
+    if user.is_superuser == True:
+        return redirect("partners")
+
+    if user.role == 'COMPANY':
+        return redirect("employees")
+
+    elif user.role == 'EMPLOYEE':
+        return redirect("index")
+
     else:
-        return Response({"error": "Invalid mailbox."}, status=400)
-
-    # Return emails in reverse chronologial order
-    # serializer = EmailSerializer(emails, many=True)
-    return Response([email.serialize() for email in emails])
+        return redirect('login')
 
 
+def index(request):
 
-@api_view(['GET'])
-def getEmail(request, pk):
-    try:
-        email = Email.objects.get(id=pk)
-        # serializer = EmailSerializer(email, many=False)
-        return Response(email.serialize())
+    # Authenticated users view their inbox
+    if request.user.is_authenticated:
+        return render(request, "mail/inbox.html")
 
-    except:
-        return Response({"error": "Email does not exist."}, status=404)
-
-
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def updateEmail(request, pk):
-
-    # Query for requested email
-    try:
-        email = Email.objects.get(user=request.user, id=pk)
-    except Email.DoesNotExist:
-        return Response({"error": "Email does not exist."}, status=404)
-
-    if request.method == "GET":
-        # serializer = EmailSerializer(email, many=False)
-        return Response(email.serialize(), status=204)
-
-    # Update whether email is read or should be archived
-    if request.method == "PUT":
-        # data = json.loads(request.body)
-        data = request.data
-        if data.get("read") is not None:
-            email.read = data["read"]
-        if data.get("archived") is not None:
-            email.archived = data["archived"]
-        if data.get("starred") is not None:
-            email.starred = data["starred"]
-        if data.get("deleted") is not None:
-            email.deleted = data["deleted"]
-        email.save()
-        # serializer = EmailSerializer(email, many=False)
-        return Response(email.serialize(), status=204)
-
-    elif request.method == "DELETE":
-        email.delete()
-        return Response({"message": "Email is deleted."}, status=204)
-    # email must be via GET or PUT
+    # Everyone else is prompted to sign in
     else:
-        return Response({
-            "error": "GET or PUT or DELETE request required."
-        }, status=400)
+        return HttpResponseRedirect(reverse("login"))
 
 
-
-@api_view(['POST'])
+@csrf_exempt
+@login_required
 def compose(request):
 
     # Composing a new email must be via POST
     if request.method != "POST":
-        return Response({"error": "POST request required."}, status=400)
+        return JsonResponse({"error": "POST request required."}, status=400)
 
     # Check recipient emails
-    # data = json.loads(request.body)
-    data = request.data
+    data = json.loads(request.body)
     emails = [email.strip() for email in data.get("recipients").split(",")]
     if emails == [""]:
-        return Response({
+        return JsonResponse({
             "error": "At least one recipient required."
         }, status=400)
 
@@ -114,7 +63,7 @@ def compose(request):
             user = User.objects.get(username=email)
             recipients.append(user)
         except User.DoesNotExist:
-            return Response({
+            return JsonResponse({
                 "error": f"User with email {email} does not exist."
             }, status=400)
 
@@ -139,12 +88,82 @@ def compose(request):
             email.recipients.add(recipient)
         email.save()
 
-    return Response({"message": "Email sent successfully."}, status=201)
+    return JsonResponse({"message": "Email sent successfully."}, status=201)
 
 
-@api_view(['POST'])
-def searchEmail(request):
-    query = request.data.get("query")
+@login_required
+def mailbox(request, mailbox):
+
+    # Filter emails returned based on mailbox
+    if mailbox == "inbox":
+        emails = Email.objects.filter(
+            user=request.user, recipients=request.user, archived=False, deleted=False,
+        )
+    elif mailbox == "sent":
+        emails = Email.objects.filter(
+            user=request.user, sender=request.user, deleted=False, archived=False,
+        )
+    elif mailbox == "archive":
+        emails = Email.objects.filter(
+            user=request.user, archived=True, deleted=False,
+        ).filter( Q(sender=request.user) |Q(recipients=request.user))
+    elif mailbox == "starred":
+        emails = Email.objects.filter(
+            user=request.user, starred=True, deleted=False,
+        ).filter( Q(sender=request.user) |Q(recipients=request.user))
+    elif mailbox == "trash":
+        emails = Email.objects.filter(
+            user=request.user, deleted=True
+        ).filter( Q(sender=request.user) |Q(recipients=request.user))
+    
+    else:
+        return JsonResponse({"error": "Invalid mailbox."}, status=400)
+
+    # Return emails in reverse chronologial order
+    emails = emails.order_by("-timestamp").all()
+    return JsonResponse([email.serialize() for email in emails], safe=False)
+
+
+@csrf_exempt
+@login_required
+def email(request, email_id):
+
+    # Query for requested email
+    try:
+        email = Email.objects.get(user=request.user, pk=email_id)
+    except Email.DoesNotExist:
+        return JsonResponse({"error": "Email not found."}, status=404)
+
+    # Return email contents
+    if request.method == "GET":
+        return JsonResponse(email.serialize())
+
+    # Update whether email is read or should be archived
+    elif request.method == "PUT":
+        data = json.loads(request.body)
+        if data.get("read") is not None:
+            email.read = data["read"]
+        if data.get("archived") is not None:
+            email.archived = data["archived"]
+        if data.get("starred") is not None:
+            email.starred = data["starred"]
+        if data.get("deleted") is not None:
+            email.deleted = data["deleted"]
+        email.save()
+        return HttpResponse(status=204)
+
+    elif request.method == "DELETE":
+        email.delete()
+        return HttpResponse(status=204)
+    # Email must be via GET or PUT
+    else:
+        return JsonResponse({
+            "error": "GET or PUT or DELETE request required."
+        }, status=400)
+
+@csrf_exempt
+@login_required
+def search(request, query):
     if " " in query:
         queries = query.split(" ")
         qset1 =  reduce(operator.__or__, [Q(sender__email__icontains=query)
@@ -162,9 +181,61 @@ def searchEmail(request):
             | Q(body__icontains=query)).distinct()
     if results:
         emails = results.order_by("-timestamp").all().distinct()
-        # serializer = EmailSerializer(emails, many=True)
-        return Response(email.serialize(), status=200)
+        return JsonResponse([email.serialize() for email in emails], safe=False)
     else:
-        return Response({"error": "No result Found"}, status=404)
+        return JsonResponse({"error": "No result Found"}, status=404)
 
 
+def login_view(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("index"))
+    if request.method == "POST":
+
+        # Attempt to sign user in
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = authenticate(request, username=email, password=password)
+
+        # Check if authentication successful
+        if user is not None:
+            login(request, user)
+            return redirect(login_redirect_page)
+        else:
+            return render(request, "mail/login.html", {
+                "message": "Invalid email and/or password."
+            })
+    else:
+        return render(request, "mail/login.html")
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse("index"))
+
+
+def register(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        name = request.POST["fname"]
+        arabic_name = request.POST["lname"]
+        # Ensure password matches confirmation
+        password = request.POST["password"]
+        confirmation = request.POST["confirmation"]
+        
+        if password != confirmation:
+            return render(request, "mail/register.html", {
+                "message": "Passwords must match."
+            })
+
+        # Attempt to create new user
+        try:
+            user = User.objects.create_user(username=email,email=email,password=password,name=name,arabic_name=arabic_name)
+            user.save()
+        except IntegrityError as e:
+            return render(request, "mail/register.html", {
+                "message": "Email address already taken."
+            })
+        login(request, user)
+        return HttpResponseRedirect(reverse("index"))
+    else:
+        return render(request, "mail/register.html")

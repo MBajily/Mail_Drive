@@ -213,7 +213,7 @@ function compose_email(email = null, status = "") {
     let body = document.querySelector("#compose-body").innerHTML;
 
     // Send the email data to the server
-    fetch("/api/v1/emails/compose/new", {
+    fetch("/emails/compose/", {
       method: "POST",
       body: JSON.stringify({
         recipients: recipients,
@@ -277,7 +277,7 @@ function load_mailbox(mailbox, query = "") {
   }
 
   // Send a fetch request to the server to retrieve emails for the specified mailbox.
-  fetch(`/api/v1/emails/${mailbox}`)
+  fetch(`/emails/${mailbox}`)
     .then((response) => response.json())
     .then((emails) => {
       // Remove the "d-flex" class and add the "d-none" class to the spinner element.
@@ -292,7 +292,6 @@ function load_mailbox(mailbox, query = "") {
       // If there are emails, iterate over each email and create HTML elements to display them.
       else if(emails.length > 0){
         emails.forEach((email) => {
-          console.log(email.username)
           // Create a div element to represent a single email and assign it to the 'element' variable.
           const element = document.createElement("div");
           element.classList.add(
@@ -350,36 +349,63 @@ function load_mailbox(mailbox, query = "") {
           let del_class = email.deleted ? "fa-recycle" : "fa-trash";
           let del_forever = mailbox === "trash" ?`<li class="btn-item del_forever" data-toggle="tooltip" data-placement="bottom" title="Delete forever"><i class="fas fa-trash"></i></li>   ` :"";
           let ext_btn = mailbox === "trash" ? "ext_btn": "";
-          return `
-            ${user_avatar}
-            <div class="star-wrapper"  data-toggle="tooltip" data-placement="bottom" title="${star_stat}">
-              <span class="star"> <i class="${star_class} fa-star"></i> </span>
-            </div>
-            <div class="sender">${sender}</div>
-            <div class="subject text-left">
-              <div class="d-inline">${
-                email.subject.length > 0 ? email.subject : "(no subject)"
-              }</div>
-            <span class="text-muted font-weight-normal">${email.body.replace(
-              /<(.|\n)*?>/gi,
-              " "
-            )}</span></div>
-            <div class="timestamp ${ext_btn}">
-            <span id="time">${readable_date(email.timestamp)}</span>
-            <ul class="btn-list">
-                <li class="btn-item archive" id="archive" data-toggle="tooltip" data-placement="bottom" title="${archive_stat}" >${archive_slash}</li>
-                <li class="btn-item mark-read" data-toggle="tooltip" data-placement="bottom" title="${mark_read_stat}"><i class="fas ${mark_class}"></i></li>
-                <li class="btn-item delete" data-toggle="tooltip" data-placement="bottom" title="${del_stat}"><i class="fas ${del_class}"></i></li>   
-                ${del_forever}
-            </ul>
-            </div>
-            `;
+          if (mailbox != 'trash'){
+            return `
+              ${user_avatar}
+              <div class="star-wrapper"  data-toggle="tooltip" data-placement="bottom" title="${star_stat}">
+                <span class="star"> <i class="${star_class} fa-star"></i> </span>
+              </div>
+              <div class="sender">${sender}</div>
+              <div class="subject text-left">
+                <div class="d-inline">${
+                  email.subject.length > 0 ? email.subject : "(no subject)"
+                }</div>
+              <span class="text-muted font-weight-normal">${email.body.replace(
+                /<(.|\n)*?>/gi,
+                " "
+              )}</span></div>
+              <div class="timestamp ${ext_btn}">
+              <span id="time">${readable_date(email.timestamp)}</span>
+              <ul class="btn-list">
+                  <li class="btn-item archive" id="archive" data-toggle="tooltip" data-placement="bottom" title="${archive_stat}" >${archive_slash}</li>
+                  <li class="btn-item mark-read" data-toggle="tooltip" data-placement="bottom" title="${mark_read_stat}"><i class="fas ${mark_class}"></i></li>
+                  <li class="btn-item delete" data-toggle="tooltip" data-placement="bottom" title="${del_stat}"><i class="fas ${del_class}"></i></li>   
+                  ${del_forever}
+              </ul>
+              </div>
+              `;}
+          else{
+            return `
+              ${user_avatar}
+              <div class="star-wrapper"  data-toggle="tooltip" data-placement="bottom" title="${star_stat}">
+                <span class="star"> <i class="${star_class} fa-star"></i> </span>
+              </div>
+              <div class="sender">${sender}</div>
+              <div class="subject text-left">
+                <div class="d-inline">${
+                  email.subject.length > 0 ? email.subject : "(no subject)"
+                }</div>
+              <span class="text-muted font-weight-normal">${email.body.replace(
+                /<(.|\n)*?>/gi,
+                " "
+              )}</span></div>
+              <div class="timestamp ${ext_btn}">
+              <span id="time">${readable_date(email.timestamp)}</span>
+              <ul class="btn-list">
+                  <li class="btn-item archive d-none" id="archive" data-toggle="tooltip" data-placement="bottom" title="${archive_stat}" >${archive_slash}</li>
+                  <li class="btn-item mark-read" data-toggle="tooltip" data-placement="bottom" title="${mark_read_stat}"><i class="fas ${mark_class}"></i></li>
+                  <li class="btn-item delete" data-toggle="tooltip" data-placement="bottom" title="${del_stat}"><i class="fas ${del_class}"></i></li>   
+                  ${del_forever}
+              </ul>
+              </div>
+              `;
+          }
         })()}`;
         element.addEventListener(
           "click",
           (e) => {
-            fetch(`/api/v1/emails/email/${email.id}/`, {
-              method: "GET",
+            fetch(`/emails/email/${email.id}`, {
+              method: "PUT",
               body: JSON.stringify({
                 read: true,
               }),
@@ -405,7 +431,7 @@ function load_mailbox(mailbox, query = "") {
         mark_del(email, element, mailbox);
         if(mailbox === "trash"){
           element.querySelector(".del_forever").addEventListener("click", (e)=>{
-            fetch(`/api/v1/emails/email/${email.id}/`, {
+            fetch(`/emails/email/${email.id}`, {
               method: "DELETE",
             });
             custm_alert("Conversation deleted forever")
@@ -473,7 +499,7 @@ function mark_archive(email, element, mailbox) {
     (e) => {
       if (mailbox !== "archive" && mailbox !== "trash") {
         // If the email is not in the archive or trash mailbox, archive it
-        fetch(`/api/v1/emails/email/${email.id}/`, {
+        fetch(`/emails/email/${email.id}`, {
           method: "PUT",
           body: JSON.stringify({
             archived: true,
@@ -485,7 +511,7 @@ function mark_archive(email, element, mailbox) {
         // element.querySelector(":scope > #archive").classList.add('unarchive')
       } else if (mailbox === "archive") {
         // If the email is already in the archive mailbox, unarchive it and move it to the inbox
-        fetch(`/api/v1/emails/email/${email.id}/`, {
+        fetch(`/emails/email/${email.id}`, {
           method: "PUT",
           body: JSON.stringify({
             archived: false,
@@ -529,7 +555,7 @@ function mark_read(email, element, mailbox) {
         element.classList.remove("light");
         
         // Update the email's read status on the server
-        fetch(`/api/v1/emails/email/${email.id}/`, {
+        fetch(`/emails/email/${email.id}`, {
           method: "PUT",
           body: JSON.stringify({
             read: false,
@@ -549,7 +575,7 @@ function mark_read(email, element, mailbox) {
         element.classList.remove("unread");
         
         // Update the email's read status on the server
-        fetch(`/api/v1/emails/email/${email.id}/`, {
+        fetch(`/emails/email/${email.id}`, {
           method: "PUT",
           body: JSON.stringify({
             read: true,
@@ -582,7 +608,7 @@ function mark_star(email, element, mailbox) {
         .tooltip("show");
       
       // Update the email's starred status on the server
-      fetch(`/api/v1/emails/email/${email.id}/`, {
+      fetch(`/emails/email/${email.id}`, {
         method: "PUT",
         body: JSON.stringify({
           starred: false,
@@ -604,7 +630,7 @@ function mark_star(email, element, mailbox) {
         .tooltip("show");
       
       // Update the email's starred status on the server
-      fetch(`/api/v1/emails/email/${email.id}/`, {
+      fetch(`/emails/email/${email.id}`, {
         method: "PUT",
         body: JSON.stringify({
           starred: true,
@@ -624,7 +650,7 @@ function mark_del(email, element, mailbox) {
   element.querySelector(".delete").addEventListener("click", (e) => {
     if (mailbox !== "trash") {
       // If the email is not in the trash mailbox, move it to the trash
-      fetch(`/api/v1/emails/email/${email.id}/`, {
+      fetch(`/emails/email/${email.id}`, {
         method: "PUT",
         body: JSON.stringify({
           deleted: true,
@@ -634,7 +660,7 @@ function mark_del(email, element, mailbox) {
       custm_alert("Conversation moved to trash");
     } else {
       // If the email is in the trash mailbox, restore it
-      fetch(`/api/v1/emails/email/${email.id}/`, {
+      fetch(`/emails/email/${email.id}`, {
         method: "PUT",
         body: JSON.stringify({
           deleted: false,
@@ -658,7 +684,7 @@ function veiw_email(email_id, element, mailbox) {
   document.querySelector("#emails-view").style.display = "none";
   document.querySelector("#compose-view").style.display = "none";
   // console.log(id);
-  fetch(`/api/v1/emails/email/${email_id}/`)
+  fetch(`/emails/email/${email_id}`)
     .then((response) => response.json())
     .then((email) => {
       if(email.error){
@@ -815,7 +841,7 @@ function veiw_email(email_id, element, mailbox) {
               .attr("data-original-title", "Not starred")
               .tooltip("show");
     
-          fetch(`/api/v1/emails/email/${email.id}/`, {
+          fetch(`/emails/email/${email.id}`, {
             method: "PUT",
             body: JSON.stringify({
               starred: false,
@@ -827,7 +853,7 @@ function veiw_email(email_id, element, mailbox) {
             $(document.querySelector(".st"))
               .attr("data-original-title", "Starred")
               .tooltip("show");
-          fetch(`/api/v1/emails/email/${email.id}/`, {
+          fetch(`/emails/email/${email.id}`, {
             method: "PUT",
             body: JSON.stringify({
               starred: true,
