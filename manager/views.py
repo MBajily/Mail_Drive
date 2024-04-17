@@ -19,7 +19,6 @@ def generate_password(email):
 
 	return {"final_password":hashed_password, "password":password}
 
-
 #=====================================================
 #==================== partners =======================
 #=====================================================
@@ -61,20 +60,19 @@ def addPartner(request):
 		formset = Company(english_name=english_name, arabic_name=arabic_name, password=password["final_password"],
 							extension=extension, photo=photo, email=email, username=username)
 		
-		message = f"""
-		Hi {formset.english_name},
-		Your account is created successfully on Samail Mailing Platform.
-		Your login details is:
-		- Email: {formset.username}
-		- Password: {password["password"]}
+		message = f"Hi {formset.english_name},\n"
+		message += f"Your account is created successfully on Samail Mailing Platform.\n"
+		message += f"Your login details is:\n"
+		message += f"- Email: {formset.username}\n"
+		message += f"- Password: {password['password']}\n\n"
 
-		You can change the password after login to your account, go to login page: http://127.0.0.1:8000/api/v1/login
+		message += f"You can change the password after login to your account, go to login page: https://emailsaudi.com/login\n\n"
 
-		Thank you,
-		Samail Team.
-		"""
+		message += f"Thank you,\n"
+		message += f"Samail Team."
 
 		if formset:
+			formset.save()
 			send_mail(
 				"Login Details to Samail Platform",
 				message,
@@ -82,7 +80,6 @@ def addPartner(request):
 				[f"{formset.email}"],
 				fail_silently=False,
 			)
-			formset.save()
 		
 		return redirect('partners')
 	

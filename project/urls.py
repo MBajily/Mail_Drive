@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-from core.views import passwordReset
+from core.views import passwordReset, login_view
 from django.contrib.auth import views as auth_views
 
 # from rest_framework.authtoken.views import obtain_auth_token
@@ -14,10 +14,13 @@ urlpatterns = [
     path('emails/', include('mail.urls')),
     path('drive/', include('drive.urls')),
     path('manager/', include('manager.urls')),
-    path('admin/', include('company.urls')),
+    path('', include('company.urls')),
 
     # DRF APIs routes
     path('', include('core.urls')),
+
+    path("login", login_view, name="login"),
+    path("", login_view, name="login"),
 
     # DRF Auth Token
     # path('api/v1/token/request/', obtain_auth_token),

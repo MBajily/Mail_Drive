@@ -85,6 +85,7 @@ def login_redirect_page(request):
         return redirect("partners")
 
     if user.role == 'COMPANY':
+        print("Done")
         return redirect("employees")
 
     elif user.role == 'EMPLOYEE':
@@ -119,16 +120,9 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            message = f"""
-            Hi {request.user.english_name},
-            
-            We noticed a new login to your account {request.user.username}.
-
-            Date: {datetime.utcnow().strftime("%d-%b-%Y %H:%M:%S UTC")}
-            Device: {get_device(request)}
-
-            If you do not recognize this sign-in, we recommend that you change your password to secure your account.
-            """
+            message = f"Hi {request.user.english_name},\n\nWe noticed a new login to your account {request.user.username}.\n\n"
+            message += f"Date: {datetime.utcnow().strftime('%d-%b-%Y %H:%M:%S UTC')}\n\nDevice: {get_device(request)}\n\n"
+            message += f"If you do not recognize this sign-in, we recommend that you change your password to secure your account."
 
             send_mail(
                 "Login Alert from Samail.sa",
