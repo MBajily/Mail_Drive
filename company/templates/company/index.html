@@ -89,34 +89,14 @@
 					</li>
 				{% endif %}
 
-				{% if main_menu == 'mail' %}
-					<li class="current active">
-						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-email"></i><span>Mail</span><span class="menu-arrow fa fa-angle-down"></span></a>
-						<ul class="sub-menu js__content">
-							{% if sub_menu == 'compose' %}
-								<li class="current"><a class="waves-effect" href="{% url 'compose' %}"><i style="font-size: 16px;" class="mdi mdi-pencil"></i> Compose</a></li>
-							
-							{% else %}
-								<li><a class="waves-effect" href="{% url 'compose' %}"><i style="font-size: 16px;" class="mdi mdi-pencil"></i> Compose</a></li>
-							{% endif %}
+				<li>
+					<a class="" href="{% url 'index' %}"><i class="menu-icon mdi mdi-gmail"></i><span>Mail</span><span class="menu-arrow fa fa-angle-right"></span></a>
+				</li>
 
-							{% if sub_menu == 'inbox' %}
-								<li class="current"><a class="waves-effect" href="{% url 'inbox' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
-							{% else %}
-								<li><a class="waves-effect" href="{% url 'inbox' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
-							{% endif %}
-						</ul>
-					</li>
-				{% else %}
-					<li>
-						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-email"></i><span>Mail</span><span class="menu-arrow fa fa-angle-down"></span></a>
-						<ul class="sub-menu js__content">
-							<li><a class="waves-effect" href="{% url 'compose' %}"><i style="font-size: 16px;" class="mdi mdi-pencil"></i> Compose</a></li>
-							<li><a class="waves-effect" href="{% url 'inbox' %}"><i style="font-size: 16px;" class="mdi mdi-inbox"></i> Inbox</a></li>
-						</ul>
-						<!-- /.sub-menu js__content -->
-					</li>
-				{% endif %}
+				<li>
+					<a class="" href="{% url 'files' %}"><i class="menu-icon mdi mdi-google-drive"></i><span>Drive</span><span class="menu-arrow fa fa-angle-right"></span></a>
+				</li>
+
 				<li><a class="js__logout" href=""><i class="menu-icon mdi mdi-logout"></i>Log Out</a></li>
 			</ul>
 			<!-- /.menu js__accordion -->

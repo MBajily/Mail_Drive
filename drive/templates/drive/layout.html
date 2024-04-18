@@ -12,7 +12,9 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <link rel="stylesheet" href="{% static 'drive/css/styles.css' %}">
         <link rel="shortcut icon" href="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/gmail.ico" >
-        
+        <!-- Material Design Icon -->
+	      <link rel="stylesheet" href="{% static '/company/fonts/material-design/css/materialdesignicons.css' %}">
+
     </head>
     <body>
       {% if user.is_authenticated %}
@@ -21,7 +23,11 @@
           <button type="button" id="sidebarCollapse" class="btn btn-link text-secondary mr-2 rounded-circle">
             <i class="fas fa-bars"></i>
         </button>
+        {% if request.user.role == "EMPLOYEE" %}
             <a class="navbar-brand ml-2" href="#"><img class="gb_ua" src="{{request.user.company.photo.url}}" alt="" aria-hidden="true" style="max-height:40px"></a>
+        {% elif request.user.role == "COMPANY" %}
+            <a class="navbar-brand ml-2" href="#"><img class="gb_ua" src="{{request.user.photo.url}}" alt="" aria-hidden="true" style="max-height:40px"></a>
+        {% endif %}
             <!-- search bar -->
             <form class="inline-form col-md-9 p-0 srch-form">
               <div class="input-group srchbar py-1">
@@ -46,8 +52,12 @@
                           <h6 class="text-muted mt-0 font-weight-normal">{{ request.user.username}}</h6>
 
                         </div>
-                   
-                      <a class=" btn btn-danger text-light text-center btn-block mt-3 "  href="{% url 'logout' %}">Sign out</a>
+                      {% if request.user.role == "COMPANY" %}
+                      <a class="btn btn-primary text-light text-center btn-block mt-3" href="{% url 'employees' %}" style="min-width: 10rem;">
+                          <i class="plus-img mx-2 menu-icon mdi mdi-view-dashboard"></i> Control Panel
+                      </a>
+                      {% endif %}
+                      <a class=" btn btn-danger text-light text-center btn-block mt-3 "  href="{% url 'logout' %}" style="min-width: 10rem;">Sign out</a>
                     </div>
     
                   </div>
@@ -57,12 +67,16 @@
           </nav>
           
           
-                <div id="sidebar">
+                <div class="bg-white" id="sidebar">
                   <ul class="nav nav-sidebar">
-                    <img class="sidebar-logo" src="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png" srcset="https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_1x_r2.png 1x, https://ssl.gstatic.com/ui/v1/icons/mail/rfr/logo_gmail_lockup_default_2x_r2.png 2x " alt="" aria-hidden="true" style="width:130px;height:40px">
+                    {% if request.user.role == "EMPLOYEE" %}
+                      <img class="sidebar-logo mx-auto" src="{{request.user.company.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
+                    {% elif request.user.role == "COMPANY" %}
+                      <img class="sidebar-logo mx-auto" src="{{request.user.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
+                    {% endif %}
                     <li class="nav-item">
-                      <a class="nav-link mb-3 mr-4 py-2 " id="compose" >
-                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Add File
+                      <a class="nav-link my-3 mx-3 py-3 pl-3" id="uploading" >
+                        <img src="{% static 'mail/upload1.png' %}" class="plus-img mr-2"> upload Files
                       </a>
                     </li>
                     <li class="nav-item">
@@ -86,8 +100,8 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link mb-3 mr-4 py-2 " id="compose" href="{% url 'index' %}">
-                        <img src="{% static 'mail/gmail.png' %}" class="plus-img mx-2"> Mail
+                      <a class="nav-link mb-3 mr-4 py-3 primary_buttons" href="{% url 'index' %}">
+                        <img src="{% static 'mail/mail_green.png' %}" class="plus-img mx-2"> Go to Mail
                       </a>
                     </li>
                     
@@ -112,7 +126,8 @@
           </div>
           
         </div>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
         {{ request.user.username|json_script:"user_email" }}

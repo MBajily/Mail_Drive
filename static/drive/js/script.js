@@ -366,9 +366,7 @@ $(function () {
         
         //Animation progress
         if(options.animate === true){
-            $circle.css({
-            'stroke-dashoffset' : circumference
-            }).animate({
+            $circle.css({'stroke-dashoffset' : circumference}).animate({
             'stroke-dashoffset' : percentage
             }, 2000 );
         }

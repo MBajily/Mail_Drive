@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // View email with parsed email, document, and mail state
       veiw_email(e.state.file, doc, e.state.file);
     } else if (e.state.drivebox !== null) {
-      if (e.state.drivebox !== "compose") {
+      if (e.state.drivebox !== "uploading") {
         // Load drivebox other than compose
         load_drivebox(e.state.drivebox);
       } else {
@@ -82,13 +82,13 @@ document.addEventListener("DOMContentLoaded", function () {
         if (maildiv.toLowerCase() !== link.id) {
           // Push state with drivebox id and load drivebox if it's not compose
           history.pushState({ drivebox: link.id }, "", `./#${link.id}`);
-          if (link.id !== "compose") load_drivebox(link.id);
+          if (link.id !== "uploading") load_drivebox(link.id);
           else upload_files(link.id);
         }
       } else {
         // Push state with drivebox id and load drivebox if it's not compose
         history.pushState({ drivebox: link.id }, "", `./#${link.id}`);
-        if (link.id !== "compose") load_drivebox(link.id);
+        if (link.id !== "uploading") load_drivebox(link.id);
         else upload_files(link.id);
       }
     });
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Handle compose email button click
-  document.querySelector("#compose").addEventListener("click", () => {
+  document.querySelector("#uploading").addEventListener("click", () => {
     if (document.querySelector("#files-upload").style.display === "none") {
       upload_files();
     }
@@ -122,17 +122,19 @@ function upload_files(drivebox, query="") {
 
   $("#files-view").removeClass("d-flex").addClass("d-none");
   $("#files-upload").removeClass("d-none").addClass("d-flex");
-  $(".nav-link.active").removeClass("active")
+  // $(".nav-link.active").removeClass("active")
 
   // Active Nav-links style
-  $(".nav-link").each(function () {
+  $(".nav-link.active").each(function () {
     var link = this;
     
     link.addEventListener("click", function () {
       
       // Push state with drivebox id and load drivebox if it's not compose
-      history.pushState({ drivebox: link.id }, "", `./#${link.id}`);
-      if (link.id !== "compose") load_drivebox(link.id);
+      // history.pushState({ drivebox: link.id }, "", `./#${link.id}`);
+      // if (link.id !== "uploading") load_drivebox(link.id);
+      $("#files-view").removeClass("d-none").addClass("d-flex");
+      $("#files-upload ").removeClass("d-flex").addClass("d-none");
       
     });
   });
@@ -164,7 +166,7 @@ function load_drivebox(drivebox, query="") {
   // Create a spinner HTML element using template literals and assign it to the 'spinner' variable.
   const spinner = `
   <div class="d-flex justify-content-center spin my-5 w-100">
-    <div class="spinner-border text-danger" role="status">
+    <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>`;
@@ -332,10 +334,7 @@ function load_drivebox(drivebox, query="") {
             e.stopImmediatePropagation();
           })
         }
-
-
         });
-
       }
       else{
         const empty = document.createElement("div");

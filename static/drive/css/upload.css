@@ -7,8 +7,10 @@
   -o-border-image: none;
   border-image: none;
   max-width: 1050px;
-  width: 1050px;
-  min-height: 540px;
+  /* width: 1050px; */
+  width: 50rem;
+  /* min-width: 50rem; */
+  /* min-height: 540px; */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -22,7 +24,7 @@
 
 @media only screen and (max-width: 1024px) {
   .dropzone {
-    width: calc(100% - 16px);
+    width: 25rem;
   }
 }
 
@@ -32,6 +34,9 @@
 
 .dropzone.dz-started .upload-icon {
   display: none;
+}
+.upload-icon{
+  max-width: 100px;
 }
 
 .dropzone.style--two {
