@@ -53,7 +53,7 @@
 
                         </div>
                       {% if request.user.role == "COMPANY" %}
-                      <a class="btn btn-primary text-light text-center btn-block mt-3" href="{% url 'employees' %}" style="min-width: 10rem;">
+                      <a class="btn text-light text-center btn-block mt-3 primary_background" href="{% url 'employees' %}" style="min-width: 10rem;">
                           <i class="plus-img mx-2 menu-icon mdi mdi-view-dashboard"></i> Control Panel
                       </a>
                       {% endif %}
@@ -76,7 +76,7 @@
                     {% endif %}
                     <li class="nav-item">
                       <a class="nav-link my-3 mx-3 py-3 pl-3" id="uploading" >
-                        <img src="{% static 'mail/upload1.png' %}" class="plus-img mr-2"> upload Files
+                        <img src="{% static 'mail/upload1.png' %}" class="plus-img mr-2"> Upload Files
                       </a>
                     </li>
                     <li class="nav-item">
@@ -86,7 +86,7 @@
                     </li>
                     <li class="nav-item " >
                       <a class="nav-link py-lg-1 " id="archive">
-                       <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" class="archive_btn">Archived
+                        <i class="fas fa-archive pl-2 pr-3"></i>Archived
                       </a>
                     </li>
                     <li class="nav-item">

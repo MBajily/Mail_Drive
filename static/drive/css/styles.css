@@ -24,6 +24,15 @@ html {
 .spinner-border{
     color: #457b68;
 }
+
+.primary_color{
+    color: #457b68;
+}
+
+.primary_background{
+    background-color: #457b68;
+}
+
 img {
     max-width: 100%;
     height: auto !important;

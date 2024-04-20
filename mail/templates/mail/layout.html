@@ -52,7 +52,7 @@
 
                         </div>
                       {% if request.user.role == "COMPANY" %}
-                      <a class="btn btn-primary text-light text-center btn-block mt-3" href="{% url 'employees' %}" style="min-width: 10rem;">
+                      <a class="btn text-light text-center btn-block mt-3 primary_background" href="{% url 'employees' %}" style="min-width: 10rem;">
                           <i class="plus-img mx-2 menu-icon mdi mdi-view-dashboard"></i> Control Panel
                       </a>
                       {% endif %}
@@ -69,13 +69,13 @@
               <div id="sidebar">
                   <ul class="nav nav-sidebar">
                     {% if request.user.role == "EMPLOYEE" %}
-                      <img class="sidebar-logo" src="{{request.user.company.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
+                      <img class="sidebar-logo mx-auto" src="{{request.user.company.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
                     {% elif request.user.role == "COMPANY" %}
-                      <img class="sidebar-logo" src="{{request.user.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
+                      <img class="sidebar-logo mx-auto" src="{{request.user.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
                     {% endif %}
                     <li class="nav-item">
-                      <a class="nav-link mb-3 mr-4 py-2 " id="compose" >
-                        <img src="https://www.gstatic.com/images/icons/material/colored_icons/2x/create_32dp.png" class="plus-img mr-2"> Compose
+                      <a class="nav-link my-3 mx-3 py-3 pl-3" id="compose" >
+                        <img src="{% static 'mail/compose5.png' %}" class="plus-img mr-2"> Compose
                       </a>
                     </li>
                     <li class="nav-item">
@@ -90,7 +90,7 @@
                     </li>
                     <li class="nav-item " >
                       <a class="nav-link py-lg-1 " id="archive">
-                       <img src="https://www.gstatic.com/images/icons/material/system/1x/archive_black_20dp.png" class="archive_btn">Archived
+                        <i class="fas fa-archive pl-2 pr-3"></i>Archived
                       </a>
                     </li>
                     <li class="nav-item">
@@ -104,8 +104,8 @@
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link mb-3 mr-4 py-2" id="compose" href="{% url 'files' %}">
-                        <img src="{% static 'mail/drive.png' %}" class="plus-img mx-2"> Drive
+                      <a class="nav-link mb-3 mr-4 py-3 primary_buttons" href="{% url 'files' %}">
+                        <img src="{% static 'mail/drive_green.png' %}" class="plus-img mx-2"> Go to Drive
                       </a>
                     </li>
                   </ul>

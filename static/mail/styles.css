@@ -122,8 +122,8 @@ font-size: 1.6rem;
     background-color: rgb(230, 230, 230);
 }
 #inbox.active {
-    color: #d93025;
-    background-color: rgb(255, 158, 147, 0.2);
+    color: #457b68;
+    background-color: rgb(69, 123, 104, 0.2);
 }
 /* .nav-link:focus:hover{
     border-radius: 0px 20px 20px 0px;
@@ -167,7 +167,7 @@ font-size: 1.6rem;
 .spread{
     padding-left: 0px; 
 }
-#compose,.logout{
+.logout{
     font-family: 'Open Sans', sans-serif;
     font-weight: bold;
     font-size: 14px;
@@ -181,6 +181,13 @@ font-size: 1.6rem;
     max-width: 10rem;
     background-color: white;
 }
+
+#compose{
+    border: 0.1px solid #eee;
+    border-radius: 20px;
+}
+
+
 .plus-img{
     max-width: 32px;
     height: auto;
@@ -425,7 +432,7 @@ width: 25px;
 
 .empty_icon{
     font-size: 9rem;
-    color: #d93025;
+    color: #457b68;
     padding-left: 1rem;
 }
 
@@ -723,3 +730,43 @@ width: 25px;
         right: 26px;
         z-index: 9999;
     }
+
+.spinner-border{
+    color: #457b68;
+}
+
+.primary_color{
+    color: #457b68;
+}
+
+.primary_background{
+    background-color: #457b68;
+}
+
+.primary_buttons{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: .5px;
+    color: black;
+    white-space: nowrap;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+
+    margin-top: 1.4rem;
+    border-radius: 24px;
+    margin-left: 0.5rem;
+    /* max-width: 10rem; */
+}
+.primary_buttons:hover{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: .5px;
+    color: #457b68;
+    white-space: nowrap;
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+
+    margin-top: 1.4rem;
+    border-radius: 24px;
+    margin-left: 0.5rem;
+}

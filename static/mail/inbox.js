@@ -259,7 +259,7 @@ function load_mailbox(mailbox, query = "") {
   // Create a spinner HTML element using template literals and assign it to the 'spinner' variable.
   const spinner = `
   <div class="d-flex justify-content-center spin my-5">
-    <div class="spinner-border text-danger" role="status">
+    <div class="spinner-border" role="status">
       <span class="sr-only">Loading...</span>
     </div>
   </div>`;
@@ -267,7 +267,7 @@ function load_mailbox(mailbox, query = "") {
   // Set the inner HTML of the #emails-view element to include a mailbox header (mailbox name capitalized) and the spinner.
   document.querySelector(
     "#emails-view"
-  ).innerHTML = `<h4 class="mailbox_head py-2 pl-3 m-0 mx-1">${
+  ).innerHTML = `<h4 class="mailbox_head  py-3 pl-3 m-0 mx-1  d-block w-100">${
     mailbox.charAt(0).toUpperCase() + mailbox.slice(1)
   }</h4> ${spinner}`;
 
