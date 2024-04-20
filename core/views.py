@@ -125,7 +125,7 @@ def login_view(request):
             message += f"If you do not recognize this sign-in, we recommend that you change your password to secure your account."
 
             send_mail(
-                "Login Alert from Samail.sa",
+                "Login Alert from emailsaudi.com",
                 message,
                 "mozal.samail@gmail.com",
                 [f"{request.user.email}"],

@@ -74,7 +74,7 @@ def addPartner(request):
 		if formset:
 			formset.save()
 			send_mail(
-				"Login Details to Samail Platform",
+				"Login Details to emailsaudi.com",
 				message,
 				"mozal.samail@gmail.com",
 				[f"{formset.email}"],

@@ -237,7 +237,7 @@ function load_drivebox(drivebox, query="") {
 
 
           const img = document.createElement("img");
-          img.src = '/static/drive/img/png-icon/f1.png';
+          img.src = '/static/drive/img/png-icon/file2.png';
           imgDiv.appendChild(img);
 
 
@@ -274,6 +274,7 @@ function load_drivebox(drivebox, query="") {
           actionList.classList.add(
             "btn-list",
           );
+          actionList.style.marginTop = "10px"
 
           let archive_stat = file.archived ? "Unarchive" : "Archive";
           let star_stat = file.starred ? "Starred" : "Not starred"
@@ -289,7 +290,7 @@ function load_drivebox(drivebox, query="") {
 
           actionList.innerHTML = `
                 <li class="star-wrapper" data-toggle="tooltip" data-placement="bottom" title="${star_stat}" style="margin:10px 5px 0 5px;"><i class="${star_class} fa-star pe-auto" style="font-size: 18px;"></i></li>
-                <li class="btn-item archive" id="archive" data-toggle="tooltip" data-placement="bottom" title="${archive_stat}" >${archive_slash}</li>
+                <li class="btn-item archive" id="archive" data-toggle="tooltip" data-placement="bottom" title="${archive_stat}" style="margin-top: -1px;">${archive_slash}</li>
                 <li class="btn-item delete" data-toggle="tooltip" data-placement="bottom" title="${del_stat}"><i class="fas ${del_class}" style="margin-left: 0.8rem;"></i></li>   
                 ${del_forever}
           `
