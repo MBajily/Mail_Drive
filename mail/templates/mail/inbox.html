@@ -2,45 +2,44 @@
 {% load static %}
 
 {% block body %}
-    
 
-    <div  id="emails-view" class="py-2 font-14 mb-2">
-    </div>
+  <div  id="emails-view" class="py-2 font-14 mb-2">
+  </div>
 
-    <div id="check-email" class="py-3 m-0 mb-3 w-100">
-       
-    </div>
+  <div id="check-email" class="py-3 m-0 mb-3 w-100">
+      
+  </div>
 
-    <div class="border p-0 m-0" id="compose-view">
-        <h3 class="border-bottom py-2 pl-3 mb-2" id="title">New Email</h3>
-        <form id="compose-form" class="px-md-3 px-sm-0 pt-3">
-            <div class="form-group border-bottom mx-2">
-                 <div class="input-group">
-                    <div class="input-group-prepend ">
-                      <span class="input-group-text bg-white border-0" id="From">From</span>
-                    </div>
-                    <input disabled class="form-control bg-white" value="{{ request.user.username }}">
-                  </div>
-            </div>
-            <div class="form-group border-bottom mx-2">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text bg-white border-0" id="to">To</span>
-                    </div>
-                    <input id="compose-recipients" class="form-control" >
-                  </div>
-            </div>
-            <div class="form-group border-bottom mx-2 mb-1" >
-                <input class="form-control" id="compose-subject" placeholder="Subject">
-            </div>
-            <div  id="compose-body" class="mx-2"></div>
-            <button type="submit" class="btn btn-primary ml-3" id="submit-btn"><i class='fas fa-paper-plane pr-2'></i>Send</button>
-        </form>
-    </div>  
+  <div class="border p-0 m-0" id="compose-view">
+    <h3 class="border-bottom py-2 pl-3 mb-2" id="title">New Email</h3>
+    <form id="compose-form" class="px-md-3 px-sm-0 pt-3">
+        <div class="form-group border-bottom mx-2">
+              <div class="input-group">
+                <div class="input-group-prepend ">
+                  <span class="input-group-text bg-white border-0" id="From">From</span>
+                </div>
+                <input disabled class="form-control bg-white" value="{{ request.user.username }}">
+              </div>
+        </div>
+        <div class="form-group border-bottom mx-2">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white border-0" id="to">To</span>
+                </div>
+                <input id="compose-recipients" class="form-control" >
+              </div>
+        </div>
+        <div class="form-group border-bottom mx-2 mb-1" >
+            <input class="form-control" id="compose-subject" placeholder="Subject">
+        </div>
+        <div  id="compose-body" class="mx-2" style="min-height: 200px; border: 1px solid gray;"></div>
+        <button type="submit" class="btn btn-primary ml-3 mt-4" id="submit-btn"><i class='fas fa-paper-plane pr-2'></i>Send</button>
+    </form>
+  </div>  
 
 {% endblock %}
 
 {% block script %}
-
     <script src="{% static 'mail/inbox.js' %}"></script>
+    <!-- <script src="{% static 'mail/ckeditor5/ckeditor.js' %}"></script> -->
 {% endblock %}
