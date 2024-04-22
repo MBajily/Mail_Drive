@@ -5,10 +5,11 @@ from core.models import User, Employee
 from .decorators import allowed_users
 from django.contrib.auth.decorators import login_required
 from .forms import EmployeeForm
+from manager.forms import UpdatePartnerForm
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
-
+from django.core.files.storage import default_storage
 
 def generate_password(email):
 	password_length = 12  # Change this to your desired password length
@@ -128,3 +129,61 @@ def deleteEmployee(request, employee_id):
 #=====================================================
 #=====================================================
 #=====================================================
+
+
+@login_required(login_url='login')
+@allowed_users(['COMPANY'])
+def updatePassword(request):
+	main_menu = 'settings'
+	sub_menu = 'update_password'
+
+	user_logged_in = request.user
+
+	if request.method == 'POST':
+		if request.user.check_password(request.POST["old_password"]):
+			if request.POST['new_password'] == request.POST['confirm_password']:
+				admin_information = User.objects.get(username=user_logged_in.username)
+				admin_information.set_password(request.POST['new_password'])
+				print(admin_information.password)
+				if admin_information:
+					admin_information.save()
+					return redirect('employees')
+		else:
+			return redirect('updatePassword')
+
+
+	context = {'title': 'Update Password', 
+				'main_menu':main_menu, 'sub_menu':sub_menu}
+
+	return render(request, 'company/profile/update_password.html', context)
+
+
+@login_required(login_url='login')
+@allowed_users(['COMPANY'])
+def updateProfile(request):
+	main_menu = 'settings'
+	sub_menu = 'update_profile'
+	
+	selected_user = request.user
+	formset = UpdatePartnerForm(instance=selected_user)
+	
+	if request.method == 'POST':
+		english_name = request.POST['english_name'].capitalize()
+		arabic_name = request.POST['arabic_name']
+		photo = request.FILES['photo']
+		if 'photo' in request.FILES:
+			# Delete the old photo if it exists
+			if selected_user.photo:
+				default_storage.delete(selected_user.photo.name)
+			selected_user.photo = request.FILES['photo']
+		
+		selected_user.arabic_name = request.POST['arabic_name']
+		selected_user.english_name = request.POST['english_name']
+		selected_user.save()
+
+		return redirect('employees')
+	
+	context = {'title': selected_user.english_name + " - Update", 'selected_user':selected_user,
+				'formset':formset, 'main_menu':main_menu, 'sub_menu':sub_menu}
+	
+	return render(request, 'company/profile/update_profile.html', context)

@@ -1,0 +1,84 @@
+{% extends 'company/index.html' %}
+{% load static %}
+
+
+{% block style %}
+
+
+	<!-- Dropify -->
+	<link rel="stylesheet" href="{% static '/manager/plugin/dropify/css/dropify.min.css' %}">
+
+{% endblock %}
+
+{% block content %}
+	<div id="wrapper">
+		<div class="main-content">
+			<div class="row small-spacing">
+				<div class="col-xs-12">
+					<div class="box-content">
+						<label style="font-size: 30px;" class="control-label mt-5 mx-5">Update Profile</label>
+						<form class="form-horizontal m-5" data-toggle="validator" method="POST" enctype="multipart/form-data">
+							{% csrf_token %}
+							{{ formset.management_form }}
+
+							<div class="row">
+								<div class="form-group col-md-5 col-xs-12 m-1">
+									<label for="inputName" class="control-label">English Name</label>
+									{{formset.english_name}}
+								</div>
+
+								<div class="form-group col-md-5 col-xs-12 m-1">
+									<label for="inputName" class="control-label">Arabic Name</label>
+									{{formset.arabic_name}}
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group col-md-5 col-xs-12 m-1">
+									<label for="inputName" class="control-label">Email</label>
+									{{formset.email}}
+								</div>
+								<div class="form-group col-md-5 col-xs-12 m-1">
+									<label for="inputName" class="control-label">Mail Extension</label>
+									{{formset.extension}}
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 col-sm-12 col-xs-12 mt-5 mx-1">
+									<div class="box-content">
+										<h4 class="box-title">Logo</h4>
+										<!-- /.box-title -->
+										<div class="dropdown js__drop_down">
+											<a href="#" class="dropdown-icon glyphicon glyphicon-option-vertical js__drop_down_button"></a>
+											<ul class="sub-menu">
+												<li><a href="#">Action</a></li>
+												<li><a href="#">Another action</a></li>
+												<li><a href="#">Something else there</a></li>
+												<li class="split"></li>
+												<li><a href="#">Separated link</a></li>
+											</ul>
+											<!-- /.sub-menu -->
+										</div>
+										<!-- /.dropdown js__dropdown -->
+										{{formset.photo}}
+					                    <p class="help margin-top-10">Only portrait or square images, 2M max and 2000px max-height.</p>
+									</div>
+									<!-- /.box-content -->
+								</div>
+							</div>
+							<br><br>
+							
+							<a class="btn btn-secondary btn-sm waves-effect waves-light" href="{% url 'partners' %}">Cancel</a>
+							<button type="submit" class="btn btn-primary btn-sm waves-effect waves-light">Submit</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block script %}
+	<!-- Dropify -->
+	<script src="{% static '/manager/plugin/dropify/js/dropify.min.js' %}"></script>
+	<script src="{% static '/manager/scripts/fileUpload.demo.min.js' %}"></script>
+{% endblock %}

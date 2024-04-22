@@ -9,11 +9,6 @@ urlpatterns = [
     path("employees/<int:employee_id>/activate", views.activateEmployee, name="activateEmployee"),
     path("employees/<int:employee_id>/delete", views.deleteEmployee, name="deleteEmployee"),
 
-    # Mail Routes
-    # path("mail", mail.inbox, name="inbox"),
-    # path("mail/emails", mail.compose, name="compose"),
-    # path("mail/emails/<int:email_id>", mail.email, name="email"),
-    # path("mail/emails/<str:mailbox>", mail.mailbox, name="mailbox"),
-    # path("mail/emails/search/<str:query>", mail.search, name="search"),
-
+    path("password/update", views.updatePassword, name="updatePassword"),
+    path("profile/update", views.updateProfile, name="updateProfile"),
 ]

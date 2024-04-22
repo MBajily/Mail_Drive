@@ -129,6 +129,45 @@
 					<a class="" href="{% url 'files' %}"><i class="menu-icon mdi mdi-google-drive"></i><span>Drive</span><span class="menu-arrow fa fa-angle-right"></span></a>
 				</li>
 
+				{% if main_menu == 'settings' %}
+					<li class="current active">
+						<a class="waves-effect parent-item js__control primary_background" href="#"><i class="menu-icon mdi mdi-settings"></i><span>Settings</span><span class="menu-arrow fa fa-angle-down"></span></a>
+						<ul class="sub-menu js__content">
+							{% if sub_menu == 'update_profile' %}
+								<li class="current">
+									<a class="waves-effect primary_color" href="{% url 'updateProfile' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Update Profile</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="waves-effect" href="{% url 'updateProfile' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Update Profile</a>
+								</li>
+							{% endif %}
+
+							{% if sub_menu == 'update_password' %}
+								<li class="current">
+									<a class="waves-effect primary_color" href="{% url 'updatePassword' %}"><i style="font-size: 16px;" class="mdi mdi-key"></i> Change Password</a>
+								</li>
+							{% else %}
+								<li>
+									<a class="waves-effect" href="{% url 'updatePassword' %}"><i style="font-size: 16px;" class="mdi mdi-key"></i> Change Password</a>
+								</li>
+							{% endif %}
+						</ul>
+						<!-- /.sub-menu js__content -->
+					</li>
+				{% else %}
+					<li>
+						<a class="waves-effect parent-item js__control" href="#"><i class="menu-icon mdi mdi-settings"></i><span>Settings</span><span class="menu-arrow fa fa-angle-down"></span></a>
+						<ul class="sub-menu js__content">
+							<li><a class="waves-effect" href="{% url 'updateProfile' %}"><i style="font-size: 16px;" class="mdi mdi-account-settings-variant"></i> Update Profile</a></li>
+
+							<li><a class="waves-effect" href="{% url 'updatePassword' %}"><i style="font-size: 16px;" class="mdi mdi-key"></i> Change Password</a></li>
+							
+						</ul>
+						<!-- /.sub-menu js__content -->
+					</li>
+				{% endif %}
+
 				<li><a class="js__logout" href=""><i class="menu-icon mdi mdi-logout"></i><span>Log Out</span></a></li>
 			</ul>
 			<!-- /.menu js__accordion -->
