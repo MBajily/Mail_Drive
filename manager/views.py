@@ -147,3 +147,31 @@ def activatePartner(request, partner_id):
 #=====================================================
 #=====================================================
 #=====================================================
+
+
+
+@login_required(login_url='login')
+@admin_only
+def adminPassword(request):
+	main_menu = 'settings'
+	sub_menu = 'update_password'
+
+	user_logged_in = request.user
+
+	if request.method == 'POST':
+		if request.user.check_password(request.POST["old_password"]):
+			if request.POST['new_password'] == request.POST['confirm_password']:
+				admin_information = User.objects.get(username=user_logged_in.username)
+				admin_information.set_password(request.POST['new_password'])
+				print(admin_information.password)
+				if admin_information:
+					admin_information.save()
+					return redirect('employees')
+		else:
+			return redirect('updatePassword')
+
+
+	context = {'title': 'Update Password', 
+				'main_menu':main_menu, 'sub_menu':sub_menu}
+
+	return render(request, 'manager/profile/update_password.html', context)

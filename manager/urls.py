@@ -9,4 +9,6 @@ urlpatterns = [
     path("partners/<int:partner_id>/deactivate", views.deactivatePartner, name="deactivatePartner"),
     path("partners/<int:partner_id>/activate", views.activatePartner, name="activatePartner"),
 
+    path("password/update", views.adminPassword, name="adminPassword"),
+
 ]
