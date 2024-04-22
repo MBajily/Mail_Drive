@@ -174,4 +174,4 @@ def adminPassword(request):
 	context = {'title': 'Update Password', 
 				'main_menu':main_menu, 'sub_menu':sub_menu}
 
-	return render(request, 'manager/profile/update_password.html', context)
+	return render(request, 'manager/update_password.html', context)
