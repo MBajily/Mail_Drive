@@ -170,15 +170,14 @@ def updateProfile(request):
 	if request.method == 'POST':
 		english_name = request.POST['english_name'].capitalize()
 		arabic_name = request.POST['arabic_name']
-		photo = request.FILES['photo']
 		if 'photo' in request.FILES:
 			# Delete the old photo if it exists
 			if selected_user.photo:
 				default_storage.delete(selected_user.photo.name)
 			selected_user.photo = request.FILES['photo']
 		
-		selected_user.arabic_name = request.POST['arabic_name']
-		selected_user.english_name = request.POST['english_name']
+		selected_user.arabic_name = arabic_name
+		selected_user.english_name = english_name
 		selected_user.save()
 
 		return redirect('employees')

@@ -34,25 +34,17 @@
       {% if user.is_authenticated %}
       <div class="overlay"></div>
         <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-white pl-0">
-          <button type="button" id="sidebarCollapse" class="btn btn-link text-secondary mr-2 rounded-circle">
-            <i class="fas fa-bars"></i>
-        </button>
+            <button type="button" id="sidebarCollapse" class="btn btn-link text-secondary mr-2 rounded-circle">
+                <i class="fas fa-bars"></i>
+            </button>
         {% if request.user.role == "EMPLOYEE" %}
             <a class="navbar-brand ml-2" href="#"><img class="gb_ua" src="{{request.user.company.photo.url}}" alt="" aria-hidden="true" style="max-height:40px"></a>
         {% elif request.user.role == "COMPANY" %}
             <a class="navbar-brand ml-2" href="#"><img class="gb_ua" src="{{request.user.photo.url}}" alt="" aria-hidden="true" style="max-height:40px"></a>
         {% endif %}
-            <!-- search bar -->
-            <form class="inline-form col-md-9 p-0 srch-form">
-              <div class="input-group srchbar py-1">
-                <div class="input-group-prepend border-0 pl-1">
-                  <button id="button-addon4" type="button" class="btn btn-link text-secondary srch_btn"><i class="fa fa-search"></i></button>
-                </div>
-                <input type="search" placeholder="Search mail" aria-describedby="button-addon4" class="form-control bg-transparent border-0 srch-inp" >
-              </div>
-            </form>
 
               <ul class="navbar-nav ml-auto">
+                
                 <li class="nav-item">
                   <div class="dropdown dropdown-user"> 
                     <a class="dropdown-toggle text-light h6 text-decoration-none" href="#" id="dropdownMenuButton" data-toggle="dropdown">
@@ -85,7 +77,7 @@
           </nav>
           
           
-              <div id="sidebar">
+              <div id="sidebar" class="border-right">
                   <ul class="nav nav-sidebar">
                     {% if request.user.role == "EMPLOYEE" %}
                       <img class="sidebar-logo mx-auto" src="{{request.user.company.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
@@ -93,40 +85,15 @@
                       <img class="sidebar-logo mx-auto" src="{{request.user.photo.url}}" alt="" aria-hidden="true" style="width:130px;height:40px">
                     {% endif %}
                     <li class="nav-item">
-                      <a class="nav-link my-3 mx-3 py-3 pl-3" id="compose" >
-                        <img src="{% static 'mail/compose5.png' %}" class="plus-img mr-2"> Compose
+                      <a class="nav-link mx-4 py-3 primary_buttons" href="{% url 'index' %}">
+                        <img src="{% static 'mail/mail_green.png' %}" class="plus-img mx-2"> Go to Mail
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link py-lg-1 active" id="inbox" >
-                        <i class="fas fa-inbox pl-2 pr-3"></i>Inbox
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link py-lg-1 " id="sent">
-                        <i class="fas fa-paper-plane pl-2 pr-3"></i>Sent
-                      </a>
-                    </li>
-                    <li class="nav-item " >
-                      <a class="nav-link py-lg-1 " id="archive">
-                        <i class="fas fa-archive pl-2 pr-3"></i>Archived
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link py-lg-1" id="starred">
-                        <i class="fas fa-star pl-2 pr-3" style="color: initial;"></i>Starred
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link py-lg-1 " id="trash">
-                        <i class="fas fa-trash pl-2 pr-3"></i>Trash
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link mb-3 mr-4 py-3 primary_buttons" href="{% url 'files' %}">
-                        <img src="{% static 'mail/drive_green.png' %}" class="plus-img mx-2"> Go to Drive
-                      </a>
-                    </li>
+                        <a class="nav-link mb-3 mx-4 py-3 primary_buttons" href="{% url 'files' %}">
+                          <img src="{% static 'mail/drive_green.png' %}" class="plus-img mx-2"> Go to Drive
+                        </a>
+                      </li>
                   </ul>
                  </div>
                 </div>

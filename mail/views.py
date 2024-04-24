@@ -60,7 +60,7 @@ def compose(request):
     recipients = []
     for email in emails:
         try:
-            user = User.objects.get(username=email)
+            user = User.objects.get(username=email.lower())
             recipients.append(user)
         except User.DoesNotExist:
             return JsonResponse({

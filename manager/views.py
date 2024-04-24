@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import PartnerForm, UpdatePartnerForm
 from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
+from django.core.files.storage import default_storage
 
 
 def generate_password(email):
@@ -102,13 +103,14 @@ def updatePartner(request, partner_id):
 	if request.method == 'POST':
 		english_name = request.POST['english_name'].capitalize()
 		arabic_name = request.POST['arabic_name']
-		photo = request.FILES['photo']
-		if selected_partner.photo:
-			selected_partner.photo.delete()
+		if 'photo' in request.FILES:
+			# Delete the old photo if it exists
+			if selected_partner.photo:
+				default_storage.delete(selected_partner.photo.name)
+			selected_partner.photo = request.FILES['photo']
 		
-		User.objects.filter(id=partner_id).update(english_name=english_name)
-		User.objects.filter(id=partner_id).update(arabic_name=arabic_name)
-		selected_partner.photo=photo
+		selected_partner.english_name=english_name
+		selected_partner.arabic_name=arabic_name
 		selected_partner.save()
 
 		return redirect('partners')
