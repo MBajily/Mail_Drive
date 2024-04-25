@@ -6,12 +6,11 @@
     <div class="col col-sm-8 col-md-7 col-lg-4 mx-auto ">
         <div class="card border rounded-lg mt-5 p-5 m-2 shadow-sm">
         <div class="card-body text-center">
+            
            <img src="{% static 'mail/bassmh.png' %}"  aria-hidden="true" style="width:209px">
             <h3 class="card-title mt-3 mb-0 pb-0 font-weight-normal">Sign in</h3>
             <p class="mb-4 ">to continue to Mail and Drive</p>
-            {% if message %}
-            <div>{{ message }}</div>
-            {% endif %}
+            {% include 'messages/messages.html' %}
     
             <form action="{% url 'login' %}" method="post" >
             {% csrf_token %}

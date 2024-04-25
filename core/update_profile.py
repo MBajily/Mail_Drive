@@ -36,7 +36,7 @@ def updatePassword(request):
 	user_logged_in = request.user
 
 	if request.method == 'POST':
-		if request.user.check_password(request.POST["old_password"]):
+		if request.user.check_password(request.POST["current_password"]):
 			if request.POST['new_password'] == request.POST['confirm_password']:
 				admin_information = User.objects.get(username=user_logged_in.username)
 				admin_information.set_password(request.POST['new_password'])

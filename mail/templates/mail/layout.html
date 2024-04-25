@@ -65,6 +65,11 @@
                           <h6 class="text-muted mt-0 font-weight-normal">{{ request.user.username}}</h6>
 
                         </div>
+                      {% if request.user.is_superuser %}
+                      <a class="btn text-light text-center btn-block mt-3 primary_background" href="{% url 'partners' %}" style="min-width: 10rem;">
+                          <i class="plus-img mx-2 menu-icon mdi mdi-view-dashboard"></i> Control Panel
+                      </a>
+                      {% endif %}
                       {% if request.user.role == "COMPANY" %}
                       <a class="btn text-light text-center btn-block mt-3 primary_background" href="{% url 'employees' %}" style="min-width: 10rem;">
                           <i class="plus-img mx-2 menu-icon mdi mdi-view-dashboard"></i> Control Panel
