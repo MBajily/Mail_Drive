@@ -6,14 +6,13 @@ from .decorators import allowed_users
 from django.contrib.auth.decorators import login_required
 from .forms import EmployeeForm
 from manager.forms import UpdatePartnerForm
-from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
 from django.core.files.storage import default_storage
 from django.contrib import messages
 
 
-def generate_password(email):
+def generate_password():
 	password_length = 12  # Change this to your desired password length
 	password = secrets.token_urlsafe(password_length)
 	hashed_password = make_password(password)
@@ -71,7 +70,7 @@ def addEmployee(request):
 			email = request.POST['email'].lower()
 			username = request.POST['username'].lower().split('@')[0]
 			username = str(username) + '@' + str(request.user.extension)
-			password = generate_password(email)
+			password = generate_password()
 
 			if is_email_exists(email) and is_username_exists(username):
 				messages.error(request, f"Email '{email}' is already used!", 'danger')

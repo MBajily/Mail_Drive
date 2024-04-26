@@ -11,7 +11,7 @@ from django.core.files.storage import default_storage
 from django.contrib import messages
 
 
-def generate_password(email):
+def generate_password():
 	password_length = 12  # Change this to your desired password length
 	password = secrets.token_urlsafe(password_length)
 	hashed_password = make_password(password)
@@ -70,7 +70,7 @@ def addPartner(request):
 			extension = request.POST['extension'].lower().split('@')[-1]
 			photo = request.FILES['photo']
 			username = 'admin' + '@' + str(extension)
-			password = generate_password(email)
+			password = generate_password()
 
 			if is_email_exists(email) and is_username_exists(username):
 				messages.error(request, f"Email '{email}' is already used!", 'danger')

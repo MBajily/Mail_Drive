@@ -1,7 +1,8 @@
+import re
 from datetime import datetime
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import HttpResponse, HttpResponseRedirect, render, redirect
+from django.shortcuts import HttpResponseRedirect, render, redirect
 from django.urls import reverse
 from django.contrib.auth.forms import PasswordResetForm
 from django.views.decorators.csrf import csrf_exempt
@@ -12,7 +13,6 @@ from project import settings
 from user_agents import parse
 from django.core.mail import send_mail
 from django.contrib import messages
-
 
 
 def get_device(request):
@@ -26,17 +26,8 @@ def get_device(request):
     return f"{device_type} ({os} {os_version})"
 
 
-# from rest_framework_simplejwt.views import TokenObtainPairView
-# from .serializers import MyTokenObtainPairSerializer
-
-
-# class MyTokenObtainPairView(TokenObtainPairView):
-#     serializer_class = MyTokenObtainPairSerializer
-
 @csrf_exempt
 def is_username_exists(request):
-    # data = json.loads(request.body.decode('utf-8'))
-    # username = data.get('username')
     username = request
 
     try:
@@ -50,7 +41,6 @@ def is_username_exists(request):
 @api_view(['POST'])
 def passwordReset(request):
     try:
-        # data = json.loads(request.body.decode('utf-8'))
         data = request.data
         username = data.get("username")
         if is_username_exists(username) == False:
@@ -66,10 +56,8 @@ def passwordReset(request):
                 # subject_template_name='registration/password_reset_subject.txt',
             )
             return Response({"message": "We sent you a reset password url on your email."}, status=202)
-            # return JsonResponse({'success': True, 'message': 'Password reset email has been sent.'})
         else:
             return Response(status=400)
-            # return JsonResponse({'success': False, 'errors': form.errors})
 
     except Exception as e:
         error_data = {
@@ -116,6 +104,15 @@ def login_view(request):
         # Attempt to sign user in
         email = request.POST["email"].lower()
         password = request.POST["password"]
+
+        if email == "" or password == "":
+            messages.error(request, f"You should fill out all fields!", 'danger')
+            return redirect('login')
+        
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+            messages.error(request, f"Email field: an invalid email!", 'danger')
+            return redirect('login')
+        
         user = authenticate(request, username=email, password=password)
 
         # Check if authentication successful
@@ -138,10 +135,10 @@ def login_view(request):
             
             except:
                 messages.error(request, f"Invalid email and/or password.", 'danger')
-                return render(request, "mail/login.html")
+                return redirect('login')
         else:
             messages.error(request, f"Invalid email and/or password.", 'danger')
-            return render(request, "mail/login.html")
+            return redirect('login')
     else:
         return render(request, "mail/login.html")
 
