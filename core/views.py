@@ -11,6 +11,7 @@ from .models import User
 from project import settings
 from user_agents import parse
 from django.core.mail import send_mail
+from django.contrib import messages
 
 
 
@@ -108,7 +109,7 @@ def index(request):
 
 def login_view(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("index"))
+        return redirect(login_redirect_page)
         
     if request.method == "POST":
 
@@ -119,24 +120,28 @@ def login_view(request):
 
         # Check if authentication successful
         if user is not None:
-            login(request, user)
-            message = f"Hi {request.user.english_name},\n\nWe noticed a new login to your account {request.user.username}.\n\n"
-            message += f"Date: {datetime.utcnow().strftime('%d-%b-%Y %H:%M:%S UTC')}\n\nDevice: {get_device(request)}\n\n"
-            message += f"If you do not recognize this sign-in, we recommend that you change your password to secure your account."
+            try:
+                login(request, user)
+                message = f"Hi {request.user.english_name},\n\nWe noticed a new login to your account {request.user.username}.\n\n"
+                message += f"Date: {datetime.utcnow().strftime('%d-%b-%Y %H:%M:%S UTC')}\n\nDevice: {get_device(request)}\n\n"
+                message += f"If you do not recognize this sign-in, we recommend that you change your password to secure your account."
 
-            send_mail(
-                "Login Alert from emailsaudi.com",
-                message,
-                "mozal.samail@gmail.com",
-                [f"{request.user.email}"],
-                fail_silently=False,
-            )
+                send_mail(
+                    "Login Alert from emailsaudi.com",
+                    message,
+                    "mozal.samail@gmail.com",
+                    [f"{request.user.email}"],
+                    fail_silently=False,
+                )
 
-            return redirect(login_redirect_page)
+                return redirect(login_redirect_page)
+            
+            except:
+                messages.error(request, f"Invalid email and/or password.", 'danger')
+                return render(request, "mail/login.html")
         else:
-            return render(request, "mail/login.html", {
-                "message": "Invalid email and/or password."
-            })
+            messages.error(request, f"Invalid email and/or password.", 'danger')
+            return render(request, "mail/login.html")
     else:
         return render(request, "mail/login.html")
 
