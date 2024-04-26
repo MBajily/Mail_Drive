@@ -70,6 +70,7 @@ def addPartner(request):
 			extension = request.POST['extension'].lower().split('@')[-1]
 			photo = request.FILES['photo']
 			username = 'admin' + '@' + str(extension)
+			password = generate_password(email)
 
 			if is_email_exists(email) and is_username_exists(username):
 				messages.error(request, f"Email '{email}' is already used!", 'danger')
@@ -83,10 +84,19 @@ def addPartner(request):
 			elif is_username_exists(username):
 				messages.error(request, f"Extension '{extension}' is already used!", 'danger')
 				return redirect('addPartner')
+
+			if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username) and\
+				not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+				messages.error(request, f"'{email}' is invalid email!", 'danger')
+				messages.error(request, f"'{username}' is invalid username!", 'danger')
+				return redirect('addPartners')
+
+			elif not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
+				messages.error(request, f"'{username}' is invalid username!", 'danger')
+				return redirect('addPartners')
 			
-			password = generate_password(email)
-			if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
-				messages.error(request, f"Email '{username}' is invalid email!", 'danger')
+			elif not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+				messages.error(request, f"'{email}' is invalid email!", 'danger')
 				return redirect('addPartners')
 
 			formset = Company(english_name=english_name, arabic_name=arabic_name, password=password["final_password"],

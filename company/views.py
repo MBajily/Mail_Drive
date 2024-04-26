@@ -74,9 +74,9 @@ def addEmployee(request):
 			password = generate_password(email)
 
 			if is_email_exists(email) and is_username_exists(username):
-					messages.error(request, f"Email '{email}' is already used!", 'danger')
-					messages.error(request, f"Username '{username}' is already used!", 'danger')
-					return redirect('addEmployee')
+				messages.error(request, f"Email '{email}' is already used!", 'danger')
+				messages.error(request, f"Username '{username}' is already used!", 'danger')
+				return redirect('addEmployee')
 
 			elif is_email_exists(email):
 				messages.error(request, f"Email '{email}' is already used!", 'danger')
@@ -86,8 +86,18 @@ def addEmployee(request):
 				messages.error(request, f"Username '{username}' is already used!", 'danger')
 				return redirect('addEmployee')
 			
-			if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
-				messages.error(request, f"Email '{username}' is invalid email!", 'danger')
+			if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username) and\
+				not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+				messages.error(request, f"'{email}' is invalid email!", 'danger')
+				messages.error(request, f"'{username}' is invalid username!", 'danger')
+				return redirect('addEmployee')
+
+			elif not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
+				messages.error(request, f"'{username}' is invalid username!", 'danger')
+				return redirect('addEmployee')
+			
+			elif not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+				messages.error(request, f"'{email}' is invalid email!", 'danger')
 				return redirect('addEmployee')
 
 			formset = Employee(english_name=english_name, arabic_name=arabic_name, password=password["final_password"],
@@ -221,8 +231,18 @@ def updateProfile(request):
 			return redirect('updateProfile')
 		
 		try:
-			selected_user.arabic_name = request.POST['arabic_name']
-			selected_user.english_name = request.POST['english_name'].capitalize()
+			english_name = request.POST['english_name']
+			arabic_name = request.POST['arabic_name']
+			if english_name == "" or arabic_name == "":
+				messages.error(request, f"You should fill out all fields!", 'danger')
+				return redirect('updateProfile')
+			
+			if len(english_name) < 3 or len(arabic_name) < 3:
+				messages.error(request, f"Your name should contains more than 2 letters!", 'danger')
+				return redirect('updateProfile')
+			
+			selected_user.arabic_name = arabic_name
+			selected_user.english_name = english_name.capitalize()
 			selected_user.save()		
 
 			messages.success(request, f"Profile updated successfully!")
