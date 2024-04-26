@@ -10,17 +10,32 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from django.contrib.auth.hashers import make_password
 from django.core.files.storage import default_storage
+from django.contrib import messages
+
 
 def generate_password(email):
 	password_length = 12  # Change this to your desired password length
-
 	password = secrets.token_urlsafe(password_length)
 	hashed_password = make_password(password)
 
-	# final_password = "pbkdf2_sha256$600000$mBOx9Z3WgBosn5Q4ney00S$kj7blpWxdmL/ub3mtO50aN358/CSKAPHOE8WEV2TZGM="
-
 	return {"final_password":hashed_password, "password":password}
 
+
+def is_email_exists(email):
+	try:
+		User.objects.get(email=email)
+		return True
+	except User.DoesNotExist:
+		return False
+
+
+def is_username_exists(username):
+	try:
+		User.objects.get(username=username)
+		return True
+	except User.DoesNotExist:
+		return False
+	
 
 #=====================================================
 #==================== employees =======================
@@ -50,39 +65,59 @@ def addEmployee(request):
 	formset = EmployeeForm()
 	
 	if request.method == 'POST':
-		english_name = request.POST['english_name'].capitalize()
-		arabic_name = request.POST['arabic_name']
-		email = request.POST['email'].lower()
-		username = request.POST['username'].lower().split('@')[0]
-		username = str(username) + '@' + str(request.user.extension)
-		password = generate_password(email)
-		if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
+		try:
+			english_name = request.POST['english_name'].capitalize()
+			arabic_name = request.POST['arabic_name']
+			email = request.POST['email'].lower()
+			username = request.POST['username'].lower().split('@')[0]
+			username = str(username) + '@' + str(request.user.extension)
+			password = generate_password(email)
+
+			if is_email_exists(email) and is_username_exists(username):
+					messages.error(request, f"Email '{email}' is already used!", 'danger')
+					messages.error(request, f"Username '{username}' is already used!", 'danger')
+					return redirect('addEmployee')
+
+			elif is_email_exists(email):
+				messages.error(request, f"Email '{email}' is already used!", 'danger')
+				return redirect('addEmployee')
+			
+			elif is_username_exists(username):
+				messages.error(request, f"Username '{username}' is already used!", 'danger')
+				return redirect('addEmployee')
+			
+			if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
+				messages.error(request, f"Email '{username}' is invalid email!", 'danger')
+				return redirect('addEmployee')
+
+			formset = Employee(english_name=english_name, arabic_name=arabic_name, password=password["final_password"],
+								email=email, username=username, company=request.user)
+			
+			message = f"Hi {formset.english_name},\n"
+			message += f"Your account is created successfully on Samail Mailing Platform.\n"
+			message += f"Your login details is:\n"
+			message += f"- Email: {formset.username}\n"
+			message += f"- Password: {password['password']}\n\n"
+			message += f"You can change the password after login to your account, go to login page: https://emailsaudi.com/login\n\n"
+			message += f"Thank you,\n"
+			message += f"Samail Team."
+
+			if formset:
+				formset.save()
+				send_mail(
+					"Login Details to emailsaudi.com",
+					message,
+					"mozal.samail@gmail.com",
+					[f"{formset.email}"],
+					fail_silently=False,
+				)
+				messages.success(request, f"Employee '{formset.username}' has added successfully!")
+
+			return redirect('employees')
+
+		except:
+			messages.error(request, f"There is something wrong!", 'danger')
 			return redirect('addEmployee')
-
-		formset = Employee(english_name=english_name, arabic_name=arabic_name, password=password["final_password"],
-						   email=email, username=username, company=request.user)
-		
-		message = f"Hi {formset.english_name},\n"
-		message += f"Your account is created successfully on Samail Mailing Platform.\n"
-		message += f"Your login details is:\n"
-		message += f"- Email: {formset.username}\n"
-		message += f"- Password: {password['password']}\n\n"
-
-		message += f"You can change the password after login to your account, go to login page: https://emailsaudi.com/login\n\n"
-
-		message += f"Thank you,\n"
-		message += f"Samail Team."
-		if formset:
-			formset.save()
-			send_mail(
-				"Login Details to emailsaudi.com",
-				message,
-				"mozal.samail@gmail.com",
-				[f"{formset.email}"],
-				fail_silently=False,
-			)
-		
-		return redirect('employees')
 	
 	context = {'title':'Add employee', 'formset':formset,
 				'main_menu':main_menu, 'sub_menu':sub_menu}
@@ -94,9 +129,6 @@ def addEmployee(request):
 #--------------- Deactivate employee -----------------
 @allowed_users(['COMPANY'])
 def deactivateEmployee(request, employee_id):
-	main_menu = 'employees'
-	sub_menu = 'all_employees'
-	
 	User.objects.filter(id=employee_id).update(is_active=False)
 	
 	return redirect('employees')
@@ -106,9 +138,6 @@ def deactivateEmployee(request, employee_id):
 #--------------- Activate employee -------------------
 @allowed_users(['COMPANY'])
 def activateEmployee(request, employee_id):
-	main_menu = 'employees'
-	sub_menu = 'all_employees'
-	
 	User.objects.filter(id=employee_id).update(is_active=True)
 	
 	return redirect('employees')
@@ -118,9 +147,6 @@ def activateEmployee(request, employee_id):
 #--------------- Delete employee -------------------
 @allowed_users(['COMPANY'])
 def deleteEmployee(request, employee_id):
-	main_menu = 'employees'
-	sub_menu = 'all_employees'
-	
 	User.objects.filter(id=employee_id).update(is_active=False)
 	User.objects.filter(id=employee_id).update(is_deleted=True)
 	
@@ -140,15 +166,30 @@ def updatePassword(request):
 	user_logged_in = request.user
 
 	if request.method == 'POST':
-		if request.user.check_password(request.POST["current_password"]):
-			if request.POST['new_password'] == request.POST['confirm_password']:
-				admin_information = User.objects.get(username=user_logged_in.username)
-				admin_information.set_password(request.POST['new_password'])
-				print(admin_information.password)
-				if admin_information:
-					admin_information.save()
-					return redirect('employees')
-		else:
+		try:
+			if request.user.check_password(request.POST["current_password"]):
+				if request.POST['new_password'] == request.POST['confirm_password']:
+					try:
+						admin_information = User.objects.get(username=user_logged_in.username)
+						admin_information.set_password(request.POST['new_password'])
+						if admin_information:
+							admin_information.save()
+							messages.success(request, f"Password updated successfully!")
+							return redirect('employees')
+					
+					except:
+						messages.error(request, f"There is something wrong!", 'danger')
+						return redirect('updatePassword')
+				else:
+					messages.error(request, f"New password and confirm password are not match!", 'danger')
+					return redirect('updatePassword')
+				
+			else:
+				messages.error(request, f"The current password is not correct!", 'danger')
+				return redirect('updatePassword')
+			
+		except:
+			messages.error(request, f"There is something wrong!", 'danger')
 			return redirect('updatePassword')
 
 
@@ -168,19 +209,28 @@ def updateProfile(request):
 	formset = UpdatePartnerForm(instance=selected_user)
 	
 	if request.method == 'POST':
-		english_name = request.POST['english_name'].capitalize()
-		arabic_name = request.POST['arabic_name']
-		if 'photo' in request.FILES:
-			# Delete the old photo if it exists
-			if selected_user.photo:
-				default_storage.delete(selected_user.photo.name)
-			selected_user.photo = request.FILES['photo']
+		try:
+			if 'photo' in request.FILES:
+				# Delete the old photo if it exists
+				if selected_user.photo:
+					default_storage.delete(selected_user.photo.name)
+				selected_user.photo = request.FILES['photo']
 		
-		selected_user.arabic_name = arabic_name
-		selected_user.english_name = english_name
-		selected_user.save()
+		except:
+			messages.error(request, f"There is something wrong. Please choose other photo!", 'danger')
+			return redirect('updateProfile')
+		
+		try:
+			selected_user.arabic_name = request.POST['arabic_name']
+			selected_user.english_name = request.POST['english_name'].capitalize()
+			selected_user.save()		
 
-		return redirect('employees')
+			messages.success(request, f"Profile updated successfully!")
+			return redirect('updateProfile')
+		
+		except:
+			messages.error(request, f"There is something wrong!", 'danger')
+			return redirect('updateProfile')
 	
 	context = {'title': selected_user.english_name + " - Update", 'selected_user':selected_user,
 				'formset':formset, 'main_menu':main_menu, 'sub_menu':sub_menu}

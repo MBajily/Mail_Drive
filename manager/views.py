@@ -13,11 +13,8 @@ from django.contrib import messages
 
 def generate_password(email):
 	password_length = 12  # Change this to your desired password length
-
 	password = secrets.token_urlsafe(password_length)
 	hashed_password = make_password(password)
-
-	# final_password = "pbkdf2_sha256$600000$mBOx9Z3WgBosn5Q4ney00S$kj7blpWxdmL/ub3mtO50aN358/CSKAPHOE8WEV2TZGM="
 
 	return {"final_password":hashed_password, "password":password}
 
@@ -149,14 +146,19 @@ def updatePartner(request, partner_id):
 		
 		except:
 			messages.error(request, f"There is something wrong. Please choose other photo!", 'danger')
-			return redirect('addPartner')
+			return redirect('updatePartner')
 		
-		selected_partner.english_name = request.POST['english_name'].capitalize()
-		selected_partner.arabic_name = request.POST['arabic_name']
-		selected_partner.save()
+		try:
+			selected_partner.english_name = request.POST['english_name'].capitalize()
+			selected_partner.arabic_name = request.POST['arabic_name']
+			selected_partner.save()
 
-		messages.success(request, f"Updated successfully!")
-		return redirect('partners')
+			messages.success(request, f"Updated successfully!")
+			return redirect('updatePartner')
+		
+		except:
+			messages.error(request, f"There is something wrong!", 'danger')
+			return redirect('updatePartner')
 	
 	context = {'title': selected_partner.english_name + " - Update", 'selected_partner':selected_partner,
 				'formset':formset, 'main_menu':main_menu, 'sub_menu':sub_menu}
@@ -204,11 +206,11 @@ def adminPassword(request):
 					try:
 						admin_information = User.objects.get(username=user_logged_in.username)
 						admin_information.set_password(request.POST['new_password'])
-						
 						if admin_information:
 							admin_information.save()
 							messages.success(request, f"Password updated successfully!")
-							return redirect('employees')
+							return redirect('partners')
+						
 					except:
 						messages.error(request, f"There is something wrong!", 'danger')
 						return redirect('adminPassword')
