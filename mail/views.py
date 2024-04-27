@@ -10,7 +10,7 @@ from django.db.models import Q
 from functools import reduce
 import operator
 from core.models import User, Email
-
+from django.core.mail import EmailMessage
 
 
 @login_required(login_url='login')
@@ -47,48 +47,69 @@ def compose(request):
     # Composing a new email must be via POST
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
-
-    # Check recipient emails
-    data = json.loads(request.body)
-    emails = [email.strip() for email in data.get("recipients").split(",")]
-    if emails == [""]:
-        return JsonResponse({
-            "error": "At least one recipient required."
-        }, status=400)
-
-    # Convert email addresses to users
-    recipients = []
-    for email in emails:
-        try:
-            user = User.objects.get(username=email.lower())
-            recipients.append(user)
-        except User.DoesNotExist:
+    try:
+        # Check recipient emails
+        data = json.loads(request.body)
+        emails = [email.strip() for email in data.get("recipients").split(",")]
+        if emails == [""]:
             return JsonResponse({
-                "error": f"User with email {email} does not exist."
+                "error": "At least one recipient required."
             }, status=400)
 
-    # Get contents of email
-    subject = data.get("subject", "")
-    body = data.get("body", "")
+        # Convert email addresses to users
+        local_recipients = []
+        global_recipients = []
+        for email in emails:
+            try:
+                user = User.objects.get(username=email.lower())
+                local_recipients.append(user)
+            except User.DoesNotExist:
+                # return JsonResponse({
+                #     "error": f"User with email {email} does not exist."
+                # }, status=400)
+                global_recipients.append(email)
 
-    # Create one email for each recipient, plus sender
-    users = set()
-    users.add(request.user)
-    users.update(recipients)
-    for user in users:
-        email = Email(
-            user=user,
-            sender=request.user,
-            subject=subject,
-            body=body,
-            read=user == request.user
+        # Get contents of email
+        subject = data.get("subject", "")
+        body = data.get("body", "")
+
+        # Create one email for each recipient, plus sender
+        users = set()
+        users.add(request.user)
+        users.update(local_recipients)
+        for user in users:
+            email = Email(
+                user=user,
+                sender=request.user,
+                subject=subject,
+                body=body,
+                read=user == request.user
+            )
+            email.save()
+            for recipient in local_recipients:
+                email.local_recipients.add(recipient)
+            email.save()
+        
+        message = f"<b>You received this message from {request.user.email} from EmailSaudi.com platform. The content of the message is as follows:</b>"
+        message += "<br><br>"
+        message += "#"
+        message += body
+        message += "#"
+        message += "<br><br>"
+        message += "<i>**Do not replay to this message.</i>"
+        send_email = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email="mozal.samail@gmail.com",
+        to=global_recipients,
         )
-        email.save()
-        for recipient in recipients:
-            email.recipients.add(recipient)
-        email.save()
+        send_email.content_subtype = "html"  # Set the content type as HTML
+        send_email.send(fail_silently=False)
 
-    return JsonResponse({"message": "Email sent successfully."}, status=201)
+        return JsonResponse({"message": "Email sent successfully."}, status=201)
+    
+    except:
+        return JsonResponse({"error": "There is some thing wrong!"}, status=400)
 
 
 @login_required
