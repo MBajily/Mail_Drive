@@ -3,7 +3,7 @@ from django.urls import path
 #     TokenRefreshView,
 # )
 
-from . import views, update_profile
+from . import views, update_profile, otp
 
 urlpatterns = [
     # path('token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -17,4 +17,5 @@ urlpatterns = [
 	path("emails/", views.index, name="index"),
     path("logout", views.logout_view, name="logout"),
     path('login/redirect/', views.login_redirect_page, name="login_redirect_page"),
+    path('login/otp', otp.emailOTP, name="emailOTP"),
 ]

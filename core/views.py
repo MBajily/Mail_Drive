@@ -12,6 +12,7 @@ from project import settings
 from user_agents import parse
 from django.core.mail import send_mail
 from django.contrib import messages
+from .utils import sendOTP
 
 
 def get_device(request):
@@ -104,40 +105,25 @@ def login_view(request):
     if request.method == "POST":
 
         # Attempt to sign user in
-        email = request.POST["email"].lower()
+        username = request.POST["email"].lower()
         password = request.POST["password"]
 
-        if email == "" or password == "":
+        if username == "" or password == "":
             messages.error(request, f"You should fill out all fields!", 'danger')
             return redirect('login')
         
-        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
+        if not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", username):
             messages.error(request, f"Email field: an invalid email!", 'danger')
             return redirect('login')
         
-        user = authenticate(request, username=email, password=password)
+        user = authenticate(request, username=username, password=password)
 
         # Check if authentication successful
         if user is not None:
-            try:
-                login(request, user)
-                message = f"Hi {request.user.english_name},\n\nWe noticed a new login to your account {request.user.username}.\n\n"
-                message += f"Date: {datetime.utcnow().strftime('%d-%b-%Y %H:%M:%S UTC')}\n\nDevice: {get_device(request)}\n\n"
-                message += f"If you do not recognize this sign-in, we recommend that you change your password to secure your account."
-
-                send_mail(
-                    "Login Alert from emailsaudi.com",
-                    message,
-                    "mozal.samail@gmail.com",
-                    [f"{request.user.email}"],
-                    fail_silently=False,
-                )
-
-                return redirect(login_redirect_page)
-            
-            except:
-                messages.error(request, f"Invalid email and/or password.", 'danger')
-                return redirect('login')
+            request.session['username'] = username
+            sendOTP(request)
+            return redirect('emailOTP')
+        
         else:
             messages.error(request, f"Invalid email and/or password.", 'danger')
             return redirect('login')

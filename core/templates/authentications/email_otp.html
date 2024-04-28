@@ -8,19 +8,19 @@
         <div class="card-body text-center">
             
            <img src="{% static 'mail/bassmh.png' %}"  aria-hidden="true" style="width:209px">
-            <h3 class="card-title mt-3 mb-4 pb-0 font-weight-normal">Reset Password</h3>
+            <h3 class="card-title mt-3 mb-4 pb-0 font-weight-normal">2FA Email Authentication</h3>
             <!-- <p class="mb-4 ">to continue to Mail and Drive</p> -->
             {% include 'messages/messages.html' %}
     
-            <form action="{% url 'password_reset' %}" method="post" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="form-group border-bottom pr-2">
-                <input autofocus class="form-control" type="text" name="username" placeholder="Email">
+                <input autofocus class="form-control" type="text" name="otp_code" placeholder="OTP Code">
             </div>
-            <input class="btn btn-primary col-md-6 my-3" type="submit" value="Reset Password">
+            <input class="btn btn-primary col-md-6 my-3" type="submit" value="Login">
             </form>
 
-            <p><a href="{% url 'login' %}">Login</a></p>
+            <p><a href="{% url 'login' %}">Back to Login</a></p>
         
         </div>
     </div>
