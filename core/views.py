@@ -7,7 +7,6 @@ from django.urls import reverse
 from django.contrib.auth.forms import PasswordResetForm
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from .models import User
 from project import settings
 from user_agents import parse
@@ -44,7 +43,9 @@ def passwordReset(request):
         data = request.data
         username = data.get("username")
         if is_username_exists(username) == False:
-            return Response({"error": "This email doesn't exist"}, status=404)
+            # return Response({"error": "This email doesn't exist"}, status=404)
+            messages.error(request, f"This email doesn't exist", 'danger')
+            return redirect("passwordReset")
 
         selectedUser = User.objects.get(username=username)
         form = PasswordResetForm({"email": selectedUser.email, "username": selectedUser.username, "site_name":"Mozal"})
@@ -55,15 +56,16 @@ def passwordReset(request):
                 # email_template_name='registration/password_reset_email.html',
                 # subject_template_name='registration/password_reset_subject.txt',
             )
-            return Response({"message": "We sent you a reset password url on your email."}, status=202)
+            # return Response({"message": "We sent you a reset password url on your email."}, status=202)
+            messages.success(request, f"We sent you a reset password url on your email.")
+            return redirect("login")
         else:
-            return Response(status=400)
+            messages.error(request, f"There is something wrong!", 'danger')
+            return redirect("passwordReset")
 
-    except Exception as e:
-        error_data = {
-            'error': str(e),
-        }
-        return Response(error_data, status=400)
+    except Exception:
+        messages.error(request, f"There is something wrong!", 'danger')
+        return redirect("passwordReset")
 
 
 
@@ -156,3 +158,8 @@ def files(request):
         return render(request, "drive/files.html")
 
     return redirect('login')
+
+def resetPasswordRequest(request):
+
+    # Authenticated users view their inbox
+    return render(request, "reset_password/password_reset_request.html")

@@ -11,6 +11,8 @@ urlpatterns = [
     path("me/profile/update", update_profile.updateProfile, name="myProfile"),
     path("me/password/update", update_profile.updatePassword, name="myPassword"),
 
+    path("password/reset", views.resetPasswordRequest, name="passwordReset"),
+
     path("drive/", views.files, name="files"),
 	path("emails/", views.index, name="index"),
     path("logout", views.logout_view, name="logout"),

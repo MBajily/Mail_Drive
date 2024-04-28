@@ -47,6 +47,7 @@ def compose(request):
     # Composing a new email must be via POST
     if request.method != "POST":
         return JsonResponse({"error": "POST request required."}, status=400)
+    
     try:
         # Check recipient emails
         data = json.loads(request.body)
