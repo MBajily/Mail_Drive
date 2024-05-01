@@ -12,8 +12,17 @@ from project import settings
 from user_agents import parse
 from django.core.mail import send_mail
 from django.contrib import messages
-from .utils import sendOTP
+from .utils import sendOTP, sendSMSOTP
+from django.contrib.auth.views import PasswordResetConfirmView
 
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirm.html'
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Password reset successful.')
+        return super().form_valid(form)
+    
 
 def get_device(request):
     user_agent = parse(request.META['HTTP_USER_AGENT'])
@@ -121,6 +130,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             request.session['username'] = username
+            # sendSMSOTP(request)
             sendOTP(request)
             return redirect('emailOTP')
         
@@ -149,3 +159,9 @@ def resetPasswordRequest(request):
 
     # Authenticated users view their inbox
     return render(request, "reset_password/password_reset_request.html")
+
+
+def sign_up(request):
+
+    # Authenticated users view their inbox
+    return render(request, "authentications/sign_up.html")

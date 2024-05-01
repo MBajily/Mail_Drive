@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
-from core.views import passwordReset, login_view
+from core.views import passwordReset, login_view, CustomPasswordResetConfirmView
 from django.contrib.auth import views as auth_views
 
 # from rest_framework.authtoken.views import obtain_auth_token
@@ -28,8 +28,8 @@ urlpatterns = [
     # Reset Password
     path('api/v1/password/reset/', passwordReset, name="password_reset"),
 
-    path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name='reset_password/password_reset_confirm.html'), name="password_reset_confirm"),
-    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(template_name='reset_password/password_reset_complete.html'), name="password_reset_complete"),
+    path('password-reset-confirm/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(template_name='reset_password/password_reset_confirm.html'), name="password_reset_confirm"),
+    path('password-reset-complete/', login_view, name="password_reset_complete"),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

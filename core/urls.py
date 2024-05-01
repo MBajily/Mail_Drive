@@ -16,6 +16,7 @@ urlpatterns = [
     path("drive/", views.files, name="files"),
 	path("emails/", views.index, name="index"),
     path("logout", views.logout_view, name="logout"),
+    path("signup", views.sign_up, name="sign_up"),
     path('login/redirect/', views.login_redirect_page, name="login_redirect_page"),
     path('login/otp', otp.emailOTP, name="emailOTP"),
 ]

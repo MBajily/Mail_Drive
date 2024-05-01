@@ -8,8 +8,8 @@
         <div class="card-body text-center">
             
            <img src="{% static 'mail/bassmh.png' %}"  aria-hidden="true" style="width:209px">
-            <h3 class="card-title mt-3 mb-0 pb-0 font-weight-normal">Sign in</h3>
-            <p class="mb-4 ">to continue to Mail and Drive</p>
+            <h3 class="card-title mt-3 mb-4 pb-0 font-weight-normal">Sign in</h3>
+            <!-- <p class="mb-4 ">to continue to Mail and Drive</p> -->
             {% include 'messages/messages.html' %}
     
             <form action="{% url 'login' %}" method="post" >
@@ -20,10 +20,13 @@
             <div class="form-group border-bottom">
                 <input class="form-control" type="password" name="password" placeholder="Password">
             </div>
-            <input class="btn btn-primary col-md-6 my-3" type="submit" value="Login">
+            <p>Forget password? <a href="{% url 'passwordReset' %}">Reset password</a></p>
+            <input class="btn btn-primary col-md-6 my-3 font-weight-bold" type="submit" value="Login">
+            <p>Don’t have an account? <a href="{% url 'sign_up' %}">Sign up</a>.</p>
+            
             </form>
 
-            <p>Forget password? <a href="{% url 'passwordReset' %}">Reset password</a></p>
+            
         
         </div>
     </div>

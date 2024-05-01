@@ -22,6 +22,7 @@ class User(AbstractUser):
 
 
     email = models.EmailField(null=False, unique=True)
+    phone = models.CharField(max_length=12, null=True)
     # access_token = models.CharField(max_length=50, null=True)
     username = models.CharField(max_length=50, unique=True, null=False) 
     

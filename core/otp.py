@@ -18,7 +18,7 @@ def emailOTP(request):
         if username and otp_secret_key and otp_valid_date is not None:
             valid_date = datetime.fromisoformat(otp_valid_date)
             if valid_date > datetime.now():
-                totp = pyotp.TOTP(otp_secret_key, interval=120)
+                totp = pyotp.TOTP(otp_secret_key, interval=300)
                 if totp.verify(otp):
                     try:
                         user = User.objects.get(username=username)
