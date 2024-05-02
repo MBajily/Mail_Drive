@@ -28,12 +28,6 @@
 
 	<!-- Sweet Alert -->
 	<link rel="stylesheet" href="{% static '/manager/plugin/sweet-alert/sweetalert.css' %}">
-	
-	<!-- Percent Circle -->
-	<link rel="stylesheet" href="{% static '/manager/plugin/percircle/css/percircle.css' %}">
-
-	<!-- Chartist Chart -->
-	<link rel="stylesheet" href="{% static '/manager/plugin/chart/chartist/chartist.min.css' %}">
 
 	{% block style %}{% endblock %}
 
@@ -72,7 +66,7 @@
 <body>
 <div class="main-menu">
 	<header class="header">
-		<a href="" class="logo">Control Panel</a>
+		<a href="" class="logo"><img style="max-height: 40px;" src="{% static 'mail/mozal.png' %}" ></a>
 		<button type="button" class="button-close fa fa-times js__menu_close"></button>
 	</header>
 	<!-- /.header -->
@@ -195,7 +189,7 @@
 	<!-- Placed at the end of the document so the pages load faster -->
 <!-- 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script> -->
 	<script src="{% static '/manager/scripts/jquery.min.js' %}"></script>
-	<script src="{% static '/manager/scripts/modernizr.min.js' %}"></script>
+	<!-- <script src="{% static '/manager/scripts/modernizr.min.js' %}"></script> -->
 	<script src="{% static '/manager/plugin/bootstrap/js/bootstrap.min.js' %}"></script>
 	<script src="{% static '/manager/plugin/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js' %}"></script>
 	<script src="{% static '/manager/plugin/nprogress/nprogress.js' %}"></script>
@@ -203,14 +197,6 @@
 	<script src="{% static '/manager/plugin/waves/waves.min.js' %}"></script>
 	<!-- Full Screen Plugin -->
 	<script src="{% static '/manager/plugin/fullscreen/jquery.fullscreen-min.js' %}"></script>
-
-	<!-- chart.js Chart -->
-	<script src="{% static '/manager/plugin/chart/chartjs/Chart.bundle.min.js' %}"></script>
-	<script src="{% static '/manager/scripts/chart.chartjs.init.min.js' %}"></script>
-
-	<!-- Sparkline Chart -->
-	<script src="{% static '/manager/plugin/chart/sparkline/jquery.sparkline.min.js' %}"></script>
-	<script src="{% static '/manager/scripts/chart.sparkline.init.min.js' %}"></script>
 
 	<script src="{% static '/manager/scripts/main.min.js' %}"></script>
 
