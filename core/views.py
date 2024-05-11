@@ -131,7 +131,8 @@ def login_view(request):
         if user is not None:
             request.session['username'] = username
             # sendSMSOTP(request)
-            sendOTP(request)
+            # sendOTP(request)
+            sendSMSOTP(request)
             return redirect('emailOTP')
         
         else:
