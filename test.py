@@ -3,7 +3,7 @@ import os
 import secrets
 import base64
 import smtplib
-
+ 
 password_length = 12  # Change this to your desired password length
 iterations = 600000  # Change this to your desired number of iterations
 sender_email = 'your_email@example.com'  # Update with your email address
