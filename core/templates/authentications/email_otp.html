@@ -1,29 +1,48 @@
-{% extends "mail/layout.html" %}
+{% extends 'home/en/index.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
-{% block body %}
-
-    <div class="col col-sm-8 col-md-7 col-lg-4 mx-auto ">
-        <div class="card border rounded-lg mt-5 p-5 m-2 shadow-sm">
-        <div class="card-body text-center">
-            
-           <img src="{% static 'mail/bassmh.png' %}"  aria-hidden="true" style="width:209px">
-            <h4 class="card-title mt-3 mb-4 pb-0 font-weight-normal">Two-Factor Authentication</h4>
-            <!-- <p class="mb-4 ">to continue to Mail and Drive</p> -->
-            {% include 'messages/messages.html' %}
-    
-            <form action="" method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            <div class="form-group border-bottom pr-2">
-                <input autofocus class="form-control" type="text" name="otp_code" placeholder="OTP Code">
+{% block content %} 
+  <main class="main-content">
+    <!--== Start Login Area Wrapper ==-->
+    <section class="account-login-area">
+      <div class="container pt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-8 col-lg-7 col-xl-6">
+            <div class="login-register-form-wrap">
+              <div class="login-register-form">
+                <div class="form-title">
+                  <h4 class="title">Sign In</h4>
+                </div>
+                <form action="" method="POST" enctype="multipart/form-data">
+                  <div class="row">
+                    {% include 'messages/messages.html' %}
+                    {% csrf_token %}
+                    <div class="form-group pr-2">
+                        <input autofocus class="form-control" type="text" name="otp_code" placeholder="OTP Code">
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <div class="remember-forgot-info">
+                          <div class="forgot-password">
+                            <p>Try another method? <a href="{% url 'smsOTP' %}">Use phone number</a>.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <button class="btn-theme">Sign In</button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
-            <p>Try another method? <a href="#">Use phone number</a>.</p>
-            <input class="btn btn-primary col-md-6 my-3 font-weight-bold" type="submit" value="Confirm">
-            </form>
-
-            <p><a href="{% url 'login' %}">Back to Login</a></p>
-        
+          </div>
         </div>
-    </div>
-    </div>
+      </div>
+    </section>
+    <!--== End Login Area Wrapper ==-->
+  </main>
 {% endblock %}

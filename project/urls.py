@@ -20,7 +20,6 @@ urlpatterns = [
     path('', include('core.urls')),
 
     path("login", login_view, name="login"),
-    path("", login_view, name="login"),
 
     # DRF Auth Token
     # path('api/v1/token/request/', obtain_auth_token),

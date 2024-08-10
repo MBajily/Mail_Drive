@@ -115,28 +115,29 @@ def compose(request):
 
 @login_required
 def mailbox(request, mailbox):
+    print(request.user.username)
 
     # Filter emails returned based on mailbox
     if mailbox == "inbox":
         emails = Email.objects.filter(
-            user=request.user, recipients=request.user, archived=False, deleted=False,
+            user=request.user.username, recipients=request.user, archived=False, deleted=False,
         )
     elif mailbox == "sent":
         emails = Email.objects.filter(
-            user=request.user, sender=request.user, deleted=False, archived=False,
+            user=request.user.username, sender=request.user.username, deleted=False, archived=False,
         )
     elif mailbox == "archive":
         emails = Email.objects.filter(
-            user=request.user, archived=True, deleted=False,
-        ).filter( Q(sender=request.user) |Q(recipients=request.user))
+            user=request.user.username, archived=True, deleted=False,
+        ).filter( Q(sender=request.user.username) |Q(recipients=request.user))
     elif mailbox == "starred":
         emails = Email.objects.filter(
-            user=request.user, starred=True, deleted=False,
-        ).filter( Q(sender=request.user) |Q(recipients=request.user))
+            user=request.user.username, starred=True, deleted=False,
+        ).filter( Q(sender=request.user.username) |Q(recipients=request.user))
     elif mailbox == "trash":
         emails = Email.objects.filter(
-            user=request.user, deleted=True
-        ).filter( Q(sender=request.user) |Q(recipients=request.user))
+            user=request.user.username, deleted=True
+        ).filter( Q(sender=request.user.username) |Q(recipients=request.user))
     
     else:
         return JsonResponse({"error": "Invalid mailbox."}, status=400)
@@ -235,29 +236,29 @@ def logout_view(request):
     return HttpResponseRedirect(reverse("index"))
 
 
-def register(request):
-    if request.method == "POST":
-        email = request.POST["email"]
-        name = request.POST["fname"]
-        arabic_name = request.POST["lname"]
-        # Ensure password matches confirmation
-        password = request.POST["password"]
-        confirmation = request.POST["confirmation"]
+# def register(request):
+#     if request.method == "POST":
+#         email = request.POST["email"]
+#         name = request.POST["fname"]
+#         arabic_name = request.POST["lname"]
+#         # Ensure password matches confirmation
+#         password = request.POST["password"]
+#         confirmation = request.POST["confirmation"]
         
-        if password != confirmation:
-            return render(request, "mail/register.html", {
-                "message": "Passwords must match."
-            })
+#         if password != confirmation:
+#             return render(request, "mail/register.html", {
+#                 "message": "Passwords must match."
+#             })
 
-        # Attempt to create new user
-        try:
-            user = User.objects.create_user(username=email,email=email,password=password,name=name,arabic_name=arabic_name)
-            user.save()
-        except IntegrityError as e:
-            return render(request, "mail/register.html", {
-                "message": "Email address already taken."
-            })
-        login(request, user)
-        return HttpResponseRedirect(reverse("index"))
-    else:
-        return render(request, "mail/register.html")
+#         # Attempt to create new user
+#         try:
+#             user = User.objects.create_user(username=email,email=email,password=password,name=name,arabic_name=arabic_name)
+#             user.save()
+#         except IntegrityError as e:
+#             return render(request, "mail/register.html", {
+#                 "message": "Email address already taken."
+#             })
+#         login(request, user)
+#         return HttpResponseRedirect(reverse("index"))
+#     else:
+#         return render(request, "mail/register.html")

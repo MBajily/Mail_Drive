@@ -33,6 +33,12 @@
 									<input name='username' class='form-control' id='inputName' value="@{{request.user.extension}}" placeholder="username@{{request.user.extension}}">
 								</div>
 							</div>
+							<div class="row">
+								<div class="form-group col-md-5 col-xs-12 m-1">
+									<label for="inputName" class="control-label">Phone Number</label>
+									{{formset.phone}}
+								</div>
+							</div>
 							<br><br>
 							
 							<a class="btn btn-secondary btn-sm waves-effect waves-light" href="{% url 'partners' %}">Cancel</a>

@@ -15,6 +15,7 @@ class PartnerForm(forms.ModelForm):
 			'extension': forms.TextInput(attrs={'name':'extension', 'class': 'form-control', 'id': 'inputName', 'placeholder': '@aramco.com', 'required': 'True'}),
 			'email': forms.TextInput(attrs={'name':'email', 'class': 'form-control', 'id': 'inputName', 'placeholder': 'username@gmail.com', 'required': 'True'}),
 			'photo': forms.FileInput(attrs={'name':'photo', 'id':"input-file-to-destroy", 'class':"dropify", 'data-max-file-size':"2M", 'data-max-height':"2000", 'required':'True'}),
+			'phone': forms.TextInput(attrs={'name':'phone', 'class': 'form-control', 'id': 'inputName', 'placeholder': '0500000000', 'required': 'True'}),
 			}
 
 
@@ -28,6 +29,7 @@ class UpdatePartnerForm(forms.ModelForm):
 			'extension': forms.TextInput(attrs={'name':'extension', 'class': 'form-control', 'id': 'inputName', 'placeholder': '@aramco.com', 'disabled':"True"}),
 			'email': forms.TextInput(attrs={'name':'email', 'class': 'form-control', 'id': 'inputName', 'placeholder': 'username@gmail.com', 'disabled':"True"}),
 			'photo': forms.FileInput(attrs={'name':'photo', 'id':"input-file-to-destroy", 'class':"dropify", 'data-max-file-size':"2M", 'data-max-height':"2000", 'required':'True'}),
+			'phone': forms.TextInput(attrs={'name':'phone', 'class': 'form-control', 'id': 'inputName', 'placeholder': '0500000000', 'disabled':"True"}),
 			}
 #=====================================================
 #=====================================================

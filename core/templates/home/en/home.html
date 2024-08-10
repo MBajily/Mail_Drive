@@ -1,0 +1,483 @@
+{% extends 'home/en/index-transparent.html' %}
+{% load static %}
+
+{% block content %}  
+  <main class="main-content">
+    <!--== Start Hero Area Wrapper ==-->
+    <section class="home-slider-area">
+      <div class="home-slider-container default-slider-container">
+        <div class="home-slider-wrapper slider-default">
+          <div class="slider-content-area" data-bg-img="{% static 'home/mozal-cover.jpg' %}" style="position: relative; z-index: -1;">
+            <div class="container pt--0 pb--0">
+              <div class="slider-container">
+                <div class="row justify-content-center align-items-center">
+                  <div class="col-12 col-lg-8">
+                    <div class="slider-content">
+                      <h2 class="title">Welcome to Mozal!</h2>
+                      <p class="desc">At Mozal, we provide a robust and efficient email system tailored to meet your unique needs. Whether you are an individual or a business, our services ensure secure, reliable, and user-friendly email and storage solutions.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="home-slider-shape">
+        <img class="shape1" data-aos="fade-down" data-aos-duration="1500" src="{% static '/home/img/slider/vector1.png' %}" width="270" height="234" alt="Image-HasTech">
+        <img class="shape2" data-aos="fade-left" data-aos-duration="2000" src="{% static '/home/img/slider/vector2.png' %}" width="201" height="346" alt="Image-HasTech">
+        <img class="shape3" data-aos="fade-right" data-aos-duration="2000" src="{% static '/home/img/slider/vector3.png' %}" width="276" height="432" alt="Image-HasTech">
+        <img class="shape4" data-aos="flip-left" data-aos-duration="1500" src="{% static '/home/img/slider/vector4.png' %}" width="127" height="121" alt="Image-HasTech">
+      </div>
+    </section>
+    <!--== End Hero Area Wrapper ==-->
+
+    <!--== Start About Area Wrapper ==-->
+    <section class="about-area about-default-wrapper">
+      <div class="container">
+        <div class="about-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6">
+              <div class="about-thumb about-thumb-two" data-aos="fade-down" data-aos-duration="1200">
+                <img src="{% static '/home/img/photos/manager.jpg' %}" alt="Image-HasTech">
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+              <div class="about-content" data-aos="fade-down" data-aos-duration="1000">
+                <h4 class="sub-title mt-lg-5">// Why Choose Us?</h4>
+                <h3 class="title">We Have The Ability To Rapidly Grow Your Business.</h3>
+                <p class="desc">
+                  <div class="member-join-content p-3" data-aos="fade-right" data-aos-duration="1200">
+                    <div class="member-join-thumb">
+                      <strong>Reliable Service:</strong> Enjoy uninterrupted email and storage services.
+                    </div>
+                  </div>
+                </p>
+                <p class="desc">
+                  <div class="member-join-content p-3" data-aos="fade-right" data-aos-duration="1200">
+                    <div class="member-join-thumb">
+                      <strong>Advanced Security:</strong> Your data is protected with state-of-the-art security measures.
+                    </div>
+                  </div>
+                </p>
+                <p class="desc">
+                  <div class="member-join-content p-3" data-aos="fade-right" data-aos-duration="1200">
+                    <div class="member-join-thumb">
+                      <strong>User-Friendly Interface:</strong> Manage your emails and files effortlessly with our intuitive platform.
+                    </div>
+                  </div>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--== End About Area Wrapper ==-->
+
+    <!--== Start Recent Job Area Wrapper ==-->
+    <section class="recent-job-area bg-color-gray py-5" id="products">
+      <div class="container py-5" data-aos="fade-down">
+        <div class="row">
+          <div class="col-12">
+            <div class="section-title text-center">
+              <h3 class="title">Our Products</h3>
+              <div class="desc">
+                <p>Efficient and Secure Email and Storage Management</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col-sm-6 col-lg-4 d-flex">
+            <div class="recent-job-item py-3 px-4" data-aos="fade-right" data-aos-duration="1200">
+              <div class="main-content">
+                <img class="mb-2" src="{% static '/home/img/photos/email.jpg' %}" width="200" alt="Image-HasTech">
+                <h3 class="title">Customized Email Extensions</h3>
+                <p class="">Use your own domain extensions for professional email communication.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4 d-flex">
+            <div class="recent-job-item py-3 px-4" data-aos="fade-right" data-aos-duration="1200">
+              <div class="main-content">
+                <img class="mb-2" src="{% static '/home/img/photos/drive.jpg' %}" width="200" alt="Image-HasTech">
+                <h3 class="title">Secure Drive Storage</h3>
+                <p class="">Store and manage your files securely with our integrated drive.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-lg-4 d-flex">
+            <div class="recent-job-item py-3 px-4" data-aos="fade-right" data-aos-duration="1200">
+              <div class="main-content">
+                <img class="mb-2 p-2" src="{% static '/home/img/photos/dashboard.jpg' %}" width="200" height="50" alt="Image-HasTech">
+                <h3 class="title">Sub-Accounts Management</h3>
+                <p class="" class="desc">Easily manage multiple email accounts from a single dashboard.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--== End Recent Job Area Wrapper ==-->
+
+
+    <!-- Start pricing section -->
+    <section class="recent-job-area py-5" id="pricing">
+      <div class="container pt-5">
+        <div class="row mt-3 mb-5">
+          <div class="col-12">
+            <div class="page-header-content">
+              <h2 class="text-dark">Pricing</h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            <div class="team-item">
+              <div class="content">
+                <h4 class="title"><a href="">Basic Plan</a></h4>
+                <h5 class="sub-title">$5/month</h5>
+                <p class="desc">
+                  <ul style="text-align: left;">
+                    <li style="list-style:outside">10 GB Storage</li>
+                    <li style="list-style: outside;">1 Custom Domain</li>
+                    <li style="list-style: outside;">10 Employees Accounts</li>
+                    <li style="list-style: outside;">Basic Support</li>
+                  </ul>
+                </p>
+                <a class="btn-theme btn-white btn-sm" href="{% url 'login' %}">Select</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            <div class="team-item">
+              <div class="content">
+                <h4 class="title"><a href="">Standard Plan</a></h4>
+                <h5 class="sub-title">$10/month</h5>
+                <p class="desc">
+                  <ul style="text-align: left;">
+                    <li style="list-style:outside">50 GB Storage</li>
+                    <li style="list-style: outside;">5 Custom Domains</li>
+                    <li style="list-style: outside;">20 Employees Accounts</li>
+                    <li style="list-style: outside;">Priority Support</li>
+                  </ul>
+                </p>
+                <a class="btn-theme btn-white btn-sm" href="{% url 'login' %}">Select</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            <div class="team-item">
+              <div class="content">
+                <h4 class="title"><a href="">Premium Plan</a></h4>
+                <h5 class="sub-title">$20/month</h5>
+                <p class="desc">
+                  <ul style="text-align: left;">
+                    <li style="list-style:outside">200 GB Storage</li>
+                    <li style="list-style: outside;">20 Custom Domains</li>
+                    <li style="list-style: outside;">30 Employees Accounts</li>
+                    <li style="list-style: outside;">Premium Support</li>
+                  </ul>
+                </p>
+                <a class="btn-theme btn-white btn-sm" href="{% url 'login' %}">Select</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            <div class="team-item">
+              <div class="content">
+                <h4 class="title"><a href="">Custom Plan</a></h4>
+                <h5 class="sub-title">$--/month</h5>
+                <p class="desc">
+                  <ul style="text-align: left;">
+                    <li style="list-style:outside">X GB Custom Storage</li>
+                    <li style="list-style: outside;">X Custom Domains</li>
+                    <li style="list-style: outside;">X Employees Accounts</li>
+                    <li style="list-style: outside;">Premium Support</li>
+                  </ul>
+                </p>
+                <a class="btn-theme btn-white btn-sm" href="{% url 'login' %}">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--== End pricing section ==-->
+
+
+    <!--== Start Funfact Area Wrapper ==-->
+    <section class="funfact-area bg-color-gray">
+      <div class="container">
+        <div class="row no-gutter">
+          <div class="col-12">
+            <div class="funfact-content-wrap">
+              <div class="funfact-col">
+                <!--== Start Funfact Item ==-->
+                <div class="funfact-item" data-aos="fade-down">
+                  <h2 class="counter-number"><span class="counter" data-counterup-delay="50">6</span></h2>
+                  <h6 class="counter-title">E-Partners</h6>
+                </div>
+                <!--== End Funfact Item ==-->
+              </div>
+              <div class="funfact-col">
+                <!--== Start Funfact Item ==-->
+                <div class="funfact-item" data-aos="fade-down" data-aos-duration="1500">
+                  <h2 class="counter-number"><span class="counter" data-counterup-delay="50">13</span></h2>
+                  <h6 class="counter-title">Companies</h6>
+                </div>
+                <!--== End Funfact Item ==-->
+              </div>
+              <div class="funfact-col">
+                <!--== Start Funfact Item ==-->
+                <div class="funfact-item" data-aos="fade-down" data-aos-duration="1700">
+                  <h2 class="counter-number"><span class="counter" data-counterup-delay="50">239</span></h2>
+                  <h6 class="counter-title">Employees</h6>
+                </div>
+                <!--== End Funfact Item ==-->
+              </div>
+              <div class="funfact-col">
+                <!--== Start Funfact Item ==-->
+                <div class="funfact-item" data-aos="fade-down" data-aos-duration="1900">
+                  <h2 class="counter-number"><span class="counter" data-counterup-delay="50">73992</span></h2>
+                  <h6 class="counter-title">Emails</h6>
+                </div>
+                <!--== End Funfact Item ==-->
+              </div>
+              <div class="funfact-col">
+                <!--== Start Funfact Item ==-->
+                <div class="funfact-item" data-aos="fade-down" data-aos-duration="2200">
+                  <h2 class="counter-number"><span class="counter" data-counterup-delay="50">42439</span></h2>
+                  <h6 class="counter-title">GB Storage</h6>
+                </div>
+                <!--== End Funfact Item ==-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--== End Funfact Area Wrapper ==-->
+
+    <!--== Start Brand Logo Area Wrapper ==-->
+    <div class="brand-logo-area py-5" id="clients">
+      <div class="container pt--0 pb--0 my-5" data-aos="fade-down">
+        <div class="row">
+          <div class="col-12">
+            <div class="section-title text-center">
+              <h3 class="title my2">Our Clients</h3>
+              <div class="desc">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="brand-logo-content p-0 mb-5" style="border: none;">
+              <div class="swiper brand-logo-slider-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/1.png' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/2.png' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/3.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/4.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/5.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/6.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/7.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/8.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/9.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/10.png' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/11.png' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/12.png' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                  <div class="swiper-slide">
+                    <!--== Start Brand Logo Item ==-->
+                    <div class="brand-logo-item">
+                      <img src="{% static '/home/clients/13.jpg' %}">
+                    </div>
+                    <!--== End Brand Logo Item ==-->
+                  </div>
+                </div>
+              </div>
+              <!--== Add Swiper Arrows ==-->
+              <div class="swiper-btn-wrap">
+                <div class="brand-swiper-btn-prev">
+                  <i class="icofont-long-arrow-left"></i>
+                </div>
+                <div class="brand-swiper-btn-next">
+                  <i class="icofont-long-arrow-right"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--== End Brand Logo Area Wrapper ==-->
+
+
+    <!--== Start Contact Area Wrapper ==-->
+    <section class="contact-area contact-page-area" id="contact">
+      <div class="container pt-0">
+        <div class="row contact-page-wrapper">
+          <div class="col-lg-12">
+            <div class="contact-info-wrap">
+              <div class="info-item">
+                <div class="icon">
+                  <img src="{% static '/home/img/icons/c1.png' %}" alt="Image" width="42" height="42">
+                </div>
+                <div class="info">
+                  <h5 class="title">Call Us:</h5>
+                  <p>
+                    <a href="tel://9200000000">920000000</a><br>
+                  </p>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="icon">
+                  <img src="{% static '/home/img/icons/c2.png' %}" alt="Image" width="43" height="73">
+                </div>
+                <div class="info">
+                  <h5 class="title">Email:</h5>
+                  <p>
+                    <a href="mailto://info@es-saudi.com">info@emailsaudi.com</a><br>
+                  </p>
+                </div>
+              </div>
+              <div class="info-item">
+                <div class="icon">
+                  <img src="{% static '/home/img/icons/c3.png' %}" alt="Image" width="36" height="46">
+                </div>
+                <div class="info">
+                  <h5 class="title">Address:</h5>
+                  <p>
+                    3002, Taif,<br>
+                    Dhahirah Laban District, 6180
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <!--== Start Contact Form ==-->
+            <div class="contact-form">
+              <h4 class="contact-form-title">Get in Touch</h4>
+              <form id="contact-form" action="{% url 'contact' %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="con_name" placeholder="Name:">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input class="form-control" type="email" name="con_email" placeholder="Email:">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <input class="form-control" type="text" name="subject" placeholder="Subject:">
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <textarea class="form-control" name="con_message" placeholder="Message"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group mb--0">
+                      <button class="btn-theme d-block w-100" type="submit">Send Message</button>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!--== End Contact Form ==-->
+
+            <!--== Message Notification ==-->
+            <div class="form-message"></div>
+          </div>
+          <div class="col-lg-6">
+            <div class="map-area">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58023.852661240926!2d46.517673063327265!3d24.641229432073207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f1f7d9e21be27%3A0x3f8b9083682d3c09!2z2K3ZiiDYuNmH2LHYqSDZhNio2YY!5e0!3m2!1sen!2ssa!4v1722957468834!5m2!1sen!2ssa" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--== End Contact Area Wrapper ==-->
+  </main>
+{% endblock %}
+

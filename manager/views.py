@@ -70,6 +70,7 @@ def addPartner(request):
 			extension = request.POST['extension'].lower().split('@')[-1]
 			photo = request.FILES['photo']
 			username = 'admin' + '@' + str(extension)
+			phone = str(request.POST['phone'])
 			password = generate_password()
 
 			if is_email_exists(email) and is_username_exists(username):
@@ -98,9 +99,13 @@ def addPartner(request):
 			elif not re.match(r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$", email):
 				messages.error(request, f"'{email}' is invalid email!", 'danger')
 				return redirect('addPartners')
+			
+			if not isinstance(phone, str):
+				messages.error(request, f"'{phone}' is invalid phone number!", 'danger')
+				return redirect('addPartners')
 
 			formset = Company(english_name=english_name, arabic_name=arabic_name, password=password["final_password"],
-								extension=extension, photo=photo, email=email, username=username)
+								extension=extension, photo=photo, email=email, username=username, phone=phone)
 			
 			message = f"Hi {formset.english_name},\n"
 			message += f"Your account is created successfully on Samail Mailing Platform.\n"
@@ -156,7 +161,7 @@ def updatePartner(request, partner_id):
 		
 		except:
 			messages.error(request, f"There is something wrong. Please choose other photo!", 'danger')
-			return redirect('updatePartner')
+			return redirect('updatePartner', partner_id)
 		
 		try:
 			selected_partner.english_name = request.POST['english_name'].capitalize()
@@ -164,11 +169,11 @@ def updatePartner(request, partner_id):
 			selected_partner.save()
 
 			messages.success(request, f"Updated successfully!")
-			return redirect('updatePartner')
+			return redirect('updatePartner', partner_id)
 		
 		except:
 			messages.error(request, f"There is something wrong!", 'danger')
-			return redirect('updatePartner')
+			return redirect('updatePartner', partner_id)
 	
 	context = {'title': selected_partner.english_name + " - Update", 'selected_partner':selected_partner,
 				'formset':formset, 'main_menu':main_menu, 'sub_menu':sub_menu}

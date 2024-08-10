@@ -22,7 +22,7 @@ class User(AbstractUser):
 
 
     email = models.EmailField(null=False, unique=True)
-    phone = models.CharField(max_length=12, null=True)
+    phone = models.CharField(max_length=12, null=True, blank=True)
     # access_token = models.CharField(max_length=50, null=True)
     username = models.CharField(max_length=50, unique=True, null=False) 
     
@@ -79,8 +79,8 @@ class Employee(User):
 
 
 class Email(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="emails")
-    sender = models.ForeignKey(User, on_delete=models.PROTECT, related_name="emails_sent")
+    user = models.EmailField(null=True)
+    sender = models.EmailField(null=False)
     recipients = models.ManyToManyField(User, related_name="emails_received")
     subject = models.CharField(max_length=255)
     body = models.TextField(blank=True)
@@ -97,8 +97,8 @@ class Email(models.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "username": self.sender.english_name,
-            "sender": self.sender.username,
+            "username": self.sender,
+            "sender": self.sender,
             "recipients": [user.english_name for user in self.recipients.all()],
             "subject": self.subject,
             "body": self.body,

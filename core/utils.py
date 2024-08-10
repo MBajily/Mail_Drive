@@ -12,6 +12,15 @@ from TaqnyatSms import client
 
 
 def sendOTP(request):
+    try:
+        del request.session['otp_secret_key']
+    except:
+        pass
+    try:
+        del request.session['otp_valid_date']
+    except:
+        pass
+
     totp = pyotp.TOTP(pyotp.random_base32(), interval=300)
     otp = totp.now()
     request.session['otp_secret_key'] = totp.secret
@@ -36,23 +45,32 @@ def sendOTP(request):
 
 
 def sendSMSOTP(request):
-    totp = pyotp.TOTP(pyotp.random_base32(), interval=120)
+    try:
+        del request.session['otp_secret_key']
+    except:
+        pass
+    try:
+        del request.session['otp_valid_date']
+    except:
+        pass
+
+    totp = pyotp.TOTP(pyotp.random_base32(), interval=300)
     otp = totp.now()
     request.session['otp_secret_key'] = totp.secret
-    valid_date = datetime.now() + timedelta(minutes=2)
+    valid_date = datetime.now() + timedelta(minutes=5)
     request.session['otp_valid_date'] = str(valid_date)
 
     username = request.session["username"]
     user = User.objects.get(username=username)
 
-    body = f"Your OTP code is:\n{otp}"
-    sender = "+966538901501"
-    receiver = user.phone
+    body = f"Your OTP code is:\n{otp}\nfor Mozal account login."
+    sender = "MOZAL"
     bearer = 'e6c8b3890f4c0b81f8604ba78e0f3cfa'
-    recipients = ['966538901501'];
-    sender = 'Taqnyat.sa';
+    recipients = [str(user.phone)];
+    # sender = 'Taqnyat.sa';
 
     taqnyt = client(bearer)
     message = taqnyt.sendMsg(body, recipients, sender, str(datetime.now() + timedelta(seconds=5)))
 
-    print(message)
+    messages.success(request, f"OTP code sent to your phone number.")
+    # print(body)
